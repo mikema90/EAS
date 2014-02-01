@@ -8,13 +8,20 @@
 </head>
 <body>
 	<form method="post" action="login">
-		<label for="seller_id">seller id:</label>
-		<input type="text" name="seller_id"></input>
-		<label for="start_date">start date:</label>
-		<input type="text" id="start_date" name="start_date" />
-		<label for="end_date">end date:</label>
-		<input type="text" id="end_date" name="end_date" />
+		<select id = "identity" name="identity">
+  		<option value="teacher">院系</option>
+  		<option value="expert">专家</option>
+  		<option value="admin">管理员</option>
+		</select>
+		<label for="username">用户名:</label>
+		<input type="text" id="username" name="username"></input>
+		<label for="pwd">密码:</label>
+		<input type="text" id="pwd" name="pwd" />
+		<label for="cer">验证码:</label>
+		<input type="text" id="cer" name="cer" />
 		<input type="submit" id="submit" name="submit" value = "Go"/>
 	</form>
+	<a href="http://localhost:8080/EAS/expert.doc" target="_self">专家</a>
+	<a href="http://localhost:8080/EAS/teacher.doc" target="_self">院系</a>
 </body>
 </html>
