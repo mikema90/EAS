@@ -26,7 +26,8 @@ public class hibernateTest {
 		List alls = session.createQuery("from expert").list();
 		for (int i = 0; i < alls.size(); i++) {
 			expert e = (expert) alls.get(i);
-			System.out.println(e.getName() + " " + e.isEngineering() + " " + e.isArts());
+			System.out.println(e.getName() + " " + e.isEngineering() + " "
+					+ e.isArts());
 		}
 
 		session.getTransaction().commit();

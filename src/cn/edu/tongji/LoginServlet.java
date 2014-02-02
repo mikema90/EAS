@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
@@ -21,12 +22,29 @@ public class LoginServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String seller_id = request.getParameter("seller_id");
-		String start_date = request.getParameter("start_date");
-		String end_date = request.getParameter("end_date");
+		String identity = request.getParameter("identity");
+		String username = request.getParameter("username");
+		String pwd = request.getParameter("pwd");
+		String cer = request.getParameter("cer");
+
+		HibernateOperation ho = new HibernateOperation();
 
 		// set result and forward to output page
-		request.setAttribute("key", seller_id + start_date + end_date);
-		request.getRequestDispatcher("output.jsp").forward(request, response);
+		if (ho.hasPermission(identity, username, pwd)) {
+			request.setAttribute("key", "You login successfully!");
+			request.getRequestDispatcher("output.jsp").forward(request,
+					response);
+
+			HttpSession session = request.getSession();
+			// set current user profile
+			session.setAttribute("username", username);
+			session.setAttribute("pwd", pwd);
+		} else {
+			request.setAttribute("key", "You login failed!");
+			request.getRequestDispatcher("output.jsp").forward(request,
+					response);
+		}
+
 	}
+
 }
