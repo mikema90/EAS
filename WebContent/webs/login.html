@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/login.css" rel="stylesheet" type="text/css" />
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" language="javascript">
+function login(){
+	$.ajax({
+		type: 'POST',
+		url: "../TestingGGY",
+		data: {
+			"userName":$("#userNameInputBox").val(),
+			"password":$("#passwordInputBox").val()
+			},
+			success: function(jsonData){
+				if(jsonData.loginStatus=="success"){
+					window.location=jsonData.redirectUrl;
+				}else{
+					alert("登录失败");
+				}
+			},
+		dataType: 'json'
+	});
+}
+</script>
+<title>教学研究论文评审系统</title>
+</head>
+
+<body>
+<div id="downContent">
+  <div id="pageTitle">教学研究论文评审系统</div>
+  <div class="dataNameTag">用户名：</div>
+  <input id="userNameInputBox" type="text" name="userName"/>
+  <div class="clearfloat verticalMargin"></div>
+  <div class="dataNameTag">密码：</div>
+  <input id="passwordInputBox" type="text" name="password"/>
+  <div class="clearfloat verticalMargin"></div>
+  <div class="dataNameTag">验证码：</div>
+  <input id="authenticodeInputBox" type="text" name="authenticode"/>
+  <div class="clearfloat verticalMargin"></div>
+  <div id="promptTag" class="promptStyle">操作说明下载：</div>
+  <a class="promptStyle" href="#">专家</a>
+  <div class="promptStyle linkDivider">&nbsp;/&nbsp;</div>
+  <a class="promptStyle" href="#">院系</a>
+  <button id="loginBtn" onclick="javascript:login()">登录</button>
+  <div  id="backgroundImg"><img src="img/header.png"/></div> </div>
+</body>
+</html>

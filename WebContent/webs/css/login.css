@@ -1,0 +1,84 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background-color:#b9cde5;
+}
+
+#downContent{
+	position:relative;
+	width:600px;
+	height:350px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:80px;
+}
+
+#pageTitle{
+	text-align:center;
+	width:100%;
+	font-size:36px;
+	font-weight:bold;
+	margin-bottom:30px;
+}
+
+.dataNameTag{
+	font-family:Microsoft YaHei, SimHei;
+	margin-left:140px;
+	font-size:22px;
+	font-weight:bold;
+	width:100px;
+	line-height:30px;
+	height:30px;
+	float:left;
+}
+
+#userNameInputBox, #passwordInputBox, #authenticodeInputBox{
+	border-width:2px;
+	border-color:#426da2;
+	border-style:solid;
+	margin-top:-2px;
+	height:27px;
+	font-size:18px;
+}
+
+#userNameInputBox, #passwordInputBox{
+	width:215px;
+}
+
+#authenticodeInputBox{
+	width:110px;
+}
+
+.verticalMargin{
+	margin-top:25px;
+}
+
+.promptStyle{
+	font-family:Microsoft YaHei, SimHei;
+	font-size:18px;
+	font-weight:bold;
+	float:left;
+}
+
+.promptStyle:visited, .promptStyle:link, .linkDivider{
+	color:#333;
+}
+
+#promptTag{
+	margin-left:137px;
+}
+
+#loginBtn{
+	margin-left:15px;
+	margin-top:-1px;
+	width:90px;
+	height:28px;
+}
+
+#backgroundImg{
+	position:absolute;
+	right:30px;
+	bottom:0px;
+	z-index:-1;
+}
