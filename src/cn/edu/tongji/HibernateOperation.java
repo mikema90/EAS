@@ -1,5 +1,7 @@
 package cn.edu.tongji;
 
+import java.util.List;
+
 import model.paper;
 
 import org.hibernate.Session;
@@ -14,6 +16,7 @@ public class HibernateOperation {
 	private static String expert_login_sql = "from expert where work_id = ? and pwd = ?";
 	private static String admin_login_sql = "from admin where work_id = ? and pwd = ?";
 	private static String teacher_login_sql = "from teacher where work_id = ? and pwd = ?";
+	private static String get_paper_sql = "from paper";
 
 	// -------------------------------------------------------------------------------
 	@SuppressWarnings("deprecation")
@@ -63,6 +66,19 @@ public class HibernateOperation {
 		session.save(p);
 		session.getTransaction().commit();
 		session.close();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<paper> getPaper(){
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+		
+		List<paper> papers = session.createQuery(get_paper_sql).list();
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		return papers;
 	}
 
 	public static void main(String[] args) {

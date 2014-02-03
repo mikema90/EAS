@@ -1,6 +1,7 @@
 package cn.edu.tongji;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,27 +23,40 @@ public class LoginServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// cover Chinese character
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+
+		PrintWriter out = response.getWriter();
+
 		String identity = request.getParameter("identity");
-		String username = request.getParameter("username");
+		String username = request.getParameter("password");
 		String pwd = request.getParameter("pwd");
-		String cer = request.getParameter("cer");
 
 		HibernateOperation ho = new HibernateOperation();
 
-		// set result and forward to output page
+		// set result and output
 		if (ho.hasPermission(identity, username, pwd)) {
-			request.setAttribute("key", "You login successfully!");
-			request.getRequestDispatcher("output.jsp").forward(request,
-					response);
+			// request.setAttribute("key", "You login successfully!");
+			// request.getRequestDispatcher("output.jsp").forward(request,
+			// response);
 
 			HttpSession session = request.getSession();
 			// set current user profile
+			session.setAttribute("identity", identity);
 			session.setAttribute("username", username);
-			session.setAttribute("pwd", pwd);
+
+			String result = "{\"loginStatus\":\"success\", \"redirectUrl\":\"thesisList.html\"}";
+			System.out.println(result);
+			out.write(result);
+			out.flush();
+			out.close();
 		} else {
-			request.setAttribute("key", "You login failed!");
-			request.getRequestDispatcher("output.jsp").forward(request,
-					response);
+			String result = "{\"loginStatus\":\"failed\", \"redirectUrl\":\"null\"}";
+			System.out.println(result);
+			out.write(result);
+			out.flush();
+			out.close();
 		}
 
 	}
