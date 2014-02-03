@@ -86,7 +86,7 @@
 	margin-right:5px;
 }
 
-#noInputBox, #schoolSelector, #thesisNameInputBox, #periodicalNameInputBox, #periodicalSelector, .periodicalSn, .timeSelector, isForeignLanguageSelector{
+#noInputBox, #schoolSelector, #thesisNameInputBox, #periodicalNameInputBox, #periodicalSelector, .periodicalSn, .timeSelector, isForeignLanguageSelector, .authorName input, .authorId input{
 	border-width:2px;
 	border-color:#426da2;
 	border-style:solid;
@@ -117,9 +117,20 @@
 	padding:2px;
 }
 
-#authorListTable a{
+#authorListTable tr{
+	height:30px;
+}
+
+.operations span{
+	text-decoration:underline;
+	color:#414958;
+	cursor:pointer;
 	margin-left:2px;
 	margin-right:2px;
+}
+
+.operations span:hover{
+	text-decoration:none;
 }
 
 #columnName{
@@ -130,10 +141,15 @@
 	padding-right:2px;
 }
 
-#authorNameInputBox, #authorIdInputBox{
+.authorName input, .authorId input{
 	width:90%;
 }
 
 #authorEditor{
+	display:none;
+}
+
+.editing .authorName div, .editing .authorId div, .editing .optEdit,
+.finishEdit .authorName input, .finishEdit .authorId input, .finishEdit .optEditing{
 	display:none;
 }

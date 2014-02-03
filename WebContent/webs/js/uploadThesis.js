@@ -29,6 +29,36 @@ function insertAuthorInfo(){
 	$("#authorIdInputBox").val("");
 }
 
+function editAuthorInfo(targetElement){
+	var targetParent=$(targetElement).closest("tr");
+	targetParent.find(".authorName").find("input").val(targetParent.find(".authorName").find("div").text());
+	targetParent.find(".authorId").find("input").val(targetParent.find(".authorId").find("div").text());
+	targetParent.addClass("editing");
+	targetParent.removeClass("finishEdit");
+}
+
+function quitEditingAuthor(targetElement){
+	var targetParent=$(targetElement).closest("tr");
+	targetParent.find(".authorName").find("input").val("");
+	targetParent.find(".authorId").find("input").val("");
+	targetParent.addClass("finishEdit");
+	targetParent.removeClass("editing");
+}
+
+function confirmEditingAuthor(targetElement){
+	var targetParent=$(targetElement).closest("tr");
+	targetParent.find(".authorName").find("div").text(targetParent.find(".authorName").find("input").val());
+	targetParent.find(".authorId").find("div").text(targetParent.find(".authorId").find("input").val());
+	quitEditingAuthor(targetElement);
+	resetRowOrder();
+}
+
+function resetRowOrder(){
+	$("#authorListTable .authorOrder").each(function(index, element) {
+        $(element).text(index+1);
+    });
+}
+
 function delAuthorInfo(){
 	
 }
