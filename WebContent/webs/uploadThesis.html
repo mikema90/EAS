@@ -14,10 +14,10 @@
     <tr class="finishEdit" id="authorInfoTemplate">
       <td class="authorOrder">1</td>
       <td class="authorName"><div>NameNameNameName</div>
-        <input type="text"></td>
+        <input type="text"/></td>
       <td class="authorId"><div>IdIdIdIdIdIdIdIdId</div>
-        <input type="text"></td>
-      <td class="operations"><span>上移</span><span>下移</span><span class="optEdit" onclick="editAuthorInfo(this)">修改</span><span class="optEdit">删除</span><span class="optEditing" onclick="confirmEditingAuthor(this)">确定</span><span class="optEditing" onclick="quitEditingAuthor(this)">取消</span></td>
+        <input type="text"/></td>
+      <td class="operations"><span  onclick="moveUp(this)">上移</span><span onclick="moveDown(this)">下移</span><span class="optEdit" onclick="editAuthorInfo(this)">修改</span><span onclick="delAuthorInfo(this)" class="optEdit">删除</span><span class="optEditing" onclick="confirmEditingAuthor(this)">确定</span><span class="optEditing" onclick="quitEditingAuthor(this)">取消</span></td>
     </tr>
   </table>
 </div>
@@ -28,11 +28,11 @@
   <div id="navigationBar"><a href="#">首页</a><a href="#">修改密码</a><a href="#">退出</a></div>
   <div class="content">
     <div id="contentTitle">添加论文</div>
-    <form>
-      <div id="downContent">
+    <div id="downContent">
+      <form>
         <div class="oneLine">
           <div class="dataNameTag">序号</div>
-          <input id="noInputBox" type="text" name="NO">
+          <input id="noInputBox" type="text" name="NO"/>
         </div>
         <div class="clearfloat"></div>
         <div class="oneLine">
@@ -52,26 +52,10 @@
               <th width="19%">工号</th>
               <th width="28%">操作</th>
             </tr>
-            <tr class="editing" id="authorInfoTemplate">
-              <td class="authorOrder">1</td>
-              <td class="authorName"><div>NameNameNameName</div>
-                <input type="text"></td>
-              <td class="authorId"><div>IdIdIdIdIdIdIdIdId</div>
-                <input type="text"></td>
-              <td class="operations"><span>上移</span><span>下移</span><span class="optEdit" onclick="editAuthorInfo(this)">修改</span><span class="optEdit">删除</span><span class="optEditing" onclick="confirmEditingAuthor(this)">确定</span><span class="optEditing" onclick="quitEditingAuthor(this)">取消</span></td>
-            </tr>
-            <tr class="finishEdit" id="authorInfoTemplate">
-              <td class="authorOrder">1</td>
-              <td class="authorName"><div>NameNameNameName</div>
-                <input type="text"></td>
-              <td class="authorId"><div>IdIdIdIdIdIdIdIdId</div>
-                <input type="text"></td>
-              <td class="operations"><span>上移</span><span>下移</span><span class="optEdit" onclick="editAuthorInfo(this)">修改</span><span class="optEdit">删除</span><span class="optEditing" onclick="confirmEditingAuthor(this)">确定</span><span class="optEditing" onclick="quitEditingAuthor(this)">取消</span></td>
-            </tr>
             <tr id="authorEditor">
               <td class="authorOrder">1</td>
-              <td><input id="authorNameInputBox" type="text"></td>
-              <td><input id="authorIdInputBox" type="text"></td>
+              <td class="authorName"><input id="authorNameInputBox" type="text"/></td>
+              <td class="authorId"><input id="authorIdInputBox" type="text"/></td>
               <td><a href="javascript:insertAuthorInfo()">确定</a><a href="javascript:hideAuthorEditor()">撤销</a></td>
             </tr>
             <tr id="authorEditorEnter">
@@ -137,14 +121,23 @@
             <option value="false">否</option>
           </select>
         </div>
-        <div class="clearfloat"></div>
-        <div class="oneLine">
-          <div class="dataNameTag">PDF上传</div>
-        </div>
-        <div class="clearfloat"></div>
+        <input id="fileTempName" name="fileTempName" style="display:none" type="text"/>
+      </form>
+      <div class="clearfloat"></div>
+      <div class="oneLine">
+        <div class="dataNameTag">PDF上传</div>
+        </form>
+        <form id="uploadFileForm"  method="post" enctype="multipart/form-data" action="../uploadFile" target="hidden_frame">
+          <input id="openFile" type="file" name="file" onchange="changeUploadingStatus()" />
+          <iframe style="display:none" name="hidden_frame" id="hidden_frame"></iframe>
+        </form>
+         <input type="button" id="uploadFile" onclick="uploadFile()" value="提交"/>
+        <div id="uploadingStatus"></div>
       </div>
-      <input id="saveAndInsert" type="submit" value="保存添加"/>
-    </form>
+      <div class="clearfloat"></div>
+    </div>
+    <input id="saveAndInsert" type="submit" value="保存添加"/>
+    <button onclick="customFunction()" style="float:left;width:50px;height:20px;">12345</button><button onclick="customFunction2()" style="float:left;width:50px;height:20px;">12345</button>
   </div>
 </div>
 </body>

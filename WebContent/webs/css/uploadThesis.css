@@ -153,3 +153,28 @@
 .finishEdit .authorName input, .finishEdit .authorId input, .finishEdit .optEditing{
 	display:none;
 }
+
+#openFile{
+	float:left;
+	margin-top:5px;
+	height:27px;
+	width:250px;
+}
+
+#uploadFile{
+	float:left;
+	font-size:15px;
+	margin-top:5px;
+	margin-left:5px;
+	text-align:center;
+	height:27px;
+	width:70px;
+}
+
+#uploadingStatus{
+	float:left;
+	font-size:15px;
+	font-weight:bold;
+	margin-left:7px;
+	margin-top:-2px;
+}
