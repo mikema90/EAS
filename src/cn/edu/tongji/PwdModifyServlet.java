@@ -2,19 +2,20 @@ package cn.edu.tongji;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.paper;
 
 @SuppressWarnings("serial")
-public class GetPaperServlet extends HttpServlet {
+public class PwdModifyServlet extends HttpServlet {
 
-	public GetPaperServlet() {
+	public PwdModifyServlet() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -30,14 +31,24 @@ public class GetPaperServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 
 		PrintWriter out = response.getWriter();
-
 		HibernateOperation ho = new HibernateOperation();
-		List<paper> papers = ho.getPaper();
+		HttpSession session = request.getSession();
+		// get current user profile
+		String identity = (String) session.getAttribute("identity");
+		String username = (String) session.getAttribute("username");
+		String cur_pwd = (String) session.getAttribute("pwd");
 
-		String result = "{\"Status\":\"success\", \"title\":\"Hibernate Optimization\"}";
-		System.out.println(result);
-		out.write(result);
-		out.flush();
-		out.close();
+		String old_pwd = request.getParameter("old pwd");
+		String new_pwd = request.getParameter("new pwd");
+
+		if (cur_pwd.equals(old_pwd)) {// old password equal login password
+			ho.pwdModify(identity, username, cur_pwd, new_pwd);
+			String result = "{\"Status\":\"success\"}";
+			System.out.println(result);
+			out.write(result);
+			out.flush();
+			out.close();
+		}
+
 	}
 }

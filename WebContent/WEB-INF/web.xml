@@ -38,4 +38,13 @@
 		<servlet-name>getpaperServlet</servlet-name>
 		<url-pattern>/getpaper</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>pwdmodifyServlet</servlet-name>
+		<servlet-class>cn.edu.tongji.PwdModifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>pwdmodifyServlet</servlet-name>
+		<url-pattern>/pwdmodifyServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

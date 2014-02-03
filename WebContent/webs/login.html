@@ -12,29 +12,33 @@ $(document).ready(function() {
 });
 
 function login(){
-	if($("#authenticodeInputBox").val().toLowerCase()!=authenticationWord.toLowerCase()){
+	if($("#userNameInputBox").val() == "" || $("#passwordInputBox").val() == ""){
+		alert("用户名和密码不能为空");
+	}
+	else if($("#authenticodeInputBox").val().toLowerCase()!=authenticationWord.toLowerCase()){
 		alert("验证码错误");
 		setAuthenticationCode();
 	}
-	
-	$.ajax({
-		type: 'POST',
-		url: "../login",
-		data: {
-			"userName":$("#userNameInputBox").val(),
-			"password":$("#passwordInputBox").val(),
-			"userType":$("input[name='userType']:checked").val()
-			},
-			success: function(jsonData){
-				if(jsonData.loginStatus=="success"){
-					window.location=jsonData.redirectUrl;
-				}else{
-					alert("登录失败");
-					setAuthenticationCode();
-				}
-			},
-		dataType: 'json'
-	});
+	else{
+		$.ajax({
+			type: 'POST',
+			url: "../login",
+			data: {
+				"userName":$("#userNameInputBox").val(),
+				"password":$("#passwordInputBox").val(),
+				"userType":$("input[name='userType']:checked").val()
+				},
+				success: function(jsonData){
+					if(jsonData.loginStatus=="success"){
+						window.location=jsonData.redirectUrl;
+					}else{
+						alert("登录失败，请检查用户名和密码是否正确");
+						setAuthenticationCode();
+					}
+				},
+			dataType: 'json'
+		});
+	}
 }
 
 function setAuthenticationCode(){
@@ -64,11 +68,11 @@ function setAuthenticationCode(){
   <div class="clearfloat"></div>
   <div class="oneLine">
     <div class="dataNameTag">密码：</div>
-    <input id="passwordInputBox" type="text" name="password"/>
+    <input id="passwordInputBox" type="password" name="password"/>
   </div>
   <div class="clearfloat"></div>
   <div id="userTypeSelectorWrapper" class="oneLine">
-    <input class=".userTypeSelector" type="radio" name="userType" value="teacher"/>
+    <input class=".userTypeSelector" type="radio" name="userType" value="teacher" checked="true"/>
     <div>院系</div>
     <input class=".userTypeSelector" type="radio" name="userType" value="expert"/>
     <div>专家</div>
@@ -78,14 +82,20 @@ function setAuthenticationCode(){
   <div class="clearfloat"></div>
   <div class="oneLine">
     <div class="dataNameTag">验证码：</div>
-    <input id="authenticodeInputBox" type="text" name="authenticode"/><div id="authenticationCodeWrapper"><div id="transparantLayer"></div><div id="authenticationCodeWords"></div><img src="img/authenticationCode1.jpg"/></div><div id="refreshAuthenticationCode" onclick="setAuthenticationCode()">更新</div></div>
+    <input id="authenticodeInputBox" type="text" name="authenticode"/>
+    <div id="authenticationCodeWrapper" style="cursor:pointer" onclick="setAuthenticationCode()">
+    	<div id="transparantLayer"></div>
+    	<div id="authenticationCodeWords"></div>
+    	<img src="img/authenticationCode1.jpg"/>
+    </div>
+  </div>
   <div class="clearfloat"></div>
   <div id="promptTag" class="promptStyle">操作说明下载：</div>
   <a class="promptStyle" href="#">专家</a>
   <div class="promptStyle linkDivider">&nbsp;/&nbsp;</div>
   <a class="promptStyle" href="#">院系</a>
-  <button id="loginBtn" onclick="javascript:login()">登录</button>
-  <div  id="backgroundImg"><img src="img/header.png"/></div>
+  <button id="loginBtn" style="cursor:pointer" onclick="javascript:login()">登录</button>
+  <div id="backgroundImg"><img src="img/header.png"/></div>
 </div>
 </body>
 </html>

@@ -41,7 +41,7 @@ public class AddPaperServlet extends HttpServlet {
 		HibernateOperation ho = new HibernateOperation();
 		ho.addPaper(p);
 
-		String result = "{\"addStatus\":\"success\"}";
+		String result = "{\"Status\":\"success\"}";
 		System.out.println(result);
 		out.write(result);
 		out.flush();

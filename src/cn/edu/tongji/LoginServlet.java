@@ -29,9 +29,9 @@ public class LoginServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		String identity = request.getParameter("identity");
-		String username = request.getParameter("password");
-		String pwd = request.getParameter("pwd");
+		String identity = request.getParameter("userType");
+		String username = request.getParameter("userName");
+		String pwd = request.getParameter("password");
 
 		HibernateOperation ho = new HibernateOperation();
 
@@ -45,14 +45,15 @@ public class LoginServlet extends HttpServlet {
 			// set current user profile
 			session.setAttribute("identity", identity);
 			session.setAttribute("username", username);
-
+			session.setAttribute("pwd", pwd);
+			
 			String result = "{\"loginStatus\":\"success\", \"redirectUrl\":\"thesisList.html\"}";
 			System.out.println(result);
 			out.write(result);
 			out.flush();
 			out.close();
 		} else {
-			String result = "{\"loginStatus\":\"failed\", \"redirectUrl\":\"null\"}";
+			String result = "{\"loginStatus\":\"failed\"}";
 			System.out.println(result);
 			out.write(result);
 			out.flush();
