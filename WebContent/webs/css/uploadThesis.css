@@ -161,9 +161,16 @@
 	display:none;
 }
 
-.editing .authorName div, .editing .authorId div, .editing .optEdit,
-.finishEdit .authorName input, .finishEdit .authorId input, .finishEdit .optEditing{
+.authorName div, .authorId div, .editing .optEdit,
+/*.finishEdit .authorName input, .finishEdit .authorId input,*/ .finishEdit .optEditing{
 	display:none;
+}
+
+.finishEdit .authorName input, .finishEdit .authorId input{
+	border-width:0px;
+	background:none;
+	text-align:center;
+	font: 16px Verdana, Arial, Helvetica, sans-serif;
 }
 
 #openFile{

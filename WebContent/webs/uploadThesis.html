@@ -13,11 +13,11 @@
   <table>
     <tr class="finishEdit" id="authorInfoTemplate">
       <td class="authorOrder">1</td>
-      <td class="authorName"><div>NameNameNameName</div>
-        <input type="text"/></td>
-      <td class="authorId"><div>IdIdIdIdIdIdIdIdId</div>
-        <input type="text"/></td>
-      <td class="operations"><span  onclick="moveUp(this)">上移</span><span onclick="moveDown(this)">下移</span><span class="optEdit" onclick="editAuthorInfo(this)">修改</span><span onclick="delAuthorInfo(this)" class="optEdit">删除</span><span class="optEditing" onclick="confirmEditingAuthor(this)">确定</span><span class="optEditing" onclick="quitEditingAuthor(this)">取消</span></td>
+      <td class="authorName"><div></div>
+        <input name="authorName" type="text" value="" readonly="readonly"/></td>
+      <td class="authorId"><div></div>
+        <input name="authorId" type="text" value=""/></td>
+      <td class="operations"><span  onclick="moveUp(this)">上移</span><span onclick="moveDown(this)">下移</span><span class="optEdit" onclick="editAuthorInfo(this)">修改</span><span onclick="delAuthorInfo(this)" class="optEdit">删除</span><span class="optEditing" onclick="confirmAndQuitEditing(this)">确定</span><span class="optEditing" onclick="rollbackEditing(this)">取消</span></td>
     </tr>
   </table>
 </div>
@@ -29,7 +29,7 @@
   <div class="content">
     <div id="contentTitle">添加论文</div>
     <div id="downContent">
-      <form>
+      <form id="thesisInfoForm">
         <div class="oneLine">
           <div class="dataNameTag">学院（系）</div>
           <select id="schoolSelector" name="school">
@@ -37,7 +37,7 @@
             <option value="software">软件学院</option>
             <option value="automobile" selected="selected">汽车学院</option>
           </select>
-                    <div class="dataNameTag">论文类别</div>
+          <div class="dataNameTag">论文类别</div>
           <select id="thesisTypeSelector" name="thesisType">
             <option value="eduTheory">教育理论</option>
             <option value="eduPractice">教育实践</option>
@@ -46,7 +46,6 @@
             <option value="experimentEdu">实验教学</option>
             <option value="other">其它</option>
           </select>
-
         </div>
         <div class="clearfloat"></div>
         <table id="authorListTable">
@@ -135,7 +134,7 @@
       </div>
       <div class="clearfloat"></div>
     </div>
-    <input id="saveAndInsert" type="submit" value="保存添加"/>
+    <input id="saveAndInsert" type="button" onclick="submitForm()" value="保存添加"/>
   </div>
 </div>
 </body>
