@@ -5,12 +5,14 @@ import java.io.PrintWriter;
 import java.sql.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.paper;
 
+@WebServlet("/addPaper")
 @SuppressWarnings("serial")
 public class AddPaperServlet extends HttpServlet {
 
@@ -56,8 +58,7 @@ public class AddPaperServlet extends HttpServlet {
 		p.setPassed(passed);*/
 		// -------------------------------------------------------------
 		// p.setTeacher_work_id(teacher_work_id);
-		HibernateUtil hu = new HibernateUtil();
-		hu.addPaper(p);
+		HibernateUtil.addPaper(p);
 
 		String result = "{\"Status\":\"success\"}";
 		System.out.println(result);

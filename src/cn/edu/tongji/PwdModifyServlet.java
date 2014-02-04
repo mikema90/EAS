@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import model.paper;
 
+@WebServlet("/pwdmodify")
 @SuppressWarnings("serial")
 public class PwdModifyServlet extends HttpServlet {
 
@@ -31,7 +33,6 @@ public class PwdModifyServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 
 		PrintWriter out = response.getWriter();
-		HibernateUtil hu = new HibernateUtil();
 		HttpSession session = request.getSession();
 		// get current user profile
 		String identity = (String) session.getAttribute("identity");
@@ -42,7 +43,7 @@ public class PwdModifyServlet extends HttpServlet {
 		String new_pwd = request.getParameter("new pwd");
 
 		if (cur_pwd.equals(old_pwd)) {// old password equal login password
-			hu.pwdModify(identity, username, cur_pwd, new_pwd);
+			HibernateUtil.pwdModify(identity, username, cur_pwd, new_pwd);
 			String result = "{\"Status\":\"success\"}";
 			System.out.println(result);
 			out.write(result);

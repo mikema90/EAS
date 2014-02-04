@@ -12,39 +12,4 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	<servlet>
-		<servlet-name>loginServlet</servlet-name>
-		<servlet-class>cn.edu.tongji.LoginServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>loginServlet</servlet-name>
-		<url-pattern>/login</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>addpaperServlet</servlet-name>
-		<servlet-class>cn.edu.tongji.AddPaperServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>addpaperServlet</servlet-name>
-		<url-pattern>/addpaper</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>getpaperServlet</servlet-name>
-		<servlet-class>cn.edu.tongji.GetPaperServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>getpaperServlet</servlet-name>
-		<url-pattern>/getpaper</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>pwdmodifyServlet</servlet-name>
-		<servlet-class>cn.edu.tongji.PwdModifyServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>pwdmodifyServlet</servlet-name>
-		<url-pattern>/pwdmodifyServlet</url-pattern>
-	</servlet-mapping>
 </web-app>

@@ -31,12 +31,11 @@ public class UpdateReviewStatusServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 
 		PrintWriter out = response.getWriter();
-		HibernateUtil hu = new HibernateUtil();
 		HttpSession session = request.getSession();
 		
 		String paper_id, expert_work_id,status,comment;
 		//status 1-属于 2-不属于 3-无法认定
-		//hu.UpdateReviewStatus(paper_id, expert_work_id, status, comment);
+		//HibernateUtil.updateReviewStatus(paper_id, expert_work_id, status, comment);
 		
 		String result = "{\"Status\":\"success\"}";
 		System.out.println(result);

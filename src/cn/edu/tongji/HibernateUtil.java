@@ -9,8 +9,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-	private static Configuration m_cfg = null;
-	private static SessionFactory m_sf = null;
+	private static Configuration m_cfg = new Configuration();
+	@SuppressWarnings("deprecation")
+	private static SessionFactory m_sf = m_cfg.configure()
+			.buildSessionFactory();
 
 	// SQL
 	private static String expert_login_sql = "from expert where work_id = ? and pwd = ?";
@@ -21,18 +23,17 @@ public class HibernateUtil {
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
 	private static String teacher_pwdmodify_sql = "update teacher set pwd = ? where work_id = ? and pwd = ?";
 	private static String update_reviewstatus_sql = "update reviewschedule set status = ?, comment = ? where paper_id = ? and expert_work_id = ?";
+
 	// -------------------------------------------------------------------------------
-	@SuppressWarnings("deprecation")
 	public HibernateUtil() {
-		m_cfg = new Configuration();
-		m_sf = m_cfg.configure().buildSessionFactory();
 	}
 
-	public void DeHibernateOperation() {
+	public static void DeHibernateOperation() {
 		m_sf.close();
 	}
 
-	public boolean isPwdValid(String identity, String username, String pwd) {
+	public static boolean isPwdValid(String identity, String username,
+			String pwd) {
 		boolean is_valid = false;
 		int size = 0;
 
@@ -63,7 +64,7 @@ public class HibernateUtil {
 	 * 
 	 * @param paper
 	 */
-	public void addPaper(paper p) {
+	public static void addPaper(paper p) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 		session.save(p);
@@ -72,7 +73,7 @@ public class HibernateUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<paper> getPaper() {
+	public static List<paper> getPaper() {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
@@ -84,8 +85,8 @@ public class HibernateUtil {
 		return papers;
 	}
 
-	public void pwdModify(String identity, String username, String cur_pwd,
-			String new_pwd) {
+	public static void pwdModify(String identity, String username,
+			String cur_pwd, String new_pwd) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
@@ -113,36 +114,35 @@ public class HibernateUtil {
 		session.close();
 	}
 
-	public void UpdateReviewStatus(String paper_id, String expert_work_id,
-			String status, String comment) {
+	public static void updateReviewStatus(String paper_id,
+			String expert_work_id, String status, String comment) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		int upstatus = session.createQuery(update_reviewstatus_sql)
-							.setString(0, status)
-							.setString(1, comment)
-							.setString(2, paper_id)
-							.setString(3, expert_work_id)
-							.executeUpdate();
+				.setString(0, status).setString(1, comment)
+				.setString(2, paper_id).setString(3, expert_work_id)
+				.executeUpdate();
 
 		if (upstatus == 1) {
 			System.out.println("update review status successfully!");
 		} else {
 			System.out.println("update review status failed!!");
 		}
-		
+
 		session.getTransaction().commit();
 		session.close();
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		HibernateUtil ho = new HibernateUtil();
+		// HibernateUtil ho = new HibernateUtil();
 		// boolean b = ho.hasPermission("expert", "082928", "123456");
 		// System.out.println(b);
 		// ho.pwdModify("expert", "1234839", "1234", "123456");
-		ho.UpdateReviewStatus("1", "1234839", "1", "it is not cool");
-		ho.DeHibernateOperation();
+		HibernateUtil.updateReviewStatus("1", "1234839", "2",
+				"it is not good enough");
+		HibernateUtil.DeHibernateOperation();
 	}
 
 }

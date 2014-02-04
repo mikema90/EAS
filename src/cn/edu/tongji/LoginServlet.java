@@ -1,10 +1,10 @@
 package cn.edu.tongji;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
+@WebServlet("/login")
 @SuppressWarnings("serial")
 public class LoginServlet extends HttpServlet {
 
@@ -36,10 +37,9 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("userName");
 		String pwd = request.getParameter("password");
 
-		HibernateUtil hu = new HibernateUtil();
 		JSONObject result = new JSONObject();
 		// set result and output
-		if (hu.isPwdValid(identity, username, pwd)) {
+		if (HibernateUtil.isPwdValid(identity, username, pwd)) {
 			// request.setAttribute("key", "You login successfully!");
 			// request.getRequestDispatcher("output.jsp").forward(request,
 			// response);
