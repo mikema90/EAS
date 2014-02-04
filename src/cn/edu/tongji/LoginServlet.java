@@ -50,10 +50,10 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("username", username);
 			session.setAttribute("pwd", pwd);
 
-			result.accumulate("loginStatus", "success");
+			result.accumulate("Status", "success");
 			result.accumulate("redirectUrl", "thesisList.html");
 		} else {
-			result.accumulate("loginStatus", "failed");
+			result.accumulate("Status", "failed");
 		}
 		System.out.println(result.toString());
 		out.write(result.toString());

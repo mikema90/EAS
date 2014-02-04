@@ -149,7 +149,7 @@ function submitForm() {
 	var submitData = $("#thesisInfoForm").serialize();
 	$.ajax({
 		type: 'POST',
-		url: "../login",
+		url: "../addPaper",
 		data: {
 			"thesisData":submitData
 		},
@@ -161,10 +161,8 @@ function submitForm() {
 			}
 		},
 		error: function(){
-			alert("上传失败");
+			alert("保存失败");
 		},
 		dataType: 'json'
 	});
-	alert($("#thesisInfoForm").serialize());
-	$("#thesisInfoForm").submit();
 }

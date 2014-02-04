@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.paper;
 
-@WebServlet("/addPaper")
+@WebServlet("/updatePaper")
 @SuppressWarnings("serial")
-public class AddPaperServlet extends HttpServlet {
+public class UpdatePaperServlet extends HttpServlet {
 
-	public AddPaperServlet() {
+	public UpdatePaperServlet() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -34,8 +34,7 @@ public class AddPaperServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		
-		String college = request.getParameter("school"), category, authors, title, journal, ISSN, ISBN, journal_type, language;
+		String college, category, authors, title, journal, ISSN, ISBN, journal_type, language;
 		String teacher_work_id = (String) request.getAttribute("username");
 		Date post_date;
 		boolean passed = false;

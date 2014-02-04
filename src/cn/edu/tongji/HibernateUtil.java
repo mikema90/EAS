@@ -71,6 +71,15 @@ public class HibernateUtil {
 		session.getTransaction().commit();
 		session.close();
 	}
+	
+	/**
+	 * update existing paper in DB
+	 * 
+	 * @param paper_id
+	 */
+	public static void updatePaper(String paper_id){
+		
+	}
 
 	@SuppressWarnings("unchecked")
 	public static List<paper> getPaper() {

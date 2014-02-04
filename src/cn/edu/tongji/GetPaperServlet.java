@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
 import model.paper;
 
 @WebServlet("/getPaper")
@@ -35,9 +36,13 @@ public class GetPaperServlet extends HttpServlet {
 
 		List<paper> papers = HibernateUtil.getPaper();
 
-		String result = "{\"Status\":\"success\", \"title\":\"Hibernate Optimization\"}";
-		System.out.println(result);
-		out.write(result);
+		// json to return
+		JSONObject result = new JSONObject();
+		result.accumulate("Status", "success");
+		result.accumulate("paper", papers);
+		// ----------------------------------------------
+		System.out.println(result.toString());
+		out.write(result.toString());
 		out.flush();
 		out.close();
 	}
