@@ -41,7 +41,8 @@ public class AddPaperServlet extends HttpServlet {
 
 		JSONObject result = new JSONObject();
 		result.accumulate("Status", "success");
-
+		result.accumulate("redirectUrl", "thesisList.html");
+		
 		System.out.println(result.toString());
 		out.write(result.toString());
 		out.flush();

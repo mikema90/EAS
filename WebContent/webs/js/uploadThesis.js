@@ -23,21 +23,28 @@ function hideAuthorEditor() {
 }
 
 function insertAuthorInfo() {
-	var newAuthorInfo = $("#authorInfoTemplate").clone(true);
-	newAuthorInfo.find(".authorOrder").text(
-			$("#authorEditor").find(".authorOrder").text());
-	newAuthorInfo.find(".authorName").find("input").val(
-			$("#authorNameInputBox").val());
-	newAuthorInfo.find(".authorId").find("input").val(
-			$("#authorIdInputBox").val());
+	if ($("#authorNameInputBox").val() == ""
+			|| $("#authorIdInputBox").val() == "") {
+		alert("作者姓名和工号不能为空");
+	} else {
+		var newAuthorInfo = $("#authorInfoTemplate").clone(true);
+		newAuthorInfo.find(".authorOrder").text(
+				$("#authorEditor").find(".authorOrder").text());
+		newAuthorInfo.find(".authorName").find("input").val(
+				$("#authorNameInputBox").val());
+		newAuthorInfo.find(".authorId").find("input").val(
+				$("#authorIdInputBox").val());
 
-	newAuthorInfo.insertBefore($("#authorEditor"));
+		newAuthorInfo.insertBefore($("#authorEditor"));
 
-	hideAuthorEditor();
-	var authorNumStr = $("#authorEditor").find(".authorOrder").text();
-	$("#authorEditor").find(".authorOrder").text(parseInt(authorNumStr) + 1);
-	$("#authorNameInputBox").val("");
-	$("#authorIdInputBox").val("");
+		hideAuthorEditor();
+		var authorNumStr = $("#authorEditor").find(".authorOrder").text();
+		$("#authorEditor").find(".authorOrder")
+				.text(parseInt(authorNumStr) + 1);
+		$("#authorNameInputBox").val("");
+		$("#authorIdInputBox").val("");
+	}
+
 }
 
 function editAuthorInfo(targetElement) {
@@ -104,16 +111,20 @@ function delAuthorInfo(targetElement) {
 }
 
 function uploadFile() {
-	$("#uploadingStatus").css("color", "#F60");
-	$("#uploadingStatus").text("正在上传...");
-	uploadingStatusNum = 3;
+	if ($("#uploadingStatus").text() != "等待上传") {
+		alert("请选择文件");
+	} else {
+		$("#uploadingStatus").css("color", "#F60");
+		$("#uploadingStatus").text("正在上传...");
+		uploadingStatusNum = 3;
 
-	try {
-		$(window.frames["hidden_frame"].document).text("");
-	} catch (e) {
+		try {
+			$(window.frames["hidden_frame"].document).text("");
+		} catch (e) {
+		}
+		checkingInterval = setInterval(checkUploadingStatus, 2000);
+		$("#uploadFileForm").submit();
 	}
-	checkingInterval = setInterval(checkUploadingStatus, 2000);
-	$("#uploadFileForm").submit();
 }
 
 function uploadingFailure() {
@@ -153,26 +164,43 @@ function checkUploadingStatus() {
 		}
 	} catch (e) {
 		clearInterval(checkingInterval);
-		uploadingFailure()
+		uploadingFailure();
 	}
 }
 
 function submitForm() {
-	var submitData = $("#thesisInfoForm").serialize();
-	$.ajax({
-		type : 'POST',
-		url : "../addPaper",
-		data : submitData,
-		success : function(jsonData) {
-			if (jsonData.loginStatus == "success") {
-				window.location = jsonData.redirectUrl;
-			} else {
-				alert(jsonData.errorMsg);
-			}
-		},
-		error : function() {
-			alert("保存失败");
-		},
-		dataType : 'json'
-	});
+	if ($("#authorListTable tbody").find("tr").length < 4) {
+		alert("作者不能为空");
+	} else if ($("#thesisNameInputBox").val() == ""
+			|| $("#periodicalNameInputBox").val() == "") {
+		alert("论文和期刊名称不能为空");
+	} else if ($("#periodicalSelector").val() == "ISSN"
+			&& $(".periodicalSn:eq(0)").val().length != 8) {
+		alert("ISSN需要8位数字或字母");
+	} else if ($("#periodicalSelector").val() == "ISBN"
+			&& ($(".periodicalSn:eq(0)").val().length != 13 || !$(
+					".periodicalSn:eq(0)").val().isNumeric())) {
+		alert("ISSN需要13位数字");
+	} else if ($("#uploadingStatus").text() != "上传成功！") {
+		alert("请上传附件");
+	} else {
+		var submitData = $("#thesisInfoForm").serialize();
+		$.ajax({
+			type : 'POST',
+			url : "../addPaper",
+			data : submitData,
+			success : function(jsonData) {
+				if (jsonData.Status == "success") {
+					window.location = jsonData.redirectUrl;
+				} else {
+					alert("保存未成功");
+				}
+			},
+			error : function() {
+				alert("保存失败");
+			},
+			dataType : 'json'
+		});
+	}
+
 }
