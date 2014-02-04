@@ -31,17 +31,22 @@
     <div id="downContent">
       <form>
         <div class="oneLine">
-          <div class="dataNameTag">序号</div>
-          <input id="noInputBox" type="text" name="NO"/>
-        </div>
-        <div class="clearfloat"></div>
-        <div class="oneLine">
           <div class="dataNameTag">学院（系）</div>
           <select id="schoolSelector" name="school">
             <option value="caup">建筑与城市规划学院</option>
             <option value="software">软件学院</option>
             <option value="automobile" selected="selected">汽车学院</option>
           </select>
+                    <div class="dataNameTag">论文类别</div>
+          <select id="thesisTypeSelector" name="thesisType">
+            <option value="eduTheory">教育理论</option>
+            <option value="eduPractice">教育实践</option>
+            <option value="eduTech" selected="selected">教育技术</option>
+            <option value="eduMethod">教育方法</option>
+            <option value="experimentEdu">实验教学</option>
+            <option value="other">其它</option>
+          </select>
+
         </div>
         <div class="clearfloat"></div>
         <table id="authorListTable">
@@ -91,15 +96,6 @@
         <div class="oneLine">
           <div class="dataNameTag">发表时间</div>
           <select class="timeSelector" name="timeYear">
-            <option value="2013" selected="selected">2013</option>
-            <option value="2012">2012</option>
-            <option value="2011">2011</option>
-            <option value="2010">2010</option>
-            <option value="2009">2009</option>
-            <option value="2008">2008</option>
-            <option value="2007">2007</option>
-            <option value="2006">2006</option>
-            <option value="2005">2005</option>
           </select>
           <select class="timeSelector" name="timeMonth">
             <option value="1" selected="selected">1月</option>
@@ -116,9 +112,12 @@
             <option value="12">12月</option>
           </select>
           <div id="isForeignLanguage">是否外文</div>
-          <select id="isForeignLanguageSelector" name="isForeignLanguage">
-            <option value="true" selected="selected">是</option>
-            <option value="false">否</option>
+          <select id="languageSelector" name="thesisLanguage">
+            <option value="No" selected="selected">否</option>
+            <option value="English">英文</option>
+            <option value="German">德文</option>
+            <option value="Japanese">日文</option>
+            <option value="Other">其他</option>
           </select>
         </div>
         <input id="fileTempName" name="fileTempName" style="display:none" type="text"/>
@@ -131,13 +130,12 @@
           <input id="openFile" type="file" name="file" onchange="changeUploadingStatus()" />
           <iframe style="display:none" name="hidden_frame" id="hidden_frame"></iframe>
         </form>
-         <input type="button" id="uploadFile" onclick="uploadFile()" value="提交"/>
+        <input type="button" id="uploadFile" onclick="uploadFile()" value="上传文件"/>
         <div id="uploadingStatus"></div>
       </div>
       <div class="clearfloat"></div>
     </div>
     <input id="saveAndInsert" type="submit" value="保存添加"/>
-    <button onclick="customFunction()" style="float:left;width:50px;height:20px;">12345</button><button onclick="customFunction2()" style="float:left;width:50px;height:20px;">12345</button>
   </div>
 </div>
 </body>

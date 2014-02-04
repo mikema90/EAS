@@ -30,6 +30,20 @@
 	margin-bottom:5px;
 }
 
+#authorListTable a{
+	margin-left:2px;
+	margin-right:2px;
+}
+
+#thesisTypeSelector{
+	width:120px;
+	float:left;
+	margin-top:-2px;
+	margin-left:-25px;
+	height:33px;
+	font-size:18px;
+}
+
 #saveAndInsert{
 	text-align:center;
 	font-weight:600;
@@ -42,17 +56,15 @@
 	margin-right:auto;
 }
 
-#noInputBox{
-	width:70px;
-}
-
 #schoolSelector{
+	float:left;
 	width:280px;
 	height:30px;
+	margin-right:20px;
 	font-size:18px;
 }
 
-#noInputBox, #thesisNameInputBox, #periodicalNameInputBox{
+#thesisNameInputBox, #periodicalNameInputBox{
 	margin-top:-2px;
 	height:27px;
 	font-size:18px;
@@ -72,7 +84,7 @@
 
 .periodicalSn{
 	float:left;
-	width:100px;
+	width:117px;
 	height:25px;
 	font-size:18px;
 }
@@ -86,15 +98,15 @@
 	margin-right:5px;
 }
 
-#noInputBox, #schoolSelector, #thesisNameInputBox, #periodicalNameInputBox, #periodicalSelector, .periodicalSn, .timeSelector, isForeignLanguageSelector, .authorName input, .authorId input{
+#thesisTypeSelector, #schoolSelector, #thesisNameInputBox, #periodicalNameInputBox, #periodicalSelector, #languageSelector, .periodicalSn, .timeSelector, isForeignLanguageSelector, .authorName input, .authorId input{
 	border-width:2px;
 	border-color:#426da2;
 	border-style:solid;
 }
 
-#isForeignLanguageSelector{
+#languageSelector{
 	float:left;
-	width:60px;
+	width:80px;
 	height:30px;
 	font-size:18px;
 }
@@ -163,12 +175,12 @@
 
 #uploadFile{
 	float:left;
-	font-size:15px;
+	font-size:14px;
 	margin-top:5px;
 	margin-left:5px;
 	text-align:center;
 	height:27px;
-	width:70px;
+	width:80px;
 }
 
 #uploadingStatus{

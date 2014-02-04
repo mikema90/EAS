@@ -1,8 +1,15 @@
 // JavaScript Document
+$(document).ready(function() {
+	var yearSelector=$("select[name='timeYear']");
+	for(var i=2010;i<=2030;i++){
+		var newOption=new Option(i+"",i+"");
+		yearSelector.append(newOption);
+	}
+	var myDate=new Date();
+	yearSelector.find("[value='"+myDate.getFullYear()+"']").attr("selected","selected");
+}); 
+
 function showAuthorEditor(){
-	//if (eval(authorNum)=='undefined'){
-	//	authorNum=1;
-	//}
 	$("#authorEditor").css("display","table-row");
 	$("#authorEditorEnter").css("display","none");
 	$("#authorNameInputBox").focus();
@@ -134,8 +141,4 @@ function checkUploadingStatus(){
 		clearInterval(checkingInterval);
 		uploadingFailure()
 	}
-}
-
-function customFunction2(){
-	alert($(window.frames["hidden_frame"].document).text());
 }

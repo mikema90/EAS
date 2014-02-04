@@ -64,9 +64,9 @@ public class uploadFile extends HttpServlet {
 		//把文件写到指定路径
 		part.write(storePath+File.separator+tempName);
 		
-		HashMap tempFilesData=(HashMap) request.getSession().getAttribute(TEMP_FILES_DATA);
+		HashMap<String, String> tempFilesData=(HashMap) request.getSession().getAttribute(TEMP_FILES_DATA);
 		if(tempFilesData==null){
-			tempFilesData=new HashMap();
+			tempFilesData=new HashMap<String, String>();
 			request.getSession().setAttribute(TEMP_FILES_DATA, tempFilesData);
 		}
 		
