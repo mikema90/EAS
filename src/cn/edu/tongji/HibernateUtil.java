@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateOperation {
+public class HibernateUtil {
 	private static Configuration m_cfg = null;
 	private static SessionFactory m_sf = null;
 
@@ -20,10 +20,10 @@ public class HibernateOperation {
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
 	private static String teacher_pwdmodify_sql = "update teacher set pwd = ? where work_id = ? and pwd = ?";
-
+	private static String update_reviewstatus_sql = "update reviewschedule set status = ?, comment = ? where paper_id = ? and expert_work_id = ?";
 	// -------------------------------------------------------------------------------
 	@SuppressWarnings("deprecation")
-	public HibernateOperation() {
+	public HibernateUtil() {
 		m_cfg = new Configuration();
 		m_sf = m_cfg.configure().buildSessionFactory();
 	}
@@ -32,8 +32,8 @@ public class HibernateOperation {
 		m_sf.close();
 	}
 
-	public boolean hasPermission(String identity, String username, String pwd) {
-		boolean isPermission = false;
+	public boolean isPwdValid(String identity, String username, String pwd) {
+		boolean is_valid = false;
 		int size = 0;
 
 		Session session = m_sf.openSession();
@@ -51,11 +51,11 @@ public class HibernateOperation {
 		}
 
 		if (size == 1) {
-			isPermission = true;
+			is_valid = true;
 		}
 		session.getTransaction().commit();
 		session.close();
-		return isPermission;
+		return is_valid;
 	}
 
 	/**
@@ -113,12 +113,35 @@ public class HibernateOperation {
 		session.close();
 	}
 
+	public void UpdateReviewStatus(String paper_id, String expert_work_id,
+			String status, String comment) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int upstatus = session.createQuery(update_reviewstatus_sql)
+							.setString(0, status)
+							.setString(1, comment)
+							.setString(2, paper_id)
+							.setString(3, expert_work_id)
+							.executeUpdate();
+
+		if (upstatus == 1) {
+			System.out.println("update review status successfully!");
+		} else {
+			System.out.println("update review status failed!!");
+		}
+		
+		session.getTransaction().commit();
+		session.close();
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		HibernateOperation ho = new HibernateOperation();
+		HibernateUtil ho = new HibernateUtil();
 		// boolean b = ho.hasPermission("expert", "082928", "123456");
 		// System.out.println(b);
-		ho.pwdModify("expert", "1234839", "1234", "123456");
+		// ho.pwdModify("expert", "1234839", "1234", "123456");
+		ho.UpdateReviewStatus("1", "1234839", "1", "it is not cool");
 		ho.DeHibernateOperation();
 	}
 

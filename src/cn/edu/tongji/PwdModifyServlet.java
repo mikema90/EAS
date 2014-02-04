@@ -31,7 +31,7 @@ public class PwdModifyServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 
 		PrintWriter out = response.getWriter();
-		HibernateOperation ho = new HibernateOperation();
+		HibernateUtil hu = new HibernateUtil();
 		HttpSession session = request.getSession();
 		// get current user profile
 		String identity = (String) session.getAttribute("identity");
@@ -42,7 +42,7 @@ public class PwdModifyServlet extends HttpServlet {
 		String new_pwd = request.getParameter("new pwd");
 
 		if (cur_pwd.equals(old_pwd)) {// old password equal login password
-			ho.pwdModify(identity, username, cur_pwd, new_pwd);
+			hu.pwdModify(identity, username, cur_pwd, new_pwd);
 			String result = "{\"Status\":\"success\"}";
 			System.out.println(result);
 			out.write(result);

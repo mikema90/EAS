@@ -31,8 +31,8 @@ public class GetPaperServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		HibernateOperation ho = new HibernateOperation();
-		List<paper> papers = ho.getPaper();
+		HibernateUtil hu = new HibernateUtil();
+		List<paper> papers = hu.getPaper();
 
 		String result = "{\"Status\":\"success\", \"title\":\"Hibernate Optimization\"}";
 		System.out.println(result);
