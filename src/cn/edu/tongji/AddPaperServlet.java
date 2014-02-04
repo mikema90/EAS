@@ -5,12 +5,14 @@ import java.io.PrintWriter;
 import java.sql.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.paper;
 
+@WebServlet("/addPaper")
 @SuppressWarnings("serial")
 public class AddPaperServlet extends HttpServlet {
 
@@ -23,6 +25,7 @@ public class AddPaperServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// cover Chinese character
@@ -31,15 +34,31 @@ public class AddPaperServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		String college, category, author, title, journal, ISSN, ISBN, journal_type, language, pdf_url;
-		int teacher_work_id;
+		String college, category, authors, title, journal, ISSN, ISBN, journal_type, language;
+		String teacher_work_id = (String) request.getAttribute("username");
 		Date post_date;
-		boolean passed;
+		boolean passed = false;
 
+		String rootPath = request.getRealPath("/");
+		String pdf_url = rootPath + teacher_work_id;
 		paper p = new paper();
+		// fill data into paper
+		/*p.setTeacher_work_id(teacher_work_id);
+		p.setCollege(college);
+		p.setCategory(category);
+		p.setAuthors(authors);
+		p.setTitle(title);
+		p.setJournal(journal);
+		p.setIssn(ISSN);
+		p.setIsbn(ISBN);
+		p.setJournal_type(journal_type);
+		p.setPost_date(post_date);
+		p.setLanguage(language);
+		p.setPdf_url(pdf_url);
+		p.setPassed(passed);*/
+		// -------------------------------------------------------------
 		// p.setTeacher_work_id(teacher_work_id);
-		HibernateOperation ho = new HibernateOperation();
-		ho.addPaper(p);
+		HibernateUtil.addPaper(p);
 
 		String result = "{\"Status\":\"success\"}";
 		System.out.println(result);

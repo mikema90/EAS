@@ -5,12 +5,14 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.paper;
 
+@WebServlet("/getPaper")
 @SuppressWarnings("serial")
 public class GetPaperServlet extends HttpServlet {
 
@@ -31,8 +33,7 @@ public class GetPaperServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		HibernateOperation ho = new HibernateOperation();
-		List<paper> papers = ho.getPaper();
+		List<paper> papers = HibernateUtil.getPaper();
 
 		String result = "{\"Status\":\"success\", \"title\":\"Hibernate Optimization\"}";
 		System.out.println(result);
