@@ -84,8 +84,7 @@
           <div class="dataNameTag">刊号</div>
           <select id="periodicalSelector" name="periodicalType">
             <option value="ISSN" selected="selected">ISSN</option>
-            <option value="ISSM">ISSM</option>
-            <option value="ISSO">ISSO</option>
+            <option value="ISBN">ISBN</option>
           </select>
           <input class="periodicalSn" type="text" name="periodicalSn1">
           <div id="slash">-</div>
@@ -124,7 +123,6 @@
       <div class="clearfloat"></div>
       <div class="oneLine">
         <div class="dataNameTag">PDF上传</div>
-        </form>
         <form id="uploadFileForm"  method="post" enctype="multipart/form-data" action="../uploadFile" target="hidden_frame">
           <input id="openFile" type="file" name="file" onchange="changeUploadingStatus()" />
           <iframe style="display:none" name="hidden_frame" id="hidden_frame"></iframe>

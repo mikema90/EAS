@@ -67,7 +67,9 @@ public class HibernateUtil {
 	public static void addPaper(paper p) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
+		System.out.println("start add paper...\n");
 		session.save(p);
+		System.out.println("complete add paper...\n");
 		session.getTransaction().commit();
 		session.close();
 	}

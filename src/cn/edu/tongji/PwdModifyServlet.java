@@ -30,6 +30,7 @@ public class PwdModifyServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// cover Chinese character
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 
 		PrintWriter out = response.getWriter();

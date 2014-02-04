@@ -28,6 +28,7 @@ public class UpdateReviewStatusServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		// cover Chinese character
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 
 		PrintWriter out = response.getWriter();

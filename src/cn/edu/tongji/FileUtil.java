@@ -13,30 +13,17 @@ public class FileUtil {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * 
-	 * @param sourcePath
-	 *            -tmp location of upload file
-	 * @param teacher_work_id
-	 *            -store file into folder depend on teacher_work_id
-	 * @param title
-	 *            - paper title
-	 * @return unified directory path
-	 * @throws IOException 
-	 */
-	public String moveFileToUnifiedDir(String sourcePath, String teacher_work_id,
-			String title) throws IOException {
-		String targetPath = "/" + teacher_work_id + "/" + title + ".pdf";
-		copyFile(sourcePath, targetPath);
-		return targetPath;
-	}
-
 	public static void copyFile(String sourcePath, String targetPath)
 			throws IOException {
 		File sourceFile = new File(sourcePath);
 		File targetFile = new File(targetPath);
-		
-		
+		// mkdir if dir doesn`t exist
+		File parent = targetFile.getParentFile();
+		if (parent != null && !parent.exists()) {
+			parent.mkdirs();
+		}
+		targetFile.createNewFile();
+
 		BufferedInputStream inBuff = null;
 		BufferedOutputStream outBuff = null;
 		try {
