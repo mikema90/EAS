@@ -74,8 +74,11 @@ public class AddPaperServlet extends HttpServlet {
 		String rootPath = request.getRealPath("/");
 		String tmpPath = rootPath + "tempUploadedFile" + File.separator + fileTmpName;
 		String pdf_url = teacher_work_id + File.separator + title + ".pdf";
-		// move file to unified dir
+		String swf_url = teacher_work_id + File.separator + title + ".swf";
+		
+		// move file to unified dir and pdf2SWF
 		FileUtil.copyFile(tmpPath, rootPath + pdf_url);
+		pdf2SWF.transfer(rootPath + pdf_url, rootPath + swf_url);
 		
 		paper p = new paper();
 		// fill data into paper
@@ -98,7 +101,7 @@ public class AddPaperServlet extends HttpServlet {
 		p.setJournal_type(journalSN[1]);
 		p.setPost_date(post_date);
 		p.setLanguage(nameMapping.getInstance().languageMap.get(language));
-		p.setPdf_url(pdf_url); 
+		p.setPdf_url(swf_url); 
 		p.setPassed(passed);
 
 		return p;
