@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 import model.paper;
@@ -52,7 +53,8 @@ public class AddPaperServlet extends HttpServlet {
 
 	@SuppressWarnings("deprecation")
 	public paper fillinPaper(HttpServletRequest request) throws IOException {
-		String college_id = (String) request.getAttribute("username");
+		HttpSession session = request.getSession();
+		String college_id = (String) session.getAttribute("username");
 		String college_name = request.getParameter("school"), category = request
 				.getParameter("thesisType"), title = request
 				.getParameter("thesisName"), journal = request

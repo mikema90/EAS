@@ -74,14 +74,14 @@ public class HibernateUtil {
 		session.getTransaction().commit();
 		session.close();
 	}
-	
+
 	/**
 	 * update existing paper in DB
 	 * 
 	 * @param paper_id
 	 */
-	public static void updatePaper(String paper_id){
-		
+	public static void updatePaper(String paper_id) {
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -89,10 +89,13 @@ public class HibernateUtil {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
-		List<paper> papers = session.createQuery(get_paper_sql)
-				.setFirstResult(pageroffset)
-				.setMaxResults(maxcount)
-				.list();
+		List<paper> papers = null;
+		if (maxcount == -1) {// get all
+			papers = session.createQuery(get_paper_sql).list();
+		} else { // get specific rows
+			papers = session.createQuery(get_paper_sql)
+					.setFirstResult(pageroffset).setMaxResults(maxcount).list();
+		}
 
 		session.getTransaction().commit();
 		session.close();
@@ -155,8 +158,8 @@ public class HibernateUtil {
 		// boolean b = ho.hasPermission("expert", "082928", "123456");
 		// System.out.println(b);
 		// ho.pwdModify("expert", "1234839", "1234", "123456");
-//		HibernateUtil.updateReviewStatus("1", "1234839", "2",
-//				"it is not good enough");
+		// HibernateUtil.updateReviewStatus("1", "1234839", "2",
+		// "it is not good enough");
 		List<paper> papers = HibernateUtil.getPaper(1, 1);
 		System.out.println(papers.get(0).getTitle());
 		HibernateUtil.DeHibernateOperation();
