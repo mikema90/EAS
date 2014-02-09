@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>教学研究论文评审系统</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/thesisEvaluation.css" rel="stylesheet" type="text/css" />
+</head>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/thesisEvaluation.js"></script>
+<body>
+<div id="remarkEditorBckgnd"></div>
+<div id="remarkEditorOuterWrapper">
+   <div id="remarkEditorInnerWrapper"><textarea></textarea><div>不超过30字</div><span><button onclick="confirmRemarkEditor()">确定</button><button onclick="cancelRemarkEditor()">取消</button></span></div>
+</div>
+<div class="container">
+  <div class="header">
+    <div id="headerName">教学研究论文评审系统 </div>
+    <img src="img/header.png"/></div>
+  <div id="navigationBar"><a href="#">首页</a><a href="#">专家须知</a><a class="activatedBlock" href="#">论文评审</a><a href="#">修改密码</a><a href="#">退出</a></div>
+  <div class="content">
+    <div id="contentTitle">2013年教学研究论文申报汇总表</div>
+    <table id="contentTable">
+      <tr id="columnName">
+        <th width="35">序号</th>
+        <th width="10%">学院（系）</th>
+        <th width="10%">姓名</th>
+        <th width="15%">论文名称</th>
+        <th width="10%">期刊名称</th>
+        <th width="4%">刊号</th>
+        <th width="7%">发表时间</th>
+        <th width="35">是否外文</th>
+        <th width="53">是否属于核心</th>
+        <th width="40">PDF文件</th>
+        <th width="70">认定结果</th>
+        <th width="10%">备注</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Januadfafasfsary</td>
+        <td>Januadfafasfsary</td>
+        <td>Januadfafasfsary</td>
+        <td>Januadfafasfsary</td>
+        <td>Januadfafasfsary</td>
+        <td>2013-12-15</td>
+        <td>是</td>
+        <td>是</td>
+        <td><a href="#">查看</a></td>
+        <td><select class="evaluationResult" name="evaluationResult">
+            <option value="yes">属于</option>
+            <option value="no">不属于</option>
+            <option value="unknown">无法认定</option>
+          </select></td>
+        <td class="remark"><textarea></textarea><div>中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
+      </tr>
+    </table>
+    <div id="exeBtns">
+      <button>保存</button>
+      <button>提交教务处(提交后不可更改)</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

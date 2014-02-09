@@ -19,11 +19,19 @@
 	width:99%;
 }
 
-#contentTable td{
+/*#contentTable td{
 	background-color:#d0d8e8;
 	text-overflow:ellipsis;
 	overflow:hidden;
 	white-space:nowrap;
+	padding:2px;
+}*/
+
+#contentTable td{
+	word-wrap:break-word;
+	word-break:break-all;
+	white-space:normal;
+	background-color:#d0d8e8;
 	padding:2px;
 }
 
