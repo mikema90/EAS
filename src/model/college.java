@@ -1,8 +1,8 @@
 package model;
 
-public class teacher {
+public class college {
 	private int id;
-	private int work_id;
+	private int college_id;
 	private String name;
 	private String pwd;
 
@@ -14,12 +14,12 @@ public class teacher {
 		this.id = id;
 	}
 
-	public int getWork_id() {
-		return work_id;
+	public int getCollege_id() {
+		return college_id;
 	}
 
-	public void setWork_id(int work_id) {
-		this.work_id = work_id;
+	public void setCollege_id(int college_id) {
+		this.college_id = college_id;
 	}
 
 	public String getName() {

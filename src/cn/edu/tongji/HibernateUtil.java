@@ -1,5 +1,6 @@
 package cn.edu.tongji;
 
+import java.awt.print.Paper;
 import java.util.List;
 
 import model.paper;
@@ -17,11 +18,11 @@ public class HibernateUtil {
 	// SQL
 	private static String expert_login_sql = "from expert where work_id = ? and pwd = ?";
 	private static String admin_login_sql = "from admin where work_id = ? and pwd = ?";
-	private static String teacher_login_sql = "from teacher where work_id = ? and pwd = ?";
+	private static String college_login_sql = "from college where college_id = ? and pwd = ?";
 	private static String get_paper_sql = "from paper";
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
-	private static String teacher_pwdmodify_sql = "update teacher set pwd = ? where work_id = ? and pwd = ?";
+	private static String college_pwdmodify_sql = "update college set pwd = ? where college_id = ? and pwd = ?";
 	private static String update_reviewstatus_sql = "update reviewschedule set status = ?, comment = ? where paper_id = ? and expert_work_id = ?";
 
 	// -------------------------------------------------------------------------------
@@ -40,8 +41,8 @@ public class HibernateUtil {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
-		if (identity.equals("teacher")) {
-			size = session.createQuery(teacher_login_sql)
+		if (identity.equals("college")) {
+			size = session.createQuery(college_login_sql)
 					.setString(0, username).setString(1, pwd).list().size();
 		} else if (identity.equals("expert")) {
 			size = session.createQuery(expert_login_sql).setString(0, username)
@@ -84,11 +85,14 @@ public class HibernateUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<paper> getPaper() {
+	public static List<paper> getPaper(int pageroffset, int maxcount) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
-		List<paper> papers = session.createQuery(get_paper_sql).list();
+		List<paper> papers = session.createQuery(get_paper_sql)
+				.setFirstResult(pageroffset)
+				.setMaxResults(maxcount)
+				.list();
 
 		session.getTransaction().commit();
 		session.close();
@@ -102,8 +106,8 @@ public class HibernateUtil {
 		session.beginTransaction();
 
 		int status = 0;
-		if (identity.equals("teacher")) {
-			status = session.createQuery(teacher_pwdmodify_sql)
+		if (identity.equals("college")) {
+			status = session.createQuery(college_pwdmodify_sql)
 					.setString(0, new_pwd).setString(1, username)
 					.setString(2, cur_pwd).executeUpdate();
 		} else if (identity.equals("expert")) {
@@ -151,8 +155,10 @@ public class HibernateUtil {
 		// boolean b = ho.hasPermission("expert", "082928", "123456");
 		// System.out.println(b);
 		// ho.pwdModify("expert", "1234839", "1234", "123456");
-		HibernateUtil.updateReviewStatus("1", "1234839", "2",
-				"it is not good enough");
+//		HibernateUtil.updateReviewStatus("1", "1234839", "2",
+//				"it is not good enough");
+		List<paper> papers = HibernateUtil.getPaper(1, 1);
+		System.out.println(papers.get(0).getTitle());
 		HibernateUtil.DeHibernateOperation();
 	}
 

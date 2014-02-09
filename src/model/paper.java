@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class paper {
 	private int id;
-	private int teacher_work_id;
-	private String college;
+	private int college_id;
+	private String college_name;
 	private String category;
-	private String authors;
+	private String first_author;
+	private String other_authors;
 	private String title;
 	private String journal;
-	private String issn;
-	private String isbn;
+	private String issues;
 	private String journal_type;
 	private Date post_date;
 	private String language;
@@ -26,20 +26,20 @@ public class paper {
 		this.id = id;
 	}
 
-	public int getTeacher_work_id() {
-		return teacher_work_id;
+	public int getCollege_id() {
+		return college_id;
 	}
 
-	public void setTeacher_work_id(int teacher_work_id) {
-		this.teacher_work_id = teacher_work_id;
+	public void setCollege_id(int college_id) {
+		this.college_id = college_id;
 	}
 
-	public String getCollege() {
-		return college;
+	public String getCollege_name() {
+		return college_name;
 	}
 
-	public void setCollege(String college) {
-		this.college = college;
+	public void setCollege_name(String college_name) {
+		this.college_name = college_name;
 	}
 
 	public String getCategory() {
@@ -50,12 +50,20 @@ public class paper {
 		this.category = category;
 	}
 
-	public String getAuthors() {
-		return authors;
+	public String getFirst_author() {
+		return first_author;
 	}
 
-	public void setAuthors(String authors) {
-		this.authors = authors;
+	public void setFirst_author(String first_author) {
+		this.first_author = first_author;
+	}
+
+	public String getOther_authors() {
+		return other_authors;
+	}
+
+	public void setOther_authors(String other_authors) {
+		this.other_authors = other_authors;
 	}
 
 	public String getTitle() {
@@ -74,20 +82,12 @@ public class paper {
 		this.journal = journal;
 	}
 
-	public String getIssn() {
-		return issn;
+	public String getIssues() {
+		return issues;
 	}
 
-	public void setIssn(String issn) {
-		this.issn = issn;
-	}
-
-	public String getIsbn() {
-		return isbn;
-	}
-
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+	public void setIssues(String issues) {
+		this.issues = issues;
 	}
 
 	public String getJournal_type() {
@@ -129,4 +129,5 @@ public class paper {
 	public void setPassed(boolean passed) {
 		this.passed = passed;
 	}
+
 }

@@ -42,7 +42,7 @@ public class AddPaperServlet extends HttpServlet {
 		JSONObject result = new JSONObject();
 		result.accumulate("Status", "success");
 		result.accumulate("redirectUrl", "thesisList.html");
-		
+
 		System.out.println(result.toString());
 		out.write(result.toString());
 		out.flush();
@@ -52,56 +52,62 @@ public class AddPaperServlet extends HttpServlet {
 
 	@SuppressWarnings("deprecation")
 	public paper fillinPaper(HttpServletRequest request) throws IOException {
-		String teacher_work_id = (String) request.getAttribute("username");
-		String college = request.getParameter("school"), category = request
+		String college_id = (String) request.getAttribute("username");
+		String college_name = request.getParameter("school"), category = request
 				.getParameter("thesisType"), title = request
 				.getParameter("thesisName"), journal = request
-				.getParameter("periodicalName"), CN = request
+				.getParameter("periodicalName"), issues = request
 				.getParameter("periodicalType"), year = request
 				.getParameter("timeYear"), month = request
 				.getParameter("timeMonth"), language = request
 				.getParameter("thesisLanguage"), fileTmpName = request
 				.getParameter("fileTempName");
-		String[] authorIDs = request.getParameterValues("authorId"), journalSN = request
+		String[] authorNames = request.getParameterValues("authorName"), journalSN = request
 				.getParameterValues("periodicalSn1");
-		
-		Date post_date = new Date(Integer.valueOf(year) - 1900, Integer.valueOf(month) - 1, 1);
+
+		Date post_date = new Date(Integer.valueOf(year) - 1900,
+				Integer.valueOf(month) - 1, 1);
 		boolean passed = false;
-		
+
 		// for testing --delete later
-		teacher_work_id = "1234839";
-		
+		college_id = "0088";
+
 		String rootPath = request.getRealPath("/");
-		String tmpPath = rootPath + "tempUploadedFile" + File.separator + fileTmpName;
-		String pdf_url = teacher_work_id + File.separator + title + ".pdf";
-		String swf_url = teacher_work_id + File.separator + title + ".swf";
-		
-		// move file to unified dir and pdf2SWF
+		String tmpPath = rootPath + "tempUploadedFile" + File.separator
+				+ fileTmpName;
+		String pdf_url = college_id + File.separator + title + ".pdf";
+
+		// move file to unified dir
 		FileUtil.copyFile(tmpPath, rootPath + pdf_url);
-		pdf2SWF.transfer(rootPath + pdf_url, rootPath + swf_url);
-		
+
 		paper p = new paper();
 		// fill data into paper
-		p.setTeacher_work_id(Integer.valueOf(teacher_work_id));
-		p.setCollege(nameMapping.getInstance().collegeMap.get(college));
+		p.setCollege_id(Integer.valueOf(college_id));
+		p.setCollege_name(nameMapping.getInstance().collegeMap
+				.get(college_name));
 		p.setCategory(nameMapping.getInstance().categoryMap.get(category));
-		
-		String authors = "";
-		for(int i = 0; i < authorIDs.length; i++){
-			authors = authors + authorIDs[i] + ",";
+
+		String first_author = "", other_authors = "";
+		for (int i = 0; i < authorNames.length; i++) {
+			if (i == 0) { // first_author
+				first_author = authorNames[i];
+			} else { // other authors
+				other_authors = other_authors + authorNames[i] + ",";
+			}
 		}
-		p.setAuthors(authors);
+
+		p.setFirst_author(first_author);
+		p.setOther_authors(other_authors);
 		p.setTitle(title);
 		p.setJournal(journal);
-		if(CN.equals("ISSN")){
-			p.setIssn(journalSN[0]);
-		}else if(CN.equals("ISBN")){
-			p.setIsbn(journalSN[0]);
-		}
+		
+		issues = issues + journalSN[0] + "-" + journalSN[1];
+		p.setIssues(issues);
+		
 		p.setJournal_type(journalSN[1]);
 		p.setPost_date(post_date);
 		p.setLanguage(nameMapping.getInstance().languageMap.get(language));
-		p.setPdf_url(swf_url); 
+		p.setPdf_url(pdf_url);
 		p.setPassed(passed);
 
 		return p;
