@@ -1,7 +1,12 @@
 // JavaScript Document
 function insertNewRow(school, authorName, thesisName, periodicalName, periodicalSn, publishTime, isForeignLanguage, isCore, pdfId, firstExpertName, firstEvalResult, firstRemark, finalResult, reward){
 	var newRow=$("#templates .fullColumnRow").clone(true);
-	var currentRowId=parseInt($("#contentTable").find(".rowId:last").text());
+	var currentRowId;
+	if($("#contentTable").find(".rowId:last").length==0){
+		currentRowId=0;
+	}else{
+		currentRowId=parseInt($("#contentTable").find(".rowId:last").text());
+	}
 	newRow.find(".rowId").text(currentRowId+1);
 	newRow.find(".school").text(school);
 	newRow.find(".authorName").text(authorName);
@@ -43,6 +48,10 @@ function increaseRowSpan(){
 		}
 		targetTuples.eq(i).attr("rowSpan",parseInt(targetTuples.eq(i).attr("rowSpan"))+1);
 	}
+}
+
+function openEvaluation(){
+	alert("确定开放申报？");
 }
 
 function TestA(){

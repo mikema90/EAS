@@ -3,10 +3,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>教学研究论文评审系统</title>
-</head>
 <link href="css/common.css" rel="stylesheet" type="text/css" />
 <link href="css/thesisList.css" rel="stylesheet" type="text/css" />
+</head>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/thesisList.js"></script>
 <body>
+<div id="templates">
+  <table>
+    <tr>
+      <td class="rowId" rowspan="1">1</td>
+      <td class="school" rowspan="1">Januadfafasfsary</td>
+      <td class="authorName" rowspan="1">Januadfafasfsary</td>
+      <td class="thesisName" rowspan="1">Januadfafasfsary</td>
+      <td class="periodicalName" rowspan="1">Januadfafasfsary</td>
+      <td class="periodicalSn" rowspan="1">Januadfafasfsary</td>
+      <td class="publishTime" rowspan="1">Januadfafasfsary</td>
+      <td class="isForeignLanguage" rowspan="1">是</td>
+      <td class="isCore" rowspan="1">是</td>
+      <td class="pdfId" rowspan="1"><a href="#">查看</a></td>
+      <td><a href="#">修改</a><a href="#">删除</a></td>
+    </tr>
+  </table>
+</div>
 <div class="container">
   <div class="header">
     <div id="headerName">教学研究论文评审系统 </div>
@@ -15,34 +34,43 @@
   <div class="content">
     <div id="contentTitle">2013年教学研究论文申报汇总表</div>
     <table id="contentTable">
-      <tr id="columnName">
-        <th width="35">序号</th>
-        <th width="10%">学院（系）</th>
-        <th width="10%">姓名</th>
-        <th width="15%">论文名称</th>
-        <th width="10%">期刊名称</th>
-        <th width="4%">刊号</th>
-        <th width="10%">发表时间</th>
-        <th width="35">是否外文</th>
-        <th width="53">是否属于核心</th>
-        <th width="40">PDF文件</th>
-        <th width="73">操作</th>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Januadfafasfsary</td>
-        <td>Januadfafasfsary</td>
-        <td>Januadfafasfsary</td>
-        <td>Januadfafasfsary</td>
-        <td>Januadfafasfsary</td>
-        <td>Januadfafasfsary</td>
-        <td>是</td>
-        <td>是</td>
-        <td><a href="#">查看</a></td>
-        <td><a href="#">修改</a><a href="#">删除</a></td>
-      </tr>
+      <tbody>
+        <tr id="columnName">
+          <th width="35">序号</th>
+          <th width="10%">学院（系）</th>
+          <th width="10%">姓名</th>
+          <th width="15%">论文名称</th>
+          <th width="10%">期刊名称</th>
+          <th width="4%">刊号</th>
+          <th width="10%">发表时间</th>
+          <th width="35">是否外文</th>
+          <th width="53">是否属于核心</th>
+          <th width="40">PDF文件</th>
+          <th width="73">操作</th>
+        </tr>
+        <tr>
+          <td class="rowId" rowspan="1">1</td>
+          <td class="school" rowspan="1">Januadfafasfsary</td>
+          <td class="authorName" rowspan="1">Januadfafasfsary</td>
+          <td class="thesisName" rowspan="1">Januadfafasfsary</td>
+          <td class="periodicalName" rowspan="1">Januadfafasfsary</td>
+          <td class="periodicalSn" rowspan="1">Januadfafasfsary</td>
+          <td class="publishTime" rowspan="1">Januadfafasfsary</td>
+          <td class="isForeignLanguage" rowspan="1">是</td>
+          <td class="isCore" rowspan="1">是</td>
+          <td class="pdfId" rowspan="1"><a href="#">查看</a></td>
+          <td><a href="#">修改</a><a href="#">删除</a></td>
+        </tr>
+      </tbody>
     </table>
-    <div id="exeBtns"><button>按第一作者姓名排序</button><button>添加论文</button><button>保存</button><button>提交教务处(提交后不可更改)</button><button>下载汇总表</button> </div>
+    <div id="exeBtns">
+      <button>按第一作者姓名排序</button>
+      <button>添加论文</button>
+      <button>保存</button>
+      <button>提交教务处(提交后不可更改)</button>
+      <button>下载汇总表</button>
+      <button onclick="testA()">TestA</button>
+    </div>
   </div>
 </div>
 </body>
