@@ -1,4 +1,4 @@
-package cn.edu.tongji;
+package cn.edu.tongji.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

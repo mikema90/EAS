@@ -1,6 +1,5 @@
-package cn.edu.tongji;
+package cn.edu.tongji.util;
 
-import java.awt.print.Paper;
 import java.util.List;
 
 import model.paper;
@@ -15,7 +14,7 @@ public class HibernateUtil {
 	private static SessionFactory m_sf = m_cfg.configure()
 			.buildSessionFactory();
 
-	// SQL
+	// HQL
 	private static String expert_login_sql = "from expert where work_id = ? and pwd = ?";
 	private static String admin_login_sql = "from admin where work_id = ? and pwd = ?";
 	private static String college_login_sql = "from college where college_id = ? and pwd = ?";
@@ -33,6 +32,13 @@ public class HibernateUtil {
 		m_sf.close();
 	}
 
+	/**
+	 * check login name and pwd
+	 * @param identity
+	 * @param username
+	 * @param pwd
+	 * @return
+	 */
 	public static boolean isPwdValid(String identity, String username,
 			String pwd) {
 		boolean is_valid = false;
@@ -78,10 +84,16 @@ public class HibernateUtil {
 	/**
 	 * update existing paper in DB
 	 * 
-	 * @param paper_id
+	 * @param paper
 	 */
-	public static void updatePaper(String paper_id) {
-
+	public static void updatePaper(paper p) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+		System.out.println("start update paper...\n");
+		session.update(p);
+		System.out.println("complete update paper...\n");
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -160,8 +172,12 @@ public class HibernateUtil {
 		// ho.pwdModify("expert", "1234839", "1234", "123456");
 		// HibernateUtil.updateReviewStatus("1", "1234839", "2",
 		// "it is not good enough");
-		List<paper> papers = HibernateUtil.getPaper(1, 1);
-		System.out.println(papers.get(0).getTitle());
+		//List<paper> papers = HibernateUtil.getPaper(1, 1);
+		//System.out.println(papers.get(0).getTitle());
+		paper p = new paper();
+		p.setId(2);
+		p.setCollege_name("材料学院");
+		HibernateUtil.updatePaper(p);
 		HibernateUtil.DeHibernateOperation();
 	}
 

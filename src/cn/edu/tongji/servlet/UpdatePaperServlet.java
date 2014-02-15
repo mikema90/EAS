@@ -1,4 +1,4 @@
-package cn.edu.tongji;
+package cn.edu.tongji.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+import cn.edu.tongji.util.CommonFuncInServlet;
+import cn.edu.tongji.util.HibernateUtil;
 import model.paper;
 
 @WebServlet("/updatePaper")
@@ -25,47 +28,26 @@ public class UpdatePaperServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-	@SuppressWarnings("deprecation")
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// cover Chinese character
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
+		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
 
-		String college, category, authors, title, journal, ISSN, ISBN, journal_type, language;
-		String teacher_work_id = (String) request.getAttribute("username");
-		Date post_date;
-		boolean passed = false;
+		//get id from url
+		int id = 0;//request.getRequestURI();
+		paper p = CommonFuncInServlet.fillinPaper(request);
+		p.setId(id);
+		HibernateUtil.updatePaper(p);
 
-		String rootPath = request.getRealPath("/");
-		String pdf_url = rootPath + teacher_work_id;
-		paper p = new paper();
-		// fill data into paper
-		/*p.setTeacher_work_id(teacher_work_id);
-		p.setCollege(college);
-		p.setCategory(category);
-		p.setAuthors(authors);
-		p.setTitle(title);
-		p.setJournal(journal);
-		p.setIssn(ISSN);
-		p.setIsbn(ISBN);
-		p.setJournal_type(journal_type);
-		p.setPost_date(post_date);
-		p.setLanguage(language);
-		p.setPdf_url(pdf_url);
-		p.setPassed(passed);*/
-		// -------------------------------------------------------------
-		// p.setTeacher_work_id(teacher_work_id);
-		HibernateUtil.addPaper(p);
+		JSONObject result = new JSONObject();
+		result.accumulate("Status", "success");
+		result.accumulate("redirectUrl", "thesisList.html");
 
-		String result = "{\"Status\":\"success\"}";
-		System.out.println(result);
-		out.write(result);
+		System.out.println(result.toString());
+		out.write(result.toString());
 		out.flush();
 		out.close();
-
 	}
 }

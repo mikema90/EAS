@@ -1,4 +1,4 @@
-package cn.edu.tongji;
+package cn.edu.tongji.servlet;
 
 public class UpdateExpertServlet {
 

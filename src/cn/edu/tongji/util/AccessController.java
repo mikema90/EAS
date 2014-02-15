@@ -1,8 +1,8 @@
 package cn.edu.tongji.util;
 
-public class AdminUtil {
+public class AccessController {
 
-	public AdminUtil() {
+	public AccessController() {
 		// TODO Auto-generated constructor stub
 	}
 

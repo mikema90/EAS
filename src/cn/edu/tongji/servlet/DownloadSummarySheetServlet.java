@@ -1,4 +1,4 @@
-package cn.edu.tongji;
+package cn.edu.tongji.servlet;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cn.edu.tongji.util.CommonFuncInServlet;
+import cn.edu.tongji.util.FileUtil;
+import cn.edu.tongji.util.HibernateUtil;
 import jxl.JXLException;
 import model.paper;
 import net.sf.json.JSONObject;
@@ -33,9 +36,7 @@ public class DownloadSummarySheetServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// cover Chinese character
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
+		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
 

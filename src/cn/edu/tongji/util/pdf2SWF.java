@@ -1,4 +1,4 @@
-package cn.edu.tongji;
+package cn.edu.tongji.util;
 
 import java.io.BufferedReader;
 import java.io.File;
