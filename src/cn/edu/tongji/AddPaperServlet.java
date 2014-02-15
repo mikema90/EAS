@@ -64,7 +64,8 @@ public class AddPaperServlet extends HttpServlet {
 				.getParameter("timeMonth"), language = request
 				.getParameter("thesisLanguage"), fileTmpName = request
 				.getParameter("fileTempName");
-		String[] authorNames = request.getParameterValues("authorName"), journalSN = request
+		String[] authorNames = request.getParameterValues("authorName"), authorIds = request
+				.getParameterValues("authorId"), journalSN = request
 				.getParameterValues("periodicalSn1");
 
 		Date post_date = new Date(Integer.valueOf(year) - 1900,
@@ -89,23 +90,28 @@ public class AddPaperServlet extends HttpServlet {
 				.get(college_name));
 		p.setCategory(nameMapping.getInstance().categoryMap.get(category));
 
-		String first_author = "", other_authors = "";
+		String first_author = "", other_authors = "", other_authors_wid = "";
+		int first_author_wid = -1;
 		for (int i = 0; i < authorNames.length; i++) {
 			if (i == 0) { // first_author
 				first_author = authorNames[i];
+				first_author_wid = Integer.valueOf(authorIds[i]);
 			} else { // other authors
 				other_authors = other_authors + authorNames[i] + ",";
+				other_authors_wid = other_authors_wid + authorIds[i] + ",";
 			}
 		}
 
 		p.setFirst_author(first_author);
+		p.setFirst_author_wid(first_author_wid);
 		p.setOther_authors(other_authors);
+		p.setOther_authors_wid(other_authors_wid);
 		p.setTitle(title);
 		p.setJournal(journal);
-		
-		issues = issues + journalSN[0] + "-" + journalSN[1];
+
+		issues = issues + "-" + journalSN[0];
 		p.setIssues(issues);
-		
+
 		p.setJournal_type(journalSN[1]);
 		p.setPost_date(post_date);
 		p.setLanguage(nameMapping.getInstance().languageMap.get(language));

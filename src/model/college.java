@@ -5,6 +5,7 @@ public class college {
 	private int college_id;
 	private String name;
 	private String pwd;
+	private boolean submitted;
 
 	public int getId() {
 		return id;
@@ -36,5 +37,13 @@ public class college {
 
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+
+	public boolean isSubmitted() {
+		return submitted;
+	}
+
+	public void setSubmitted(boolean submitted) {
+		this.submitted = submitted;
 	}
 }
