@@ -38,13 +38,13 @@ public class TestingGGY extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
-		response.setCharacterEncoding("UTF-8");
+//		String userName = request.getParameter("userName");
+//		String password = request.getParameter("password");
+//		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		System.out.println(userName+", "+password);
-		String result="{\"loginStatus\":\"success\", \"redirectUrl\":\"http://news.sina.com.cn\"}";
-		System.out.println(result);
+		System.out.println("authorId: "+request.getParameter("authorId"));
+		String result="{\"Status\":\"success\"}";
+//		System.out.println(result);
 		out.write(result);
 		out.flush();
 		out.close();

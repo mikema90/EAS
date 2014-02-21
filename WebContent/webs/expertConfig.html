@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>教学研究论文评审系统</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/expertConfig.css" rel="stylesheet" type="text/css" />
+</head>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/expertConfig.js"></script>
+<body>
+<div id="templates">
+  <table>
+    <tr class="finishEdit">
+      <td class="school"><textarea spellcheck="false" name="school" readonly="readonly">建筑与城市规划学院</textarea>
+        <select>
+          <option value="caup">建筑与城市规划学院</option>
+          <option value="software">软件学院</option>
+          <option value="automobile" selected="selected">汽车学院</option>
+        </select></td>
+      <td class="authorName"><textarea name="authorName" spellcheck="false" readonly="readonly">啊啦</textarea></td>
+      <td class="authorId"><textarea name="authorId" spellcheck="false" readonly="readonly">1234564333425490</textarea></td>
+      <td class="major"><input name="engineering" type="checkbox" onclick="return false;" checked="checked" value="" />
+        <span>工学 </span>
+        <input name="science" type="checkbox" onclick="return false;" value="" />
+        <span>理学</span><br/>
+        <input name="medicalLife" type="checkbox" onclick="return false;" value="" />
+        <span>医学生命</span><br/>
+        <input name="otherMajor" onclick="return false;" type="checkbox" value="" />
+        <span>文管艺术及其他</span></td>
+      <td class="languageAuth"><input name="english" type="checkbox" onclick="return false;" checked="checked" value="" />
+        <span>英文 </span>
+        <input name="german" type="checkbox" onclick="return false;" checked="checked" value="" />
+        <span>德文</span><br/>
+        <input name="japanese" type="checkbox" onclick="return false;" checked="checked" value="" />
+        <span>日文 </span>
+        <input name="other" type="checkbox" onclick="return false;" checked="checked" value="" />
+        <span>其他</span></td>
+      <td class="operations"><span class="btnOfDisplay" onclick="edit(this)">修改</span><span class="btnOfEditing" onclick="confirmEdit(this)">确定</span><span onclick="del(this)">删除</span><br/>
+        <span href="#">重设密码</span></td>
+    </tr>
+  </table>
+</div>
+<div id="exchangingDataBckgnd">
+  <div id="exchangingDataOuterWrapper">
+    <div id="exchangingDataInnerWrapper"><img src="img/waiting.gif" width="100" height="100" /></div>
+  </div>
+</div>
+<div class="container">
+  <div class="header">
+    <div id="headerName">教学研究论文评审系统 </div>
+    <img src="img/header.png"/></div>
+  <div id="navigationBar"><a href="#">首页</a><a href="#">论文评审</a><a class="activatedBlock" href="#">专家管理</a><a href="#">修改密码</a><a href="#">退出</a></div>
+  <div class="content">
+    <div id="contentTitle">专家管理</div>
+    <table id="contentTable">
+      <tbody>
+        <tr id="columnName">
+          <th width="115">学院（系）</th>
+          <th width="10%">姓名</th>
+          <th width="10%">工号</th>
+          <th width="95">学科门类</th>
+          <th width="95">可审的外文论文</th>
+          <th width="80">操作</th>
+        </tr>
+        <tr class="finishEdit">
+          <td class="school"><textarea spellcheck="false" name="school" readonly="readonly">建筑与城市规划学院</textarea>
+            <select>
+              <option value="caup">建筑与城市规划学院</option>
+              <option value="software">软件学院</option>
+              <option value="automobile" selected="selected">汽车学院</option>
+            </select></td>
+          <td class="authorName"><textarea name="authorName" spellcheck="false" readonly="readonly">啊啦</textarea></td>
+          <td class="authorId"><textarea name="authorId" spellcheck="false" readonly="readonly">1234564333425490</textarea></td>
+          <td class="major"><input name="engineering" type="checkbox" onclick="return false;" checked="checked" value="" />
+            <span>工学 </span>
+            <input name="science" type="checkbox" onclick="return false;" value="" />
+            <span>理学</span><br/>
+            <input name="medicalLife" type="checkbox" onclick="return false;" value="" />
+            <span>医学生命</span><br/>
+            <input name="otherMajor" onclick="return false;" type="checkbox" value="" />
+            <span>文管艺术及其他</span></td>
+          <td class="languageAuth"><input name="english" type="checkbox" onclick="return false;" checked="checked" value="" />
+            <span>英文 </span>
+            <input name="german" type="checkbox" onclick="return false;" checked="checked" value="" />
+            <span>德文</span><br/>
+            <input name="japanese" type="checkbox" onclick="return false;" checked="checked" value="" />
+            <span>日文 </span>
+            <input name="other" type="checkbox" onclick="return false;" checked="checked" value="" />
+            <span>其他</span></td>
+          <td class="operations"><span class="btnOfDisplay" onclick="edit(this)">修改</span><span class="btnOfEditing" onclick="confirmEdit(this)">确定</span><span onclick="del(this)">删除</span><br/>
+            <span href="#">重设密码</span></td>
+        </tr>
+        <tr class="editing">
+          <td class="school"><textarea spellcheck="false" name="school" readonly="readonly">建筑与城市规划学院</textarea>
+            <select>
+              <option value="caup">建筑与城市规划学院</option>
+              <option value="software">软件学院</option>
+              <option value="automobile" selected="selected">汽车学院</option>
+            </select></td>
+          <td class="authorName"><textarea name="authorName" spellcheck="false" readonly="readonly">分发分</textarea></td>
+          <td class="authorId"><textarea name="authorId" spellcheck="false" readonly="readonly">1234564333425490</textarea></td>
+          <td class="major"><input name="engineering" type="checkbox" onclick="return false;" value="" />
+            <span>工学 </span>
+            <input name="science" type="checkbox" onclick="return false;" value="" />
+            <span>理学</span><br/>
+            <input name="medicalLife" checked="checked" type="checkbox" onclick="return false;" value="" />
+            <span>医学生命</span><br/>
+            <input name="otherMajor" onclick="return false;" type="checkbox" value="" />
+            <span>文管艺术及其他</span></td>
+          <td class="languageAuth"><input name="english" type="checkbox" onclick="return false;" checked="checked" value="" />
+            <span>英文 </span>
+            <input name="german" type="checkbox" onclick="return false;" checked="checked" value="" />
+            <span>德文</span><br/>
+            <input name="japanese" type="checkbox" onclick="return false;" checked="checked" value="" />
+            <span>日文 </span>
+            <input name="other" type="checkbox" onclick="return false;" value="" />
+            <span>其他</span></td>
+          <td class="operations"><span class="btnOfDisplay" onclick="edit(this)">修改</span><span class="btnOfEditing" onclick="confirmEdit(this)">确定</span><span onclick="del(this)">删除</span><br/>
+            <span href="#">重设密码</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="exeBtns">
+      <button onclick="testA()">TestA</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
