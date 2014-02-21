@@ -61,8 +61,8 @@ function editAuthorInfo(targetElement) {
 
 function confirmAndQuitEditing(targetElement) {
 	var targetParent = $(targetElement).closest("tr");
-	targetParent.find(".authorName").find("input").attr("readonly");
-	targetParent.find(".authorId").find("input").attr("readonly");
+	targetParent.find(".authorName").find("input").attr("readonly","readonly");
+	targetParent.find(".authorId").find("input").attr("readonly","readonly");
 	targetParent.addClass("finishEdit");
 	targetParent.removeClass("editing");
 	targetParent.find(".authorName").find("div").text("");
@@ -71,11 +71,12 @@ function confirmAndQuitEditing(targetElement) {
 }
 
 function rollbackEditing(targetElement) {
+	var targetParent = $(targetElement).closest("tr");
 	targetParent.find(".authorName").find("input").val(
 			targetParent.find(".authorName").find("div").text());
 	targetParent.find(".authorId").find("input").val(
 			targetParent.find(".authorId").find("div").text());
-	confirmAndQuitEditingAuthor(targetElement);
+	confirmAndQuitEditing(targetElement);
 }
 
 function resetRowOrder() {
