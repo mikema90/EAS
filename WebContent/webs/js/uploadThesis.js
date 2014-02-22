@@ -1,15 +1,52 @@
 // JavaScript Document
 $(document).ready(
-		function() {
-			var yearSelector = $("select[name='timeYear']");
-			for (var i = 2010; i <= 2030; i++) {
-				var newOption = new Option(i + "", i + "");
-				yearSelector.append(newOption);
-			}
-			var myDate = new Date();
-			yearSelector.find("[value='" + myDate.getFullYear() + "']").attr(
-					"selected", "selected");
-		});
+
+function () {
+	var yearSelector = $("select[name='timeYear']");
+	for (var i = 2010; i <= 2030; i++) {
+		var newOption = new Option(i + "", i + "");
+		yearSelector.append(newOption);
+	}
+	var myDate = new Date();
+	yearSelector.find("[value='" + myDate.getFullYear() + "']").attr("selected", "selected");
+
+	var infoId = getParam("id");
+	if (infoId == null) {
+		return;
+	} else {
+		thesisInfo = JSON.parse($.cookie(infoId));
+		$("#thesisTypeSelector").find("option:contains('" + thesisInfo.category + "')").attr("selected", "selected");
+		insertAuthor2nd(thesisInfo.first_author, thesisInfo.first_author_wid);
+		var otherAuthorNames=thesisInfo.other_authors.split(",");
+		var otherAuthorIds=thesisInfo.other_authors_wid.split(",");
+		for(var i=0;i<otherAuthorNames.length;i++){
+			insertAuthor2nd(otherAuthorNames[i], otherAuthorIds[i]);
+		}
+		$("#thesisNameInputBox").val(thesisInfo.title);
+		$("#periodicalNameInputBox").val(thesisInfo.journal);
+		var periodicalSn=thesisInfo.other_authors_wid.issues("-");
+		$("#periodicalSelector").val(periodicalSn[0]);
+	}
+});
+
+function insertAuthor2nd(authorName, authorId){
+	var newAuthorInfo = $("#authorInfoTemplate").clone(true);
+	newAuthorInfo.find(".authorOrder").text($("#authorEditor").find(".authorOrder").text());
+	newAuthorInfo.find(".authorName").find("input").val(authorName);
+	newAuthorInfo.find(".authorId").find("input").val(authorId);
+	newAuthorInfo.insertBefore($("#authorEditor"));
+	var authorNumStr = $("#authorEditor").find(".authorOrder").text();
+	$("#authorEditor").find(".authorOrder").text(parseInt(authorNumStr) + 1);
+}
+
+function getParam(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) {
+		return unescape(r[2]);
+	}
+	return null;
+}
 
 function showAuthorEditor() {
 	$("#authorEditor").css("display", "table-row");
@@ -23,24 +60,11 @@ function hideAuthorEditor() {
 }
 
 function insertAuthorInfo() {
-	if ($("#authorNameInputBox").val() == ""
-			|| $("#authorIdInputBox").val() == "") {
+	if ($("#authorNameInputBox").val() == "" || $("#authorIdInputBox").val() == "") {
 		alert("作者姓名和工号不能为空");
 	} else {
-		var newAuthorInfo = $("#authorInfoTemplate").clone(true);
-		newAuthorInfo.find(".authorOrder").text(
-				$("#authorEditor").find(".authorOrder").text());
-		newAuthorInfo.find(".authorName").find("input").val(
-				$("#authorNameInputBox").val());
-		newAuthorInfo.find(".authorId").find("input").val(
-				$("#authorIdInputBox").val());
-
-		newAuthorInfo.insertBefore($("#authorEditor"));
-
+		insertAuthor2nd($("#authorNameInputBox").val(), $("#authorIdInputBox").val())
 		hideAuthorEditor();
-		var authorNumStr = $("#authorEditor").find(".authorOrder").text();
-		$("#authorEditor").find(".authorOrder")
-				.text(parseInt(authorNumStr) + 1);
 		$("#authorNameInputBox").val("");
 		$("#authorIdInputBox").val("");
 	}
@@ -52,17 +76,17 @@ function editAuthorInfo(targetElement) {
 	targetParent.find(".authorName").find("input").removeAttr("readonly");
 	targetParent.find(".authorId").find("input").removeAttr("readonly");
 	targetParent.find(".authorName").find("div").text(
-			targetParent.find(".authorName").find("input").val());
+	targetParent.find(".authorName").find("input").val());
 	targetParent.find(".authorId").find("div").text(
-			targetParent.find(".authorId").find("input").val());
+	targetParent.find(".authorId").find("input").val());
 	targetParent.addClass("editing");
 	targetParent.removeClass("finishEdit");
 }
 
 function confirmAndQuitEditing(targetElement) {
 	var targetParent = $(targetElement).closest("tr");
-	targetParent.find(".authorName").find("input").attr("readonly","readonly");
-	targetParent.find(".authorId").find("input").attr("readonly","readonly");
+	targetParent.find(".authorName").find("input").attr("readonly", "readonly");
+	targetParent.find(".authorId").find("input").attr("readonly", "readonly");
 	targetParent.addClass("finishEdit");
 	targetParent.removeClass("editing");
 	targetParent.find(".authorName").find("div").text("");
@@ -73,14 +97,14 @@ function confirmAndQuitEditing(targetElement) {
 function rollbackEditing(targetElement) {
 	var targetParent = $(targetElement).closest("tr");
 	targetParent.find(".authorName").find("input").val(
-			targetParent.find(".authorName").find("div").text());
+	targetParent.find(".authorName").find("div").text());
 	targetParent.find(".authorId").find("input").val(
-			targetParent.find(".authorId").find("div").text());
+	targetParent.find(".authorId").find("div").text());
 	confirmAndQuitEditing(targetElement);
 }
 
 function resetRowOrder() {
-	$("#authorListTable .authorOrder").each(function(index, element) {
+	$("#authorListTable .authorOrder").each(function (index, element) {
 		$(element).text(index + 1);
 	});
 }
@@ -89,8 +113,7 @@ function moveUp(targetElement) {
 	var targetParent = $(targetElement).closest("tr");
 	var targetIndex = $("#authorListTable tr").index(targetParent);
 	if (targetIndex != 1) {
-		targetParent.insertBefore($("#authorListTable tr:eq("
-				+ (targetIndex - 1) + ")"));
+		targetParent.insertBefore($("#authorListTable tr:eq(" + (targetIndex - 1) + ")"));
 	}
 	resetRowOrder();
 }
@@ -100,8 +123,7 @@ function moveDown(targetElement) {
 	var targetIndex = $("#authorListTable tr").index(targetParent);
 	var trNum = $("#authorListTable tr").size();
 	if (targetIndex != (trNum - 3)) {
-		targetParent.insertAfter($("#authorListTable tr:eq("
-				+ (targetIndex + 1) + ")"));
+		targetParent.insertAfter($("#authorListTable tr:eq(" + (targetIndex + 1) + ")"));
 	}
 	resetRowOrder();
 }
@@ -113,10 +135,10 @@ function delAuthorInfo(targetElement) {
 
 function changePeriodicalSnSelector(targetElement) {
 	var targetParent = $(targetElement).closest(".oneLine");
-	if($("#periodicalSelector").val()=="ISSN"){
+	if ($("#periodicalSelector").val() == "ISSN") {
 		targetParent.removeClass("isISBN");
 		targetParent.addClass("isISSN");
-	}else{
+	} else {
 		targetParent.removeClass("isISSN");
 		targetParent.addClass("isISBN");
 	}
@@ -124,24 +146,24 @@ function changePeriodicalSnSelector(targetElement) {
 	$(".periodicalSn.sn2").val("");
 }
 
-function onChangeSn1(targetElement){
-	if($("#periodicalSelector").val()=="ISSN"){
-		if($(targetElement).val().length>=4){
+function onChangeSn1(targetElement) {
+	if ($("#periodicalSelector").val() == "ISSN") {
+		if ($(targetElement).val().length >= 4) {
 			$(".periodicalSn.sn2").focus();
-			if($(targetElement).val().length>=5){
-				$(targetElement).val($(targetElement).val().substr(0,4));
+			if ($(targetElement).val().length >= 5) {
+				$(targetElement).val($(targetElement).val().substr(0, 4));
 			}
 		}
-	}else if($("#periodicalSelector").val()=="ISBN"){
-		if($(targetElement).val().length>=13){
-			$(targetElement).val($(targetElement).val().substr(0,13));
+	} else if ($("#periodicalSelector").val() == "ISBN") {
+		if ($(targetElement).val().length >= 13) {
+			$(targetElement).val($(targetElement).val().substr(0, 13));
 		}
 	}
 }
 
-function onChangeSn2(targetElement){
-	if($(targetElement).val().length>=4){
-		$(targetElement).val($(targetElement).val().substr(0,4));
+function onChangeSn2(targetElement) {
+	if ($(targetElement).val().length >= 4) {
+		$(targetElement).val($(targetElement).val().substr(0, 4));
 	}
 }
 
@@ -155,8 +177,7 @@ function uploadFile() {
 
 		try {
 			$(window.frames["hidden_frame"].document).text("");
-		} catch (e) {
-		}
+		} catch (e) {}
 		checkingInterval = setInterval(checkUploadingStatus, 2000);
 		$("#uploadFileForm").submit();
 	}
@@ -206,32 +227,31 @@ function checkUploadingStatus() {
 function submitForm() {
 	if ($("#authorListTable tbody").find("tr").length < 4) {
 		alert("作者不能为空");
-	} else if ($("#thesisNameInputBox").val() == ""
-			|| $("#periodicalNameInputBox").val() == "") {
+	} else if ($("#thesisNameInputBox").val() == "" || $("#periodicalNameInputBox").val() == "") {
 		alert("论文和期刊名称不能为空");
-	} else if ($("#periodicalSelector").val() == "ISSN"	&& ($(".periodicalSn.sn1").val().length != 4 || $(".periodicalSn.sn2").val().length != 4)) {
+	} else if ($("#periodicalSelector").val() == "ISSN" && ($(".periodicalSn.sn1").val().length != 4 || $(".periodicalSn.sn2").val().length != 4)) {
 		alert("ISSN需要8位数字或字母并且由短横隔开");
-	} else if ($("#periodicalSelector").val() == "ISBN" && $(".periodicalSn.sn1").val().length != 13 ) {
+	} else if ($("#periodicalSelector").val() == "ISBN" && $(".periodicalSn.sn1").val().length != 13) {
 		alert("ISSN需要13位数字");
 	} else if ($("#uploadingStatus").text() != "上传成功！") {
 		alert("请上传附件");
 	} else {
 		var submitData = $("#thesisInfoForm").serialize();
 		$.ajax({
-			type : 'POST',
-			url : "../addPaper",
-			data : submitData,
-			success : function(jsonData) {
+			type: 'POST',
+			url: "../addPaper",
+			data: submitData,
+			success: function (jsonData) {
 				if (jsonData.Status == "success") {
 					window.location = jsonData.redirectUrl;
 				} else {
 					alert("保存未成功");
 				}
 			},
-			error : function() {
+			error: function () {
 				alert("保存失败");
 			},
-			dataType : 'json'
+			dataType: 'json'
 		});
 	}
 

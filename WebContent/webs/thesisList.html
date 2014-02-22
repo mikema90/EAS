@@ -7,6 +7,7 @@
 <link href="css/thesisList.css" rel="stylesheet" type="text/css" />
 </head>
 <script type="text/javascript" language="javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/jquery.cookie.js"></script>
 <script type="text/javascript" language="javascript" charset="utf-8" src="js/thesisList.js"></script>
 <body>
 <div id="templates">
@@ -22,7 +23,7 @@
       <td class="isForeignLanguage" rowspan="1">是</td>
       <td class="isCore" rowspan="1">是</td>
       <td class="pdfId" rowspan="1"><a target="view_window" href="#">查看</a></td>
-      <td><a href="#">修改</a><a href="#">删除</a></td>
+      <td class="operations"><span onclick="modify(this)">修改</span><a href="#">删除</a><div style="display:none;" class="thesisId"></div></td>
     </tr>
   </table>
 </div>
@@ -47,19 +48,6 @@
           <th width="53">是否属于核心</th>
           <th width="40">PDF文件</th>
           <th width="73">操作</th>
-        </tr>
-        <tr>
-          <td class="rowId" rowspan="1">1</td>
-          <td class="school" rowspan="1">Januadfafasfsary</td>
-          <td class="authorName" rowspan="1">Januadfafasfsary</td>
-          <td class="thesisName" rowspan="1">Januadfafasfsary</td>
-          <td class="periodicalName" rowspan="1">Januadfafasfsary</td>
-          <td class="periodicalSn" rowspan="1">Januadfafasfsary</td>
-          <td class="publishTime" rowspan="1">Januadfafasfsary</td>
-          <td class="isForeignLanguage" rowspan="1">是</td>
-          <td class="isCore" rowspan="1">是</td>
-          <td class="pdfId" rowspan="1"><a href="#">查看</a></td>
-          <td><a href="#">修改</a><a href="#">删除</a></td>
         </tr>
       </tbody>
     </table>

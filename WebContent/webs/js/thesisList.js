@@ -1,6 +1,6 @@
 // JavaScript Document
 $(document).ready(function() {
-	test();
+	//test();
 	var pageOffset=getParam("pageOffset");
 	var maxItemCount=getParam("maxItemCount");
 		$.ajax({
@@ -22,8 +22,9 @@ $(document).ready(function() {
 });
 
 function loadContent(jsonData){
+	wholeThesisData=jsonData.paper;
 	$.each(jsonData.paper, function(idx, paperItem){
-		insertNewRow(paperItem.college_name, paperItem.first_author+","+paperItem.other_authors, paperItem.title, paperItem.journal, paperItem.issues, paperItem.post_date, paperItem.language, paperItem.journal_type, paperItem.pdf_url);
+		insertNewRow(paperItem.id, paperItem.college_name, paperItem.first_author+","+paperItem.other_authors, paperItem.title, paperItem.journal, paperItem.issues, paperItem.post_date, paperItem.language, paperItem.journal_type, paperItem.pdf_url);
 	});
 	var pageOffset=parseInt(jsonData.pageOffset);
 	var maxPageCount=parseInt(jsonData.maxPageCount);
@@ -56,7 +57,7 @@ function test(){
 	$("#maxItemCount").find("[value='" + maxItemCount + "']").attr("selected", "selected");
 }
 
-function insertNewRow(school, authorName, thesisName, periodicalName, periodicalSn, publishTime, isForeignLanguage, isCore, pdfId){
+function insertNewRow(thesisId, school, authorName, thesisName, periodicalName, periodicalSn, publishTime, isForeignLanguage, isCore, pdfId){
 	var newRow=$("#templates tr").clone(true);
 	
 	var currentRowId;
@@ -66,6 +67,7 @@ function insertNewRow(school, authorName, thesisName, periodicalName, periodical
 		currentRowId=parseInt($("#contentTable").find(".rowId:last").text());
 	}
 	newRow.find(".rowId").text(currentRowId+1);
+	newRow.find(".thesisId").text(thesisId);
 	newRow.find(".school").text(school);
 	newRow.find(".authorName").text(authorName);
 	newRow.find(".thesisName").text(thesisName);
@@ -77,6 +79,22 @@ function insertNewRow(school, authorName, thesisName, periodicalName, periodical
 	newRow.find(".pdfId a").attr("href","../"+pdfId.replace("\\","/"));
 	
 	$("#contentTable tbody").append(newRow);
+}
+
+function modify(targetElement){
+	var targetParent = $(targetElement).closest("tr");
+	var thesisId=targetParent.find(".thesisId").text();
+	var myDate = new Date();
+	var infoId=myDate.getTime()*3+""+thesisId*13;
+	$.each(wholeThesisData, function(idx, paperItem){
+		var indexStr=idx+""+1;
+		var targetIdStr=targetParent.find(".rowId").text()+"";
+		alert(targetIdStr+","+indexStr);
+		if(parseInt(targetIdStr)==parseInt(indexStr)){
+			$.cookie(infoId, JSON.stringify(paperItem), { path: '/', expires:1});
+			window.location="uploadThesis.html?id="+infoId;
+		}
+	});
 }
 
 function getParam(name){

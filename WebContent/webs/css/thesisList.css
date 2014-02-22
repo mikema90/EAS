@@ -75,3 +75,15 @@
 	margin-left:3px;
 	margin-right:3px;
 }
+
+.operations span{
+	text-decoration:underline;
+	color:#414958;
+	cursor:pointer;
+	margin-left:2px;
+	margin-right:2px;
+}
+
+.operations span:hover{
+	text-decoration:none;
+}
