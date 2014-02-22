@@ -5,6 +5,8 @@ public class admin {
 	private int work_id;
 	private String name;
 	private int pwd;
+	private boolean opendeclare;
+	private boolean openreview;
 
 	public int getId() {
 		return id;
@@ -36,6 +38,22 @@ public class admin {
 
 	public void setPwd(int pwd) {
 		this.pwd = pwd;
+	}
+
+	public boolean isOpendeclare() {
+		return opendeclare;
+	}
+
+	public void setOpendeclare(boolean opendeclare) {
+		this.opendeclare = opendeclare;
+	}
+
+	public boolean isOpenreview() {
+		return openreview;
+	}
+
+	public void setOpenreview(boolean openreview) {
+		this.openreview = openreview;
 	}
 
 }

@@ -1,4 +1,4 @@
-package cn.edu.tongji;
+package cn.edu.tongji.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import cn.edu.tongji.util.CommonFuncInServlet;
 
 @SuppressWarnings("serial")
 public class UpdateReviewStatusServlet extends HttpServlet {
@@ -27,9 +29,7 @@ public class UpdateReviewStatusServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// cover Chinese character
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
+		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();

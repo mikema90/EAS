@@ -1,4 +1,4 @@
-package cn.edu.tongji;
+package cn.edu.tongji.util;
 
 import java.util.HashMap;
 import java.util.Map;

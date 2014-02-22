@@ -8,7 +8,9 @@ public class paper {
 	private String college_name;
 	private String category;
 	private String first_author;
+	private int first_author_wid;
 	private String other_authors;
+	private String other_authors_wid;
 	private String title;
 	private String journal;
 	private String issues;
@@ -58,12 +60,28 @@ public class paper {
 		this.first_author = first_author;
 	}
 
+	public int getFirst_author_wid() {
+		return first_author_wid;
+	}
+
+	public void setFirst_author_wid(int first_author_wid) {
+		this.first_author_wid = first_author_wid;
+	}
+
 	public String getOther_authors() {
 		return other_authors;
 	}
 
 	public void setOther_authors(String other_authors) {
 		this.other_authors = other_authors;
+	}
+
+	public String getOther_authors_wid() {
+		return other_authors_wid;
+	}
+
+	public void setOther_authors_wid(String other_authors_wid) {
+		this.other_authors_wid = other_authors_wid;
 	}
 
 	public String getTitle() {

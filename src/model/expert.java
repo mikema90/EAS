@@ -3,6 +3,7 @@ package model;
 public class expert {
 	private int id;
 	private int work_id;
+	private int college_id;
 	private String name;
 	private int pwd;
 	private boolean engineering;
@@ -13,6 +14,7 @@ public class expert {
 	private boolean deutsch;
 	private boolean japanese;
 	private boolean other;
+	private boolean submitted;
 
 	public int getId() {
 		return id;
@@ -28,6 +30,14 @@ public class expert {
 
 	public void setWork_id(int work_id) {
 		this.work_id = work_id;
+	}
+
+	public int getCollege_id() {
+		return college_id;
+	}
+
+	public void setCollege_id(int college_id) {
+		this.college_id = college_id;
 	}
 
 	public String getName() {
@@ -108,5 +118,13 @@ public class expert {
 
 	public void setOther(boolean other) {
 		this.other = other;
+	}
+
+	public boolean isSubmitted() {
+		return submitted;
+	}
+
+	public void setSubmitted(boolean submitted) {
+		this.submitted = submitted;
 	}
 }
