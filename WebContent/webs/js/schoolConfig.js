@@ -1,10 +1,33 @@
 // JavaScript Document
+$(document).ready(function() {
+		$.ajax({
+		type: 'POST',
+		url: "../getcollege",
+		success: function (jsonData) {
+			if (jsonData.Status == "success") {
+				loadContent(jsonData);
+			} else {
+				alert("加载失败");
+			}
+		},
+		error: function () {
+			alert("加载失败");
+		},
+		dataType: 'json'
+	});
+});
 
-function insertNewRow(schoolId, schoolName, schoolUserName) {
+function loadContent(jsonData){
+	$.each(jsonData.college, function(idx, schoolItem){
+		insertNewRow(schoolItem.college_id, schoolItem.name)
+	});
+}
+
+function insertNewRow(schoolId, schoolName) {
 	var newRow = $("#templates tr").clone(true);
-	newRow.find(".school input").val(schoolId);
-	newRow.find(".school div").val(schoolName);
-	newRow.find(".schoolUserName input").text(schoolUserName);
+	newRow.find(".school .schoolId").text(schoolId);
+	newRow.find(".school .schoolName").text(schoolName);
+	newRow.find(".schoolUserName div").text(schoolId+"00");
 	$("#contentTable tbody").append(newRow);
 }
 
@@ -13,16 +36,7 @@ function resetPassword(targetElement){
 	$("#exchangingDataInnerWrapper").css("visibility","visible");
 	var targetParent = $(targetElement).closest("tr");
 	var schoolId=targetParent.find(".schoolId").text();
-	submitForm(targetParent);
-}
-
-function finishEdit(targetParent) {
-	targetParent.find(".school textarea").text(targetParent.find(".school select option:selected").text());
-	var userNameInputBox = targetParent.find(".schoolUserName input");
-	userNameInputBox.attr("readonly", "readonly");
-	targetParent.addClass("finishEdit");
-	targetParent.removeClass("editing");
-	inEditing=false;
+	submitForm(schoolId);
 }
 
 function submitForm(schoolId) {
@@ -33,7 +47,7 @@ function submitForm(schoolId) {
 		success: function (jsonData) {
 			$("#exchangingDataInnerWrapper").css("visibility","hidden");
 			if (jsonData.Status == "success") {
-				finishEdit(targetParent);
+				alert("修改成功");
 			} else {
 				alert("修改失败");
 			}
@@ -46,8 +60,4 @@ function submitForm(schoolId) {
 		},
 		dataType: 'json'
 	});
-}
-
-function testA() {
-	insertNewRow("software", "哈哈哈", "12345678901", "abc", "def")
 }
