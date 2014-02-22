@@ -24,8 +24,12 @@ function () {
 		}
 		$("#thesisNameInputBox").val(thesisInfo.title);
 		$("#periodicalNameInputBox").val(thesisInfo.journal);
-		var periodicalSn=thesisInfo.other_authors_wid.issues("-");
+		var periodicalSn=thesisInfo.issues.split("-");
 		$("#periodicalSelector").val(periodicalSn[0]);
+		if(periodicalSn[0]=="ISSN"){
+			$(".periodicalSn.sn2").val(periodicalSn[2]);
+		}
+		$(".periodicalSn.sn1").val(periodicalSn[1]);
 	}
 });
 
@@ -68,7 +72,6 @@ function insertAuthorInfo() {
 		$("#authorNameInputBox").val("");
 		$("#authorIdInputBox").val("");
 	}
-
 }
 
 function editAuthorInfo(targetElement) {

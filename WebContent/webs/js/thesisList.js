@@ -3,6 +3,12 @@ $(document).ready(function() {
 	//test();
 	var pageOffset=getParam("pageOffset");
 	var maxItemCount=getParam("maxItemCount");
+	if(pageOffset==null){
+		pageOffset=1;
+	}
+	if(maxItemCount==null){
+		maxItemCount=25;
+	}
 		$.ajax({
 		type: 'POST',
 		url: "../getPaper",
@@ -89,7 +95,7 @@ function modify(targetElement){
 	$.each(wholeThesisData, function(idx, paperItem){
 		var indexStr=idx+""+1;
 		var targetIdStr=targetParent.find(".rowId").text()+"";
-		alert(targetIdStr+","+indexStr);
+		//alert(targetIdStr+","+indexStr);
 		if(parseInt(targetIdStr)==parseInt(indexStr)){
 			$.cookie(infoId, JSON.stringify(paperItem), { path: '/', expires:1});
 			window.location="uploadThesis.html?id="+infoId;
