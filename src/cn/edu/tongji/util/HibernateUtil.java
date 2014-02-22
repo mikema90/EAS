@@ -284,7 +284,7 @@ public class HibernateUtil {
 		// ho.pwdModify("expert", "1234839", "1234", "123456");
 		// HibernateUtil.updateReviewStatus("1", "1234839", "2",
 		// "it is not good enough");
-		List<paper> papers = HibernateUtil.getPaper(1, 3, 8800);
+		List<paper> papers = HibernateUtil.getPaper(0, 3, 8800);
 		for (int i = 0; i < papers.size(); i++) {
 			System.out.println(papers.get(i).getTitle());
 		}
