@@ -6,7 +6,7 @@ $(document).ready(function() {
 		$.ajax({
 		type: 'POST',
 		url: "../getPaper",
-		data: {pageNum:pageNum, rowCount:rowCount},
+		data: {pageOffset:pageOffset, maxItemCount:maxItemCount},
 		success: function (jsonData) {
 			if (jsonData.Status == "success") {
 				loadContent(jsonData);
