@@ -35,9 +35,10 @@ public class GetPaperServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		int pageroffset = 1;
+		int pageroffset = 0;
 		int maxcount = 1;
-		List<paper> papers = HibernateUtil.getPaper(pageroffset, maxcount);
+		String college_id = "8800";
+		List<paper> papers = HibernateUtil.getPaper(pageroffset, maxcount, Integer.valueOf(college_id));
 
 		// json to return
 		JSONObject result = new JSONObject();

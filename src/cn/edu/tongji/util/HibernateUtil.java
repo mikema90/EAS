@@ -21,7 +21,7 @@ public class HibernateUtil {
 	private static String admin_login_sql = "from admin where work_id = ? and pwd = ?";
 	private static String college_login_sql = "from college where college_id = ? and pwd = ?";
 
-	private static String get_paper_sql = "from paper";
+	private static String get_paper_sql = "from paper where college_id = ?";
 	private static String get_college_sql = "from college";
 
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
@@ -106,16 +106,19 @@ public class HibernateUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<paper> getPaper(int pageroffset, int maxcount) {
+	public static List<paper> getPaper(int pageroffset, int maxcount,
+			int college_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		List<paper> papers = null;
 		if (maxcount == -1) {// get all
-			papers = session.createQuery(get_paper_sql).list();
+			papers = session.createQuery(get_paper_sql)
+					.setInteger(0, college_id).list();
 		} else { // get specific rows
 			papers = session.createQuery(get_paper_sql)
-					.setFirstResult(pageroffset).setMaxResults(maxcount).list();
+					.setInteger(0, college_id).setFirstResult(pageroffset)
+					.setMaxResults(maxcount).list();
 		}
 
 		session.getTransaction().commit();
@@ -221,7 +224,7 @@ public class HibernateUtil {
 
 		session.getTransaction().commit();
 		session.close();
-		
+
 		return upstatus;
 	}
 
@@ -245,11 +248,10 @@ public class HibernateUtil {
 
 		session.getTransaction().commit();
 		session.close();
-		
+
 		return upstatus;
 	}
 
-	
 	/**
 	 * reset expert pwd
 	 * 
@@ -270,10 +272,10 @@ public class HibernateUtil {
 
 		session.getTransaction().commit();
 		session.close();
-		
+
 		return upstatus;
 	}
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// HibernateUtil ho = new HibernateUtil();
@@ -282,13 +284,15 @@ public class HibernateUtil {
 		// ho.pwdModify("expert", "1234839", "1234", "123456");
 		// HibernateUtil.updateReviewStatus("1", "1234839", "2",
 		// "it is not good enough");
-		// List<paper> papers = HibernateUtil.getPaper(1, 1);
-		// System.out.println(papers.get(0).getTitle());
+		List<paper> papers = HibernateUtil.getPaper(1, 3, 8800);
+		for (int i = 0; i < papers.size(); i++) {
+			System.out.println(papers.get(i).getTitle());
+		}
 		// paper p = new paper();
 		// p.setId(2);
 		// p.setCollege_name("材料学院");
 		// HibernateUtil.updatePaper(p);
-		HibernateUtil.resetExpertPwd(1234839);
+		// HibernateUtil.resetExpertPwd(1234839);
 		HibernateUtil.DeHibernateOperation();
 	}
 
