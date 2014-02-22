@@ -42,20 +42,20 @@ function resetPassword(targetElement){
 function submitForm(schoolId) {
 	$.ajax({
 		type: 'POST',
-		url: "../TestingGGY",
+		url: "../resetcollegepwd",
 		data: {schoolId:schoolId},
 		success: function (jsonData) {
 			$("#exchangingDataInnerWrapper").css("visibility","hidden");
 			if (jsonData.Status == "success") {
-				alert("修改成功");
+				alert("重置成功");
 			} else {
-				alert("修改失败");
+				alert("重置失败");
 			}
 			$("#exchangingDataBckgnd").css("visibility","hidden");
 		},
 		error: function () {
 			$("#exchangingDataInnerWrapper").css("visibility","hidden");
-			alert("修改失败");
+			alert("重置失败");
 			$("#exchangingDataBckgnd").css("visibility","hidden");
 		},
 		dataType: 'json'

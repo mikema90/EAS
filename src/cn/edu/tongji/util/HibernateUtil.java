@@ -29,6 +29,9 @@ public class HibernateUtil {
 	private static String college_pwdmodify_sql = "update college set pwd = ? where college_id = ? and pwd = ?";
 	private static String update_reviewstatus_sql = "update reviewschedule set status = ?, comment = ? where paper_id = ? and expert_work_id = ?";
 
+	private static String reset_college_pwd_sql = "update college set pwd = '8888' where college_id = ?";
+	private static String reset_expert_pwd_sql = "update expert set pwd = '8888' where work_id = ?";
+
 	// -------------------------------------------------------------------------------
 	public HibernateUtil() {
 	}
@@ -200,7 +203,7 @@ public class HibernateUtil {
 		session.close();
 	}
 
-	public static void updateReviewStatus(String paper_id,
+	public static int updateReviewStatus(String paper_id,
 			String expert_work_id, String status, String comment) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
@@ -218,8 +221,59 @@ public class HibernateUtil {
 
 		session.getTransaction().commit();
 		session.close();
+		
+		return upstatus;
 	}
 
+	/**
+	 * reset college pwd
+	 * 
+	 * @param college_id
+	 */
+	public static int resetCollegePwd(int college_id) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int upstatus = session.createQuery(reset_college_pwd_sql)
+				.setInteger(0, college_id).executeUpdate();
+
+		if (upstatus == 1) {
+			System.out.println("update college pwd successfully!");
+		} else {
+			System.out.println("update college pwd failed!!");
+		}
+
+		session.getTransaction().commit();
+		session.close();
+		
+		return upstatus;
+	}
+
+	
+	/**
+	 * reset expert pwd
+	 * 
+	 * @param work_id
+	 */
+	public static int resetExpertPwd(int work_id) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int upstatus = session.createQuery(reset_expert_pwd_sql)
+				.setInteger(0, work_id).executeUpdate();
+
+		if (upstatus == 1) {
+			System.out.println("update expert pwd successfully!");
+		} else {
+			System.out.println("update expert pwd failed!!");
+		}
+
+		session.getTransaction().commit();
+		session.close();
+		
+		return upstatus;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// HibernateUtil ho = new HibernateUtil();
@@ -230,10 +284,11 @@ public class HibernateUtil {
 		// "it is not good enough");
 		// List<paper> papers = HibernateUtil.getPaper(1, 1);
 		// System.out.println(papers.get(0).getTitle());
-		paper p = new paper();
-		p.setId(2);
-		p.setCollege_name("材料学院");
-		HibernateUtil.updatePaper(p);
+		// paper p = new paper();
+		// p.setId(2);
+		// p.setCollege_name("材料学院");
+		// HibernateUtil.updatePaper(p);
+		HibernateUtil.resetExpertPwd(1234839);
 		HibernateUtil.DeHibernateOperation();
 	}
 
