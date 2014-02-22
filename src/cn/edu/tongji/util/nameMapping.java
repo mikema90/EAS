@@ -18,7 +18,8 @@ public class nameMapping {
 		// put for collegeMap
 		collegeMap.put("automobile", "汽车学院");
 		collegeMap.put("caup", "建筑与城市规划学院");
-		collegeMap.put("software", "软件学院");
+		collegeMap.put("8800", "软件学院");
+		collegeMap.put("7700", "土木学院");
 		
 		// put for categoryMap
 		categoryMap.put("eduTheory", "教育理论");

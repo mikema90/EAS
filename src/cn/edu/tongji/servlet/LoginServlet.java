@@ -52,7 +52,11 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("pwd", pwd);
 
 			result.accumulate("Status", "success");
-			result.accumulate("redirectUrl", "thesisList.html");
+			if (identity.equals("college")) {
+				result.accumulate("redirectUrl", "thesisList.html");
+			}else{
+				result.accumulate("redirectUrl", "about:blank");
+			}
 		} else {
 			result.accumulate("Status", "failed");
 		}

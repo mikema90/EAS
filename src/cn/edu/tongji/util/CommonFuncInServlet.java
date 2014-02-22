@@ -41,7 +41,7 @@ public class CommonFuncInServlet {
 			throws IOException {
 		HttpSession session = request.getSession();
 		String college_id = (String) session.getAttribute("username");
-		String college_name = request.getParameter("school"), category = request
+		String /*college_name = request.getParameter("school"),*/ category = request
 				.getParameter("thesisType"), title = request
 				.getParameter("thesisName"), journal = request
 				.getParameter("periodicalName"), issues = request
@@ -59,7 +59,7 @@ public class CommonFuncInServlet {
 		boolean passed = false;
 
 		// for testing --delete later
-		college_id = "8800";
+		//college_id = "8800";
 
 		String rootPath = request.getRealPath("/");
 		String tmpPath = rootPath + "tempUploadedFile" + File.separator
@@ -73,7 +73,7 @@ public class CommonFuncInServlet {
 		// fill data into paper
 		p.setCollege_id(Integer.valueOf(college_id));
 		p.setCollege_name(nameMapping.getInstance().collegeMap
-				.get(college_name));
+				.get(college_id));
 		p.setCategory(nameMapping.getInstance().categoryMap.get(category));
 
 		String first_author = "", other_authors = "", other_authors_wid = "";
