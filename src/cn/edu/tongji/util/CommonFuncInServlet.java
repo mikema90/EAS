@@ -45,21 +45,22 @@ public class CommonFuncInServlet {
 		String category = request.getParameter("thesisType"), title = request
 				.getParameter("thesisName"), journal = request
 				.getParameter("periodicalName"), issues = request
-				.getParameter("periodicalType"), year = request
+				.getParameter("periodicalType"), journalSN1 = request
+				.getParameter("periodicalSn1"), journalSN2 = request
+				.getParameter("periodicalSn2"), year = request
 				.getParameter("timeYear"), month = request
 				.getParameter("timeMonth"), language = request
 				.getParameter("thesisLanguage"), fileTmpName = request
 				.getParameter("fileTempName");
 		String[] authorNames = request.getParameterValues("authorName"), authorIds = request
-				.getParameterValues("authorId"), journalSN = request
-				.getParameterValues("periodicalSn1");
+				.getParameterValues("authorId");
 
 		Date post_date = new Date(Integer.valueOf(year) - 1900,
 				Integer.valueOf(month) - 1, 1);
 		boolean passed = false;
 
 		// for testing --delete later
-		//college_id = "8800";
+		college_id = "8800";
 
 		String rootPath = request.getRealPath("/");
 		String tmpPath = rootPath + "tempUploadedFile" + File.separator
@@ -72,8 +73,7 @@ public class CommonFuncInServlet {
 		paper p = new paper();
 		// fill data into paper
 		p.setCollege_id(Integer.valueOf(college_id));
-		p.setCollege_name(nameMapping.getInstance().collegeMap
-				.get(college_id));
+		p.setCollege_name(nameMapping.getInstance().collegeMap.get(college_id));
 		p.setCategory(nameMapping.getInstance().categoryMap.get(category));
 
 		String first_author = "", other_authors = "", other_authors_wid = "";
@@ -88,6 +88,10 @@ public class CommonFuncInServlet {
 			}
 		}
 
+		//remove the last ","
+		other_authors = other_authors.substring(0, other_authors.length() - 1);
+		other_authors_wid = other_authors_wid.substring(0, other_authors_wid.length() - 1);
+		
 		p.setFirst_author(first_author);
 		p.setFirst_author_wid(first_author_wid);
 		p.setOther_authors(other_authors);
@@ -95,10 +99,14 @@ public class CommonFuncInServlet {
 		p.setTitle(title);
 		p.setJournal(journal);
 
-		issues = issues + "-" + journalSN[0];
-		p.setIssues(issues);
+		if (issues.equals("ISSN")) {
+			issues = issues + "-" + journalSN1 + "-" + journalSN2;
+		} else if (issues.equals("ISBN")) {
+			issues = issues + "-" +journalSN1;
+		}
 
-		p.setJournal_type(journalSN[1]);
+		p.setIssues(issues);
+		p.setJournal_type("A");
 		p.setPost_date(post_date);
 		p.setLanguage(nameMapping.getInstance().languageMap.get(language));
 		p.setPdf_url(pdf_url);
