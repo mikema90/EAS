@@ -1,0 +1,130 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+
+#contentTitle {
+	font-size: 20px;
+	font-weight: 800;
+	margin-top: 15px;
+	width: 100%;
+	text-align: center;
+}
+
+#contentTable {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	table-layout: fixed;
+	border-color: #FFF;
+	border-bottom-width: 1px;
+	width:500px;
+}
+
+#contentTable td {
+	word-wrap: break-word;
+	word-break: break-all;
+	white-space: normal;
+	background-color: #d0d8e8;
+	padding: 2px;
+}
+
+#columnName {
+	background-color: #4f81bd;
+	color: #FFF;
+	text-align: center;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+tr .school .schoolId{
+	display:none;
+}
+
+tr.finishEdit, tr.editing{
+	height:35px;
+}
+
+#contentTable a {
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+#exeBtns {
+	margin-top: 20px;
+	width: 550px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#exeBtns button {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+#contentTable input {
+	width: 95%;
+	border-width: 2px;
+	border-color: #426da2;
+	border-style: solid;
+	outline: none;
+	resize: none;
+}
+
+#contentTable .finishEdit input {
+	border-width: 0px;
+	background: none;
+	text-align: center;
+	font: 16px Verdana, Arial, Helvetica, sans-serif;
+}
+
+.finishEdit select, .editing .school input {
+	display: none;
+}
+
+#schoolSelector {
+	width: 142px;
+}
+
+.finishEdit .btnOfEditing, .editing .btnOfDisplay {
+	display: none;
+}
+
+.operations span {
+	text-decoration: underline;
+	color: #414958;
+	cursor: pointer;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.operations span:hover {
+	text-decoration: none;
+}
+
+#exchangingDataBckgnd {
+	visibility:hidden;
+	z-index: 98;
+	background: #000;
+	opacity: 0.5;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+}
+
+#exchangingDataOuterWrapper {
+	z-index: 99;
+	height: 0px;
+	width: 0px;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+}
+
+#exchangingDataInnerWrapper {
+	z-index: 99;
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	margin: -60px;
+}

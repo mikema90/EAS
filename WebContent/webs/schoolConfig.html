@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>教学研究论文评审系统</title>
+<link href="css/common.css" rel="stylesheet" type="text/css" />
+<link href="css/schoolConfig.css" rel="stylesheet" type="text/css" />
+</head>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/schoolConfig.js"></script>
+<body>
+<div id="templates">
+  <table>
+    <tr class="finishEdit">
+
+    </tr>
+  </table>
+</div>
+<div id="exchangingDataBckgnd">
+  <div id="exchangingDataOuterWrapper">
+    <div id="exchangingDataInnerWrapper"><img src="img/waiting.gif" width="100" height="100" /></div>
+  </div>
+</div>
+<div class="container">
+  <div class="header">
+    <div id="headerName">教学研究论文评审系统 </div>
+    <img src="img/header.png"/></div>
+  <div id="navigationBar"><a href="#">首页</a><a href="#">论文评审</a><a href="#">专家管理</a><a class="activatedBlock" href="#">院系账户管理</a><a href="#">修改密码</a><a href="#">退出</a></div>
+  <div class="content">
+    <div id="contentTitle">院系账户管理</div>
+    <table id="contentTable">
+      <tbody>
+        <tr id="columnName">
+          <th width="190">学院（系）</th>
+          <th width="190">用户名(院系代码+00)</th>
+          <th width="150">操作</th>
+        </tr>
+        <tr class="finishEdit">
+          <td class="school"><div class="schoolId" value="123456789"></div>
+            <div class="schoolName">建筑与城市规划学院</div></td>
+          <td class="schoolUserName"><div>12345678900</div></td>
+          <td class="operations"><span onclick="resetPassword(this)">重设密码</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="exeBtns">
+      <button onclick="testA()">TestA</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

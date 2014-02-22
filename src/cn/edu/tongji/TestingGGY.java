@@ -41,6 +41,12 @@ public class TestingGGY extends HttpServlet {
 //		String userName = request.getParameter("userName");
 //		String password = request.getParameter("password");
 //		response.setCharacterEncoding("UTF-8");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		PrintWriter out = response.getWriter();
 		System.out.println("authorId: "+request.getParameter("authorId"));
 		String result="{\"Status\":\"success\"}";
