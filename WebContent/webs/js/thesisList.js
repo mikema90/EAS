@@ -1,8 +1,12 @@
 // JavaScript Document
 $(document).ready(function() {
+	test();
+	var pageOffset=getParam("pageOffset");
+	var maxItemCount=getParam("maxItemCount");
 		$.ajax({
 		type: 'POST',
 		url: "../getPaper",
+		data: {pageNum:pageNum, rowCount:rowCount},
 		success: function (jsonData) {
 			if (jsonData.Status == "success") {
 				loadContent(jsonData);
@@ -21,6 +25,35 @@ function loadContent(jsonData){
 	$.each(jsonData.paper, function(idx, paperItem){
 		insertNewRow(paperItem.college_name, paperItem.first_author+","+paperItem.other_authors, paperItem.title, paperItem.journal, paperItem.issues, paperItem.post_date, paperItem.language, paperItem.journal_type, paperItem.pdf_url);
 	});
+	var pageOffset=parseInt(jsonData.pageOffset);
+	var maxPageCount=parseInt(jsonData.maxPageCount);
+	for(var i=1;i<maxPageCount+1;i++){
+		var newOption = new Option(i + "", i + "");
+		$("#pageOffset").append(newOption);
+	}
+	$("#pageOffset").find("[value='" + pageOffset + "']").attr("selected", "selected");
+	var maxItemCount=getParam("maxItemCount");
+	$("#maxItemCount").find("[value='" + maxItemCount + "']").attr("selected", "selected");
+}
+
+function changePageOffset(){
+	window.location="thesisList.html?pageOffset="+$("#pageOffset").val()+"&maxItemCount="+$("#maxItemCount").val();
+}
+
+function changeMaxItemCount(){
+		window.location="thesisList.html?pageOffset=1&maxItemCount="+$("#maxItemCount").val();
+}
+
+function test(){
+	var pageOffset=parseInt(getParam("pageOffset"));
+	var maxPageCount=8;
+	for(var i=1;i<maxPageCount+1;i++){
+		var newOption = new Option(i + "", i + "");
+		$("#pageOffset").append(newOption);
+	}
+	$("#pageOffset").find("[value='" + pageOffset + "']").attr("selected", "selected");
+	var maxItemCount=getParam("maxItemCount");
+	$("#maxItemCount").find("[value='" + maxItemCount + "']").attr("selected", "selected");
 }
 
 function insertNewRow(school, authorName, thesisName, periodicalName, periodicalSn, publishTime, isForeignLanguage, isCore, pdfId){
@@ -41,11 +74,16 @@ function insertNewRow(school, authorName, thesisName, periodicalName, periodical
 	newRow.find(".publishTime").text(publishTime);
 	newRow.find(".isForeignLanguage").text(isForeignLanguage);
 	newRow.find(".isCore").text(isCore);
-	newRow.find(".pdfId a").attr("href","../requestPdf?pdfId="+pdfId);
+	newRow.find(".pdfId a").attr("href","../"+pdfId.replace("\\","/"));
 	
 	$("#contentTable tbody").append(newRow);
 }
 
-function testA(){
-	insertNewRow("院系XXX", "作者小明", "论文名", "期刊名balabala", "期刊号xxxx", "xxxx年xx月xx日", "是", "是", "pdfIdAbcdefg");
+function getParam(name){
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if (r!=null){
+		return unescape(r[2]);
+	}
+	return null;
 }
