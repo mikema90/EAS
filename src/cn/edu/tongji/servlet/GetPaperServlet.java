@@ -39,10 +39,19 @@ public class GetPaperServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		int pageroffset = 0;
-		int maxcount = 1;
+		int pageOffset = Integer.valueOf(request.getParameter("pageOffset"));
+		int maxItemCount = Integer
+				.valueOf(request.getParameter("maxItemCount"));
 		String college_id = "8800";
-		List<paper> papers = HibernateUtil.getPaper(pageroffset, maxcount,
+
+		int icount = HibernateUtil.getPaperCount(Integer.valueOf(college_id));
+		int pageCount = (icount / maxItemCount) + 1;
+
+		if (pageOffset > pageCount) {// over max page
+			pageOffset = pageCount;
+		}
+		int startIndex = (pageOffset - 1) * maxItemCount;
+		List<paper> papers = HibernateUtil.getPaper(startIndex, maxItemCount,
 				Integer.valueOf(college_id));
 
 		JsonConfig jsonConfig = new JsonConfig();
@@ -54,6 +63,8 @@ public class GetPaperServlet extends HttpServlet {
 		JSONArray jaPapers = JSONArray.fromObject(papers, jsonConfig);
 		result.accumulate("paper", jaPapers);
 		result.accumulate("Status", "success");
+		result.accumulate("pageOffset", pageOffset);
+		result.accumulate("pageCount", pageCount);
 		// ----------------------------------------------
 		System.out.println(result.toString());
 		out.write(result.toString());
