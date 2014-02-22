@@ -48,10 +48,10 @@ public class GetPaperServlet extends HttpServlet {
 		jsonConfig.registerJsonValueProcessor(Date.class , new JsonDateValueProcessor());  
 		
 		// json to return
-		// JSONObject result = new JSONObject();
-		// result.accumulate("Status", "success");
-		JSONArray result = JSONArray.fromObject(papers, jsonConfig);
-		// result.accumulate("paper", papers);
+		 JSONObject result = new JSONObject();
+		 result.accumulate("Status", "success");
+		JSONArray modifiedPapers = JSONArray.fromObject(papers, jsonConfig);
+		 result.accumulate("paper", modifiedPapers);
 		// ----------------------------------------------
 		System.out.println(result.toString());
 		out.write(result.toString());
