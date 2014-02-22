@@ -2,6 +2,7 @@ package cn.edu.tongji.util;
 
 import java.util.List;
 
+import model.college;
 import model.paper;
 
 import org.hibernate.Session;
@@ -18,7 +19,10 @@ public class HibernateUtil {
 	private static String expert_login_sql = "from expert where work_id = ? and pwd = ?";
 	private static String admin_login_sql = "from admin where work_id = ? and pwd = ?";
 	private static String college_login_sql = "from college where college_id = ? and pwd = ?";
+
 	private static String get_paper_sql = "from paper";
+	private static String get_college_sql = "from college";
+
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
 	private static String college_pwdmodify_sql = "update college set pwd = ? where college_id = ? and pwd = ?";
@@ -34,6 +38,7 @@ public class HibernateUtil {
 
 	/**
 	 * check login name and pwd
+	 * 
 	 * @param identity
 	 * @param username
 	 * @param pwd
@@ -115,6 +120,26 @@ public class HibernateUtil {
 		return papers;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static List<college> getCollege() {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		// get all
+		List<college> colleges = session.createQuery(get_college_sql).list();
+
+		session.getTransaction().commit();
+		session.close();
+
+		System.out.println("get college info successfully!");
+		// cover pwd before return
+		for (int i = 0; i < colleges.size(); i++) {
+			colleges.get(i).setPwd("");
+		}
+
+		return colleges;
+	}
+
 	public static void pwdModify(String identity, String username,
 			String cur_pwd, String new_pwd) {
 		Session session = m_sf.openSession();
@@ -172,8 +197,8 @@ public class HibernateUtil {
 		// ho.pwdModify("expert", "1234839", "1234", "123456");
 		// HibernateUtil.updateReviewStatus("1", "1234839", "2",
 		// "it is not good enough");
-		//List<paper> papers = HibernateUtil.getPaper(1, 1);
-		//System.out.println(papers.get(0).getTitle());
+		// List<paper> papers = HibernateUtil.getPaper(1, 1);
+		// System.out.println(papers.get(0).getTitle());
 		paper p = new paper();
 		p.setId(2);
 		p.setCollege_name("材料学院");
