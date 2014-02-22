@@ -3,6 +3,7 @@ package cn.edu.tongji.util;
 import java.util.List;
 
 import model.college;
+import model.expert;
 import model.paper;
 
 import org.hibernate.Session;
@@ -118,6 +119,36 @@ public class HibernateUtil {
 		session.close();
 
 		return papers;
+	}
+
+	/**
+	 * add expert into DB
+	 * 
+	 * @param expert
+	 */
+	public static void addExpert(expert e) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+		System.out.println("start add expert...\n");
+		session.save(e);
+		System.out.println("complete add expert...\n");
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	/**
+	 * update existing expert in DB
+	 * 
+	 * @param expert
+	 */
+	public static void updateExpert(expert e) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+		System.out.println("start update expert...\n");
+		session.update(e);
+		System.out.println("complete update expert...\n");
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	@SuppressWarnings("unchecked")

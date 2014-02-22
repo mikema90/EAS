@@ -2,13 +2,13 @@ package cn.edu.tongji.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.expert;
 import model.paper;
 
 /**
@@ -25,6 +25,7 @@ public class CommonFuncInServlet {
 
 	/**
 	 * cover Chinese character
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -105,5 +106,13 @@ public class CommonFuncInServlet {
 		p.setPassed(passed);
 
 		return p;
+	}
+
+	public static expert fillinExpert(HttpServletRequest request) {
+		expert e = new expert();
+		// String work_id, college_id, name, pwd;
+		
+		// e.setWork_id(work_id);
+		return e;
 	}
 }

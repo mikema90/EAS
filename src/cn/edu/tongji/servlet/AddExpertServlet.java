@@ -14,11 +14,11 @@ import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.HibernateUtil;
 
-@WebServlet("/updexpert")
+@WebServlet("/addexpert")
 @SuppressWarnings("serial")
-public class UpdateExpertServlet extends HttpServlet {
+public class AddExpertServlet extends HttpServlet {
 
-	public UpdateExpertServlet() {
+	public AddExpertServlet() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -35,7 +35,7 @@ public class UpdateExpertServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		expert e = CommonFuncInServlet.fillinExpert(request);
-		HibernateUtil.updateExpert(e);
+		HibernateUtil.addExpert(e);
 
 		JSONObject result = new JSONObject();
 		result.accumulate("Status", "success");
