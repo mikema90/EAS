@@ -81,9 +81,21 @@
 	margin-right:10px;
 }
 
+.isISBN .sn2, .isISBN #slash{
+	display:none;
+}
+
+.isISBN .sn1{
+	width:140px;
+}
+
+.isISSN .periodicalSn{
+	width:80px;
+}
+
 .periodicalSn{
+	text-align:center;
 	float:left;
-	width:117px;
 	height:25px;
 	font-size:18px;
 }

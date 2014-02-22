@@ -111,6 +111,40 @@ function delAuthorInfo(targetElement) {
 	resetRowOrder();
 }
 
+function changePeriodicalSnSelector(targetElement) {
+	var targetParent = $(targetElement).closest(".oneLine");
+	if($("#periodicalSelector").val()=="ISSN"){
+		targetParent.removeClass("isISBN");
+		targetParent.addClass("isISSN");
+	}else{
+		targetParent.removeClass("isISSN");
+		targetParent.addClass("isISBN");
+	}
+	$(".periodicalSn.sn1").val("");
+	$(".periodicalSn.sn2").val("");
+}
+
+function onChangeSn1(targetElement){
+	if($("#periodicalSelector").val()=="ISSN"){
+		if($(targetElement).val().length>=4){
+			$(".periodicalSn.sn2").focus();
+			if($(targetElement).val().length>=5){
+				$(targetElement).val($(targetElement).val().substr(0,4));
+			}
+		}
+	}else if($("#periodicalSelector").val()=="ISBN"){
+		if($(targetElement).val().length>=13){
+			$(targetElement).val($(targetElement).val().substr(0,13));
+		}
+	}
+}
+
+function onChangeSn2(targetElement){
+	if($(targetElement).val().length>=4){
+		$(targetElement).val($(targetElement).val().substr(0,4));
+	}
+}
+
 function uploadFile() {
 	if ($("#uploadingStatus").text() != "等待上传") {
 		alert("请选择文件");
@@ -175,12 +209,9 @@ function submitForm() {
 	} else if ($("#thesisNameInputBox").val() == ""
 			|| $("#periodicalNameInputBox").val() == "") {
 		alert("论文和期刊名称不能为空");
-	} else if ($("#periodicalSelector").val() == "ISSN"
-			&& $(".periodicalSn:eq(0)").val().length != 8) {
-		alert("ISSN需要8位数字或字母");
-	} else if ($("#periodicalSelector").val() == "ISBN"
-			&& ($(".periodicalSn:eq(0)").val().length != 13 || !$(
-					".periodicalSn:eq(0)").val().isNumeric())) {
+	} else if ($("#periodicalSelector").val() == "ISSN"	&& ($(".periodicalSn.sn1").val().length != 4 || $(".periodicalSn.sn2").val().length != 4)) {
+		alert("ISSN需要8位数字或字母并且由短横隔开");
+	} else if ($("#periodicalSelector").val() == "ISBN" && $(".periodicalSn.sn1").val().length != 13 ) {
 		alert("ISSN需要13位数字");
 	} else if ($("#uploadingStatus").text() != "上传成功！") {
 		alert("请上传附件");

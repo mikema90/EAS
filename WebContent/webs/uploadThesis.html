@@ -81,15 +81,15 @@
           <input id="periodicalNameInputBox" type="text" name="periodicalName">
         </div>
         <div class="clearfloat"></div>
-        <div class="oneLine">
+        <div class="oneLine isISSN">
           <div class="dataNameTag">刊号</div>
-          <select id="periodicalSelector" name="periodicalType">
+          <select id="periodicalSelector" name="periodicalType" onchange="changePeriodicalSnSelector(this)">
             <option value="ISSN" selected="selected">ISSN</option>
             <option value="ISBN">ISBN</option>
           </select>
-          <input class="periodicalSn" type="text" name="periodicalSn1">
+          <input onkeyup="onChangeSn1(this)" class="periodicalSn sn1" type="text" name="periodicalSn1">
           <div id="slash">-</div>
-          <input class="periodicalSn" type="text" name="periodicalSn1">
+          <input onkeyup="onChangeSn2(this)" class="periodicalSn sn2" type="text" name="periodicalSn2">
         </div>
         <div class="clearfloat"></div>
         <div class="oneLine">
