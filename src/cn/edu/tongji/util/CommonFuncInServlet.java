@@ -59,7 +59,7 @@ public class CommonFuncInServlet {
 		boolean passed = false;
 
 		// for testing --delete later
-		college_id = "8800";
+		//college_id = "8800";
 
 		String rootPath = request.getRealPath("/");
 		String tmpPath = rootPath + "tempUploadedFile" + File.separator

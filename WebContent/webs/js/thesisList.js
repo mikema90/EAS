@@ -1,4 +1,28 @@
 // JavaScript Document
+$(document).ready(function() {
+		$.ajax({
+		type: 'POST',
+		url: "../getPaper",
+		success: function (jsonData) {
+			if (jsonData.Status == "success") {
+				loadContent(jsonData);
+			} else {
+				alert("加载失败");
+			}
+		},
+		error: function () {
+			alert("加载失败");
+		},
+		dataType: 'json'
+	});
+});
+
+function loadContent(jsonData){
+	$.each(jsonData.paper, function(idx, paperItem){
+		insertNewRow(paperItem.college_name, paperItem.first_author+","+paperItem.other_authors, paperItem.title, paperItem.journal, paperItem.issues, paperItem.post_date, paperItem.language, paperItem.journal_type, paperItem.pdf_url);
+	});
+}
+
 function insertNewRow(school, authorName, thesisName, periodicalName, periodicalSn, publishTime, isForeignLanguage, isCore, pdfId){
 	var newRow=$("#templates tr").clone(true);
 	
