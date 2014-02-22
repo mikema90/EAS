@@ -19,7 +19,7 @@ $(document).ready(function() {
 
 function loadContent(jsonData){
 	$.each(jsonData.college, function(idx, schoolItem){
-		insertNewRow(schoolItem.college_id, schoolItem.name)
+		insertNewRow(schoolItem.college_id, schoolItem.name);
 	});
 }
 
