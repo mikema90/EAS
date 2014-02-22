@@ -21,7 +21,7 @@
       <td class="publishTime" rowspan="1">Januadfafasfsary</td>
       <td class="isForeignLanguage" rowspan="1">是</td>
       <td class="isCore" rowspan="1">是</td>
-      <td class="pdfId" rowspan="1"><a href="#">查看</a></td>
+      <td class="pdfId" rowspan="1"><a target="view_window" href="#">查看</a></td>
       <td><a href="#">修改</a><a href="#">删除</a></td>
     </tr>
   </table>
@@ -69,7 +69,17 @@
       <button>保存</button>
       <button>提交教务处(提交后不可更改)</button>
       <button>下载汇总表</button>
-      <button onclick="testA()">TestA</button>
+      <br/>
+      <a href="previousPage()">上一页</a>
+      <a href="nextPage()">下一页</a>
+      <span>页码:</span><select id="pageOffset" onchange="changePageOffset()">
+      </select>
+      <span>每页显示:</span><select id="maxItemCount" onchange="changeMaxItemCount()">
+        <option value="25" selected="selected">25</option>
+        <option value="50">50</option>
+        <option value="75">75</option>
+        <option value="100">100</option>
+      </select>
     </div>
   </div>
 </div>
