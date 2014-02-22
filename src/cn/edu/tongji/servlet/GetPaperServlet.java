@@ -42,16 +42,18 @@ public class GetPaperServlet extends HttpServlet {
 		int pageroffset = 0;
 		int maxcount = 1;
 		String college_id = "8800";
-		List<paper> papers = HibernateUtil.getPaper(pageroffset, maxcount, Integer.valueOf(college_id));
+		List<paper> papers = HibernateUtil.getPaper(pageroffset, maxcount,
+				Integer.valueOf(college_id));
 
-		JsonConfig jsonConfig = new JsonConfig();  
-		jsonConfig.registerJsonValueProcessor(Date.class , new JsonDateValueProcessor());  
-		
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new JsonDateValueProcessor());
+
 		// json to return
-		 JSONObject result = new JSONObject();
-		 result.accumulate("Status", "success");
-		JSONArray modifiedPapers = JSONArray.fromObject(papers, jsonConfig);
-		 result.accumulate("paper", modifiedPapers);
+		JSONObject result = new JSONObject();
+		JSONArray jaPapers = JSONArray.fromObject(papers, jsonConfig);
+		result.accumulate("paper", jaPapers);
+		result.accumulate("Status", "success");
 		// ----------------------------------------------
 		System.out.println(result.toString());
 		out.write(result.toString());
