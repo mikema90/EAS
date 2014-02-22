@@ -42,8 +42,7 @@ public class CommonFuncInServlet {
 			throws IOException {
 		HttpSession session = request.getSession();
 		String college_id = (String) session.getAttribute("username");
-		String college_name = request.getParameter("school"), category = request
-				.getParameter("thesisType"), title = request
+		String category = request.getParameter("thesisType"), title = request
 				.getParameter("thesisName"), journal = request
 				.getParameter("periodicalName"), issues = request
 				.getParameter("periodicalType"), year = request
@@ -74,7 +73,7 @@ public class CommonFuncInServlet {
 		// fill data into paper
 		p.setCollege_id(Integer.valueOf(college_id));
 		p.setCollege_name(nameMapping.getInstance().collegeMap
-				.get(college_name));
+				.get(college_id));
 		p.setCategory(nameMapping.getInstance().categoryMap.get(category));
 
 		String first_author = "", other_authors = "", other_authors_wid = "";
@@ -111,7 +110,7 @@ public class CommonFuncInServlet {
 	public static expert fillinExpert(HttpServletRequest request) {
 		expert e = new expert();
 		// String work_id, college_id, name, pwd;
-		
+
 		// e.setWork_id(work_id);
 		return e;
 	}
