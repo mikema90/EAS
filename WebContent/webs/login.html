@@ -82,7 +82,7 @@ function setAuthenticationCode(){
   <div class="clearfloat"></div>
   <div class="oneLine">
     <div class="dataNameTag">验证码：</div>
-    <input id="authenticodeInputBox" type="text" name="authenticode"/>
+    <input onkeydown="if(event.keyCode==13)login()" id="authenticodeInputBox" type="text" name="authenticode"/>
     <div id="authenticationCodeWrapper" style="cursor:pointer" onclick="setAuthenticationCode()">
     	<div id="transparantLayer"></div>
     	<div id="authenticationCodeWords"></div>

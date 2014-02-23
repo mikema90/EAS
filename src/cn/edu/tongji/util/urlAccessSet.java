@@ -18,6 +18,7 @@ public class urlAccessSet {
 		// put for college
 		collegeSet.add("thesisList.html");
 		collegeSet.add("uploadThesis.html");
+		collegeSet.add("changePwd.html");
 	}
 
 	public static urlAccessSet getInstance() {

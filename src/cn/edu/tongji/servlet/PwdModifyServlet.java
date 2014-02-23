@@ -40,17 +40,20 @@ public class PwdModifyServlet extends HttpServlet {
 		String username = (String) session.getAttribute("username");
 		String cur_pwd = (String) session.getAttribute("pwd");
 
-		String old_pwd = request.getParameter("old pwd");
-		String new_pwd = request.getParameter("new pwd");
+		String old_pwd = request.getParameter("formerPwd");
+		String new_pwd = request.getParameter("newPwd");
 
+		String result;
 		if (cur_pwd.equals(old_pwd)) {// old password equal login password
 			HibernateUtil.pwdModify(identity, username, cur_pwd, new_pwd);
-			String result = "{\"Status\":\"success\"}";
+			result = "{\"Status\":\"success\",\"retMsg\":\"密码修改成功，请重新登录。\"}";
+			session.invalidate();
 			System.out.println(result);
-			out.write(result);
-			out.flush();
-			out.close();
+		}else{
+			result = "{\"Status\":\"error\",\"retMsg\":\"原密码输入错误，请重新输入\"}";
 		}
-
+		out.write(result);
+		out.flush();
+		out.close();
 	}
 }
