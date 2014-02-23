@@ -62,13 +62,19 @@ public class CommonFuncInServlet {
 		// for testing --delete later
 		college_id = "8800";
 
-		String rootPath = request.getRealPath("/");
-		String tmpPath = rootPath + "tempUploadedFile" + File.separator
-				+ fileTmpName;
-		String pdf_url = college_id + File.separator + title + ".pdf";
+		String pdf_url = "";
+		if (fileTmpName == null || fileTmpName == "") {// not existing upload
+														// file
+			pdf_url = "";
+		} else { // existing upload file
+			String rootPath = request.getRealPath("/");
+			String tmpPath = rootPath + "tempUploadedFile" + File.separator
+					+ fileTmpName;
+			pdf_url = college_id + File.separator + title + ".pdf";
 
-		// move file to unified dir
-		FileUtil.copyFile(tmpPath, rootPath + pdf_url);
+			// move file to unified dir
+			FileUtil.copyFile(tmpPath, rootPath + pdf_url);
+		}
 
 		paper p = new paper();
 		// fill data into paper
@@ -88,10 +94,11 @@ public class CommonFuncInServlet {
 			}
 		}
 
-		//remove the last ","
+		// remove the last ","
 		other_authors = other_authors.substring(0, other_authors.length() - 1);
-		other_authors_wid = other_authors_wid.substring(0, other_authors_wid.length() - 1);
-		
+		other_authors_wid = other_authors_wid.substring(0,
+				other_authors_wid.length() - 1);
+
 		p.setFirst_author(first_author);
 		p.setFirst_author_wid(first_author_wid);
 		p.setOther_authors(other_authors);
@@ -102,7 +109,7 @@ public class CommonFuncInServlet {
 		if (issues.equals("ISSN")) {
 			issues = issues + "-" + journalSN1 + "-" + journalSN2;
 		} else if (issues.equals("ISBN")) {
-			issues = issues + "-" +journalSN1;
+			issues = issues + "-" + journalSN1;
 		}
 
 		p.setIssues(issues);

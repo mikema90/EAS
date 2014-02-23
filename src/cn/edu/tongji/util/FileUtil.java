@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import model.paper;
@@ -23,12 +22,31 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
 
 public class FileUtil {
 
 	public FileUtil() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public static String renameFile(String sourcePath, String newName) {
+		File sourceFile = new File(sourcePath);
+		String oldName = sourceFile.getName();
+		String targetPath = sourcePath.replace(oldName, newName);
+		File targetFile = new File(targetPath);
+		sourceFile.renameTo(targetFile);
+
+		System.out.println("rename file successfully!");
+		return targetPath;
+	}
+
+	public static void deleteFile(String filePath) {
+		File delFile = new File(filePath);
+		if (delFile.delete()) {
+			System.out.println("delete file successfully");
+		} else {
+			System.out.println("delete file failed");
+		}
 	}
 
 	public static void copyFile(String sourcePath, String targetPath)
@@ -136,17 +154,27 @@ public class FileUtil {
 		for (int i = 0; i < papers.size(); i++) {
 			paper temp = papers.get(i);
 			Date post_date = temp.getPost_date();
-			String date = String.valueOf(post_date.getYear()) + "年" + String.valueOf(post_date.getMonth()) + "月";
-			String coreJournal = temp.getJournal_type() != null ? temp.getJournal_type() : "否";
-			sheet.addCell(new Label(0, content_row_index + i, String.valueOf(i + 1), wcf_center));
-			sheet.addCell(new Label(1, content_row_index + i, temp.getCollege_name(), wcf_center));
-			sheet.addCell(new Label(2, content_row_index + i, temp.getFirst_author(), wcf_center));
-			sheet.addCell(new Label(3, content_row_index + i, temp.getTitle(), wcf_center));
-			sheet.addCell(new Label(4, content_row_index + i, temp.getJournal(), wcf_center));
-			sheet.addCell(new Label(5, content_row_index + i, temp.getIssues(), wcf_center));
+			String date = String.valueOf(post_date.getYear()) + "年"
+					+ String.valueOf(post_date.getMonth()) + "月";
+			String coreJournal = temp.getJournal_type() != null ? temp
+					.getJournal_type() : "否";
+			sheet.addCell(new Label(0, content_row_index + i, String
+					.valueOf(i + 1), wcf_center));
+			sheet.addCell(new Label(1, content_row_index + i, temp
+					.getCollege_name(), wcf_center));
+			sheet.addCell(new Label(2, content_row_index + i, temp
+					.getFirst_author(), wcf_center));
+			sheet.addCell(new Label(3, content_row_index + i, temp.getTitle(),
+					wcf_center));
+			sheet.addCell(new Label(4, content_row_index + i,
+					temp.getJournal(), wcf_center));
+			sheet.addCell(new Label(5, content_row_index + i, temp.getIssues(),
+					wcf_center));
 			sheet.addCell(new Label(6, content_row_index + i, date, wcf_center));
-			sheet.addCell(new Label(7, content_row_index + i, temp.getLanguage(), wcf_center));
-			sheet.addCell(new Label(8, content_row_index + i, coreJournal, wcf_center));
+			sheet.addCell(new Label(7, content_row_index + i, temp
+					.getLanguage(), wcf_center));
+			sheet.addCell(new Label(8, content_row_index + i, coreJournal,
+					wcf_center));
 		}
 		// table footer
 		int blank_distinct = 5;
@@ -163,17 +191,18 @@ public class FileUtil {
 		System.out.println("generate xls file successfully");
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws IOException, JXLException {
 		// TODO Auto-generated method stub
-		paper temp = new paper();
-		temp.setCollege_id(88);
-		temp.setCollege_name("软件学院");
-		temp.setPost_date(new Date(2013, 11, 1));
-		List<paper>papers = new ArrayList<paper>();
-		papers.add(temp);
-		
-		generateXlsFile("C:\\jxl\\教学汇总表.xls", papers);
+		// paper temp = new paper();
+		// temp.setCollege_id(88);
+		// temp.setCollege_name("软件学院");
+		// temp.setPost_date(new Date(2013, 11, 1));
+		// List<paper>papers = new ArrayList<paper>();
+		// papers.add(temp);
+		//
+		// generateXlsFile("C:\\jxl\\教学汇总表.xls", papers);
+		// System.out.println(renameFile("C:\\jxl\\mike.pdf", "jack.pdf"));
+		deleteFile("C:\\jxl\\I am mike.pdf");
 	}
 
 }

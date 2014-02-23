@@ -2,7 +2,6 @@ package cn.edu.tongji.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
+import cn.edu.tongji.util.FileUtil;
 import cn.edu.tongji.util.HibernateUtil;
 import model.paper;
 
@@ -35,11 +35,15 @@ public class UpdatePaperServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		//get id from url
-		int id = 0;//request.getRequestURI();
-		paper p = CommonFuncInServlet.fillinPaper(request);
-		p.setId(id);
-		HibernateUtil.updatePaper(p);
+		// get paper_id from request
+		int paper_id = Integer.valueOf(request.getParameter("paper_id"));
+		// from DB
+		paper old_paper = HibernateUtil.getOnePaperCount(paper_id);
+		// from html
+		paper cur_paper = CommonFuncInServlet.fillinPaper(request);
+		cur_paper.setId(paper_id);
+
+		HibernateUtil.updatePaper(merge(old_paper, cur_paper, request));
 
 		JSONObject result = new JSONObject();
 		result.accumulate("Status", "success");
@@ -49,5 +53,34 @@ public class UpdatePaperServlet extends HttpServlet {
 		out.write(result.toString());
 		out.flush();
 		out.close();
+	}
+
+	/**
+	 * merge the info of old_paper and cur_paper
+	 * 
+	 * @param old_paper
+	 * @param cur_paper
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public paper merge(paper old_paper, paper cur_paper,
+			HttpServletRequest request) {
+		if (cur_paper.getPdf_url() == "" || cur_paper.getPdf_url() == null) {// not
+																				// upload
+																				// file
+			// using old file and just rename it
+			String sourcePath = old_paper.getPdf_url();
+			String newName = cur_paper.getTitle() + ".pdf";
+			String targetPath = FileUtil.renameFile(sourcePath, newName);
+			cur_paper.setPdf_url(targetPath);
+		} else {// upload new file
+				// not the same name, delete the old one
+			if (!cur_paper.getTitle().equals(old_paper.getTitle())) {
+				String filePath = request.getRealPath("/")
+						+ old_paper.getPdf_url();
+				FileUtil.deleteFile(filePath);
+			}
+		}
+		return cur_paper;
 	}
 }

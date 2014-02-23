@@ -42,6 +42,13 @@ public class GetPaperServlet extends HttpServlet {
 		int pageOffset = Integer.valueOf(request.getParameter("pageOffset"));
 		int maxItemCount = Integer
 				.valueOf(request.getParameter("maxItemCount"));
+		// set default value if null
+		if (pageOffset <= 0) {
+			pageOffset = 1;
+		}
+		if (maxItemCount <= 0) {
+			maxItemCount = 25;
+		}
 		String college_id = "8800";
 
 		int icount = HibernateUtil.getPaperCount(Integer.valueOf(college_id));

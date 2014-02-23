@@ -22,6 +22,7 @@ public class HibernateUtil {
 	private static String college_login_sql = "from college where college_id = ? and pwd = ?";
 
 	private static String get_paper_sql = "from paper where college_id = ?";
+	private static String get_one_paper_sql = "from paper where id = ?";
 	private static String get_paper_count_sql = "select count(*) from paper where college_id = ?";
 	private static String get_college_sql = "from college";
 
@@ -126,6 +127,19 @@ public class HibernateUtil {
 		session.close();
 
 		return papers;
+	}
+
+	public static paper getOnePaperCount(int id) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		paper p = (paper) session.createQuery(get_one_paper_sql)
+				.setInteger(0, id).uniqueResult();
+
+		session.getTransaction().commit();
+		session.close();
+
+		return p;
 	}
 
 	public static int getPaperCount(int college_id) {
@@ -298,16 +312,16 @@ public class HibernateUtil {
 		// ho.pwdModify("expert", "1234839", "1234", "123456");
 		// HibernateUtil.updateReviewStatus("1", "1234839", "2",
 		// "it is not good enough");
-//		List<paper> papers = HibernateUtil.getPaper(0, 3, 8800);
-//		for (int i = 0; i < papers.size(); i++) {
-//			System.out.println(papers.get(i).getTitle());
-//		}
+		// List<paper> papers = HibernateUtil.getPaper(0, 3, 8800);
+		// for (int i = 0; i < papers.size(); i++) {
+		// System.out.println(papers.get(i).getTitle());
+		// }
 		// paper p = new paper();
 		// p.setId(2);
 		// p.setCollege_name("材料学院");
 		// HibernateUtil.updatePaper(p);
 		// HibernateUtil.resetExpertPwd(1234839);
-		System.out.println(HibernateUtil.getPaperCount(8800));
+		System.out.println(HibernateUtil.getOnePaperCount(1).getTitle());
 		HibernateUtil.DeHibernateOperation();
 	}
 
