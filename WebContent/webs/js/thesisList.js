@@ -1,8 +1,8 @@
 // JavaScript Document
 $(document).ready(function() {
 	//test();
-	var pageOffset=getParam("pageOffset");
-	var maxItemCount=getParam("maxItemCount");
+	pageOffset=getParam("pageOffset");
+	maxItemCount=getParam("maxItemCount");
 	if(pageOffset==null){
 		pageOffset=1;
 	}
@@ -32,8 +32,8 @@ function loadContent(jsonData){
 	$.each(jsonData.paper, function(idx, paperItem){
 		insertNewRow(paperItem.id, paperItem.college_name, paperItem.first_author+","+paperItem.other_authors, paperItem.title, paperItem.journal, paperItem.issues, paperItem.post_date, paperItem.language, paperItem.journal_type, paperItem.pdf_url);
 	});
-	var pageOffset=parseInt(jsonData.pageOffset);
-	var maxPageCount=parseInt(jsonData.maxPageCount);
+	pageOffset=parseInt(jsonData.pageOffset);
+	maxPageCount=parseInt(jsonData.pageCount);
 	for(var i=1;i<maxPageCount+1;i++){
 		var newOption = new Option(i + "", i + "");
 		$("#pageOffset").append(newOption);
@@ -93,7 +93,7 @@ function modify(targetElement){
 	var myDate = new Date();
 	var infoId=myDate.getTime()*3+""+thesisId*13;
 	$.each(wholeThesisData, function(idx, paperItem){
-		var indexStr=idx+""+1;
+		var indexStr=(idx+1)+"";
 		var targetIdStr=targetParent.find(".rowId").text()+"";
 		//alert(targetIdStr+","+indexStr);
 		if(parseInt(targetIdStr)==parseInt(indexStr)){
@@ -101,6 +101,26 @@ function modify(targetElement){
 			window.location="uploadThesis.html?id="+infoId;
 		}
 	});
+}
+
+function previousPage(){
+	if(parseInt(pageOffset)<=1){
+		alert("已经是第一页了");
+		return;
+	}else{
+		//alert("thesisList.html?pageOffset="+(parseInt(pageOffset)-1)+"&maxItemCount="+maxItemCount);
+		window.location="thesisList.html?pageOffset="+(parseInt(pageOffset)-1)+"&maxItemCount="+maxItemCount;
+	}
+}
+
+function nextPage(){
+	if(parseInt(pageOffset)>=maxPageCount){
+		alert("已经是最后一页了");
+		return;
+	}else{
+		//alert("thesisList.html?pageOffset="+(parseInt(pageOffset)+1)+"&maxItemCount="+maxItemCount);
+		window.location="thesisList.html?pageOffset="+(parseInt(pageOffset)+1)+"&maxItemCount="+maxItemCount;
+	}
 }
 
 function getParam(name){

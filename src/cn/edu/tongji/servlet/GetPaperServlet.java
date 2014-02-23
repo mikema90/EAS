@@ -52,7 +52,10 @@ public class GetPaperServlet extends HttpServlet {
 		String college_id = "8800";
 
 		int icount = HibernateUtil.getPaperCount(Integer.valueOf(college_id));
-		int pageCount = (icount / maxItemCount) + 1;
+		int pageCount=icount / maxItemCount;
+		if(icount % maxItemCount!=0){
+			pageCount++;
+		}
 
 		if (pageOffset > pageCount) {// over max page
 			pageOffset = pageCount;

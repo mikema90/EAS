@@ -27,14 +27,11 @@ function () {
 		$("#periodicalNameInputBox").val(thesisInfo.journal);
 		var periodicalSn=thesisInfo.issues.split("-");
 		$("#periodicalSelector").val(periodicalSn[0]);
+		changePeriodicalSnSelector();
 		if(periodicalSn[0]=="ISSN"){
 			$(".periodicalSn.sn2").val(periodicalSn[2]);
 		}
 		$(".periodicalSn.sn1").val(periodicalSn[1]);
-		//alert(thesisInfo.post_date.split("-")[0]);
-		//alert(thesisInfo.post_date.split("-")[1]);
-		//alert($(".timeSelector.timeOfYear option[value='"+thesisInfo.post_date.split("-")[0]+"']").text());
-		//alert($(".timeSelector.timeOfMonth option[value='"+thesisInfo.post_date.split("-")[1]+"']").text());
 		$(".timeSelector.timeOfYear option[value='"+thesisInfo.post_date.split("-")[0]+"']").attr("selected","selected");
 		$(".timeSelector.timeOfMonth option[value='"+parseInt(thesisInfo.post_date.split("-")[1])+"']").attr("selected","selected");
 		$("#languageSelector option:contains('"+thesisInfo.language+"')").attr("selected","selected");
@@ -147,8 +144,8 @@ function delAuthorInfo(targetElement) {
 	resetRowOrder();
 }
 
-function changePeriodicalSnSelector(targetElement) {
-	var targetParent = $(targetElement).closest(".oneLine");
+function changePeriodicalSnSelector() {
+	var targetParent = $("#periodicalSelector").closest(".oneLine");
 	if ($("#periodicalSelector").val() == "ISSN") {
 		targetParent.removeClass("isISBN");
 		targetParent.addClass("isISSN");
