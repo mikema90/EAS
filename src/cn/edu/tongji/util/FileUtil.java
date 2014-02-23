@@ -161,8 +161,8 @@ public class FileUtil {
 		for (int i = 0; i < papers.size(); i++) {
 			paper temp = papers.get(i);
 			Date post_date = temp.getPost_date();
-			String date = String.valueOf(post_date.getYear()) + "年"
-					+ String.valueOf(post_date.getMonth()) + "月";
+			String date = String.valueOf(post_date.getYear() + 1900) + "年"
+					+ String.valueOf(post_date.getMonth() + 1) + "月";
 			String coreJournal = temp.getJournal_type() != null ? temp
 					.getJournal_type() : "否";
 			sheet.addCell(new Label(0, content_row_index + i, String
@@ -207,9 +207,10 @@ public class FileUtil {
 		// List<paper>papers = new ArrayList<paper>();
 		// papers.add(temp);
 		//
-		// generateXlsFile("C:\\jxl\\教学汇总表.xls", papers);
+		List<paper>papers = HibernateUtil.getPaper(0, 25, 8800);
+		generateXlsFile("C:\\jxl\\教学汇总表.xls", papers);
 		// System.out.println(renameFile("C:\\jxl\\mike.pdf", "jack.pdf"));
-		deleteFile("C:\\jxl\\I am mike.pdf");
+		// deleteFile("C:\\jxl\\I am mike.pdf");
 	}
 
 }
