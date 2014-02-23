@@ -70,6 +70,7 @@ public class CommonFuncInServlet {
 			String rootPath = request.getRealPath("/");
 			String tmpPath = rootPath + "tempUploadedFile" + File.separator
 					+ fileTmpName;
+			System.out.println(tmpPath);
 			pdf_url = college_id + File.separator + title + ".pdf";
 
 			// move file to unified dir

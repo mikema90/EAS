@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.paper;
 import cn.edu.tongji.util.CommonFuncInServlet;
+import cn.edu.tongji.util.HibernateUtil;
 
-@WebServlet("/downlaodPDF")
+@WebServlet("/downloadPDF")
 @SuppressWarnings("serial")
 public class DownloadPDFServlet extends HttpServlet {
 
@@ -34,8 +36,9 @@ public class DownloadPDFServlet extends HttpServlet {
 		// cover Chinese character
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
-		String fileID = request.getParameter("fileID");
-		String filePath = request.getRealPath("/");// + file path stored in DB;
+		int paper_id = Integer.valueOf(request.getParameter("paper_id"));
+		paper p = HibernateUtil.getOnePaperCount(paper_id);
+		String filePath = request.getRealPath("/") + p.getPdf_url();
 
 		File downloadFile = new File(filePath);
 		if (downloadFile.exists()) {

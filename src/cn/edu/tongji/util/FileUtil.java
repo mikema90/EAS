@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import model.paper;
 import jxl.JXLException;
 import jxl.Workbook;
@@ -29,14 +31,19 @@ public class FileUtil {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static String renameFile(String sourcePath, String newName) {
-		File sourceFile = new File(sourcePath);
+	@SuppressWarnings("deprecation")
+	public static String renameFile(String sourcePath, String newName,
+			HttpServletRequest request) {
+		String rootPath = request.getRealPath("/");
+		File sourceFile = new File(rootPath + sourcePath);
 		String oldName = sourceFile.getName();
 		String targetPath = sourcePath.replace(oldName, newName);
-		File targetFile = new File(targetPath);
-		sourceFile.renameTo(targetFile);
+		File targetFile = new File(rootPath + targetPath);
 
-		System.out.println("rename file successfully!");
+		if (sourceFile.renameTo(targetFile)) {
+			System.out.println("rename file successfully!");
+		}
+
 		return targetPath;
 	}
 

@@ -71,7 +71,10 @@ public class UpdatePaperServlet extends HttpServlet {
 			// using old file and just rename it
 			String sourcePath = old_paper.getPdf_url();
 			String newName = cur_paper.getTitle() + ".pdf";
-			String targetPath = FileUtil.renameFile(sourcePath, newName);
+			System.out.println("rename file path:" + request.getRealPath("/")
+					+ sourcePath);
+			String targetPath = FileUtil.renameFile(sourcePath, newName,
+					request);
 			cur_paper.setPdf_url(targetPath);
 		} else {// upload new file
 				// not the same name, delete the old one
