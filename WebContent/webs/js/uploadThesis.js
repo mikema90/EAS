@@ -268,5 +268,11 @@ function submitForm() {
 			dataType: 'json'
 		});
 	}
+}
 
+function cancelForm(){
+	if(confirm("确认要放弃更改并返回吗？")==false){
+		return;
+	}
+	window.location="thesisList.html"
 }

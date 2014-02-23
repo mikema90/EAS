@@ -26,7 +26,7 @@
   <div class="header">
     <div id="headerName">教学研究论文评审系统 </div>
     <img src="img/header.png"/></div>
-  <div id="navigationBar"><a href="#">首页</a><a href="#">修改密码</a><a href="#">退出</a></div>
+  <div id="navigationBar"></div>
   <div class="content">
     <div id="contentTitle">添加论文</div>
     <div id="downContent">
@@ -135,7 +135,10 @@
       </div>
       <div class="clearfloat"></div>
     </div>
-    <input id="saveAndInsert" type="button" onclick="submitForm()" value="保存/添加"/>
+    <div id="exeBtns">
+    <input style="float:left;" type="button" onclick="submitForm()" value="保存/添加"/>
+    <input style="float:left;" type="button" onclick="cancelForm()" value="取消"/>
+    </div>
   </div>
 </div>
 </body>
