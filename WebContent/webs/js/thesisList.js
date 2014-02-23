@@ -132,6 +132,26 @@ function delItem(targetElement){
 	});
 }
 
+function downloadSummarySheet(){
+	$.ajax({
+		type: 'POST',
+		url: "../downloadSummarySheet",
+		success: function (jsonData) {
+			if (jsonData.Status == "success") {
+				//alert("<form action=\""+ "../"+jsonData.path.replace("\\","/") +"\" method=\'post\'></form>");
+				jQuery("<form action=\""+ "../"+jsonData.path.replace("\\","/") +"\" method=\'post\'></form>").appendTo('body').submit().remove();
+				//window.open("../"+jsonData.path.replace("\\","/"));
+			} else {
+				alert("下载失败，请重试");
+			}
+		},
+		error: function () {
+			alert("下载失败，请重试");
+		},
+		dataType: 'json'
+	});
+}
+
 function previousPage(){
 	if(parseInt(pageOffset)<=1){
 		alert("已经是第一页了");
