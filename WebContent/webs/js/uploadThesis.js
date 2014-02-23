@@ -36,7 +36,7 @@ function () {
 		$(".timeSelector.timeOfMonth option[value='"+parseInt(thesisInfo.post_date.split("-")[1])+"']").attr("selected","selected");
 		$("#languageSelector option:contains('"+thesisInfo.language+"')").attr("selected","selected");
 		$("#uploadingStatus").css("color", "#F60");
-		$("#thesisId").val(thesisInfo.paper_id);
+		$("#thesisId").val(thesisInfo.id);
 		$("#uploadingStatus").text("不上传新文件则保留原文件");
 		submitUrl="../updatePaper";
 	}
