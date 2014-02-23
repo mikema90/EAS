@@ -95,10 +95,10 @@
         <div class="clearfloat"></div>
         <div class="oneLine">
           <div class="dataNameTag">发表时间</div>
-          <select class="timeSelector" name="timeYear">
+          <select class="timeSelector timeOfYear" name="timeYear">
           </select>
-          <select class="timeSelector" name="timeMonth">
-            <option value="1" selected="selected">1月</option>
+          <select class="timeSelector timeOfMonth" name="timeMonth">
+            <option value="1">1月</option>
             <option value="2">2月</option>
             <option value="3">3月</option>
             <option value="4">4月</option>
@@ -109,7 +109,7 @@
             <option value="9">9月</option>
             <option value="10">10月</option>
             <option value="11">11月</option>
-            <option value="12">12月</option>
+            <option value="12" selected="selected">12月</option>
           </select>
           <div id="isForeignLanguage">是否外文</div>
           <select id="languageSelector" name="thesisLanguage">
@@ -126,7 +126,7 @@
       <div class="oneLine">
         <div class="dataNameTag">PDF上传</div>
         <form id="uploadFileForm"  method="post" enctype="multipart/form-data" action="../uploadFile" target="hidden_frame">
-          <input id="openFile" type="file" name="file" onchange="changeUploadingStatus()" />
+          <input id="openFile" value="文件未修改" type="file" name="file" onchange="changeUploadingStatus()" />
           <iframe style="display:none" name="hidden_frame" id="hidden_frame"></iframe>
         </form>
         <input type="button" id="uploadFile" onclick="uploadFile()" value="上传文件"/>
@@ -134,7 +134,7 @@
       </div>
       <div class="clearfloat"></div>
     </div>
-    <input id="saveAndInsert" type="button" onclick="submitForm()" value="保存添加"/>
+    <input id="saveAndInsert" type="button" onclick="submitForm()" value="保存/添加"/>
   </div>
 </div>
 </body>

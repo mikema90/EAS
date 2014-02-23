@@ -23,6 +23,8 @@ public class UrlFilter implements Filter {
 	private FilterChain chain;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
+	
+	private final static String noAuthUrl[]={"webs/login.html","webs/img/","webs/css/","webs/js/"};
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.filterConfig = filterConfig;
@@ -61,11 +63,13 @@ public class UrlFilter implements Filter {
 	 */
 
 	protected boolean noFileUrl(String url, HttpServletRequest request) {
-		if (url.indexOf("/login.html") >= 0) {
-			return true;
-		} else {
-			return false;
+		for(int i=0;i<noAuthUrl.length;i++){
+			if(url.indexOf(noAuthUrl[i]) >= 0){
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 	/**

@@ -12,6 +12,7 @@ function () {
 
 	var infoId = getParam("id");
 	if (infoId == null) {
+		submitUrl="../addPaper";
 		return;
 	} else {
 		thesisInfo = JSON.parse($.cookie(infoId));
@@ -30,6 +31,16 @@ function () {
 			$(".periodicalSn.sn2").val(periodicalSn[2]);
 		}
 		$(".periodicalSn.sn1").val(periodicalSn[1]);
+		//alert(thesisInfo.post_date.split("-")[0]);
+		//alert(thesisInfo.post_date.split("-")[1]);
+		//alert($(".timeSelector.timeOfYear option[value='"+thesisInfo.post_date.split("-")[0]+"']").text());
+		//alert($(".timeSelector.timeOfMonth option[value='"+thesisInfo.post_date.split("-")[1]+"']").text());
+		$(".timeSelector.timeOfYear option[value='"+thesisInfo.post_date.split("-")[0]+"']").attr("selected","selected");
+		$(".timeSelector.timeOfMonth option[value='"+parseInt(thesisInfo.post_date.split("-")[1])+"']").attr("selected","selected");
+		$("#languageSelector option:contains('"+thesisInfo.language+"')").attr("selected","selected");
+		$("#uploadingStatus").css("color", "#F60");
+		$("#uploadingStatus").text("不上传新文件则保留原文件");
+		submitUrl="../updatePaper";
 	}
 });
 
@@ -236,13 +247,13 @@ function submitForm() {
 		alert("ISSN需要8位数字或字母并且由短横隔开");
 	} else if ($("#periodicalSelector").val() == "ISBN" && $(".periodicalSn.sn1").val().length != 13) {
 		alert("ISSN需要13位数字");
-	} else if ($("#uploadingStatus").text() != "上传成功！") {
+	} else if ($("#uploadingStatus").text() != "上传成功！" && $("#uploadingStatus").text() != "不上传新文件则保留原文件") {
 		alert("请上传附件");
 	} else {
 		var submitData = $("#thesisInfoForm").serialize();
 		$.ajax({
 			type: 'POST',
-			url: "../addPaper",
+			url: submitUrl,
 			data: submitData,
 			success: function (jsonData) {
 				if (jsonData.Status == "success") {
