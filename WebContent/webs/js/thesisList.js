@@ -86,7 +86,7 @@ function insertNewRow(thesisId, school, authorName, thesisName, periodicalName, 
 	newRow.find(".publishTime").text(publishTime);
 	newRow.find(".isForeignLanguage").text(isForeignLanguage);
 	newRow.find(".isCore").text(isCore);
-	newRow.find(".pdfId a").attr("href","../"+pdfId.replace("\\","/"));
+	newRow.find(".pdfId a").attr("href","../downloadPDF?paper_id="+thesisId);
 	
 	$("#contentTable tbody").append(newRow);
 }
