@@ -94,10 +94,13 @@ public class CommonFuncInServlet {
 			}
 		}
 
-		// remove the last ","
-		other_authors = other_authors.substring(0, other_authors.length() - 1);
-		other_authors_wid = other_authors_wid.substring(0,
-				other_authors_wid.length() - 1);
+		// if exist other authors then remove the last ","
+		if (other_authors != "" && other_authors_wid != "") {
+			other_authors = other_authors.substring(0,
+					other_authors.length() - 1);
+			other_authors_wid = other_authors_wid.substring(0,
+					other_authors_wid.length() - 1);
+		}
 
 		p.setFirst_author(first_author);
 		p.setFirst_author_wid(first_author_wid);
