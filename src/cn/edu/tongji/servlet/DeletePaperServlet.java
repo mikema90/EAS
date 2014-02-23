@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.paper;
 import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.FileUtil;
@@ -36,12 +37,12 @@ public class DeletePaperServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		int paper_id = Integer.valueOf(request.getParameter("paper_id"));
-		String pdf_url = request.getParameter("pdf_url");
+		paper p = HibernateUtil.getOnePaperCount(paper_id);
 		int upstatus = HibernateUtil.deletePaper(paper_id);
 
 		// delete pdf file
-		String filePath = request.getRealPath("/") + pdf_url;
-		System.out.println(filePath);
+		String filePath = request.getRealPath("/") + p.getPdf_url();
+		System.out.println("delete file:" + filePath);
 		FileUtil.deleteFile(filePath);
 
 		JSONObject result = new JSONObject();
