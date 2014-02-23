@@ -107,6 +107,31 @@ function modify(targetElement){
 	});
 }
 
+function delItem(targetElement){
+	if(confirm("确认删除吗？")==false){
+		return;
+	}
+	var targetParent = $(targetElement).closest("tr");
+	var thesisId=targetParent.find(".thesisId").text();
+	$.ajax({
+		type: 'POST',
+		url: "../deletePaper",
+		data: {paper_id:thesisId},
+		success: function (jsonData) {
+			if (jsonData.Status == "success") {
+				alert("删除成功");
+				window.location.reload();
+			} else {
+				alert("删除失败");
+			}
+		},
+		error: function () {
+			alert("删除失败");
+		},
+		dataType: 'json'
+	});
+}
+
 function previousPage(){
 	if(parseInt(pageOffset)<=1){
 		alert("已经是第一页了");
