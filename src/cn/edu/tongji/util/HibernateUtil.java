@@ -34,6 +34,8 @@ public class HibernateUtil {
 	private static String reset_college_pwd_sql = "update college set pwd = '8888' where college_id = ?";
 	private static String reset_expert_pwd_sql = "update expert set pwd = '8888' where work_id = ?";
 
+	private static String delete_paper_sql = "delete from paper where id = ?";
+
 	// -------------------------------------------------------------------------------
 	public HibernateUtil() {
 	}
@@ -304,6 +306,25 @@ public class HibernateUtil {
 		return upstatus;
 	}
 
+	public static int deletePaper(int paper_id) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int upstatus = session.createQuery(delete_paper_sql)
+				.setInteger(0, paper_id).executeUpdate();
+
+		if (upstatus == 1) {
+			System.out.println("delete paper successfully!");
+		} else {
+			System.out.println("delete paper failed!!");
+		}
+
+		session.getTransaction().commit();
+		session.close();
+		
+		return upstatus;
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// HibernateUtil ho = new HibernateUtil();
@@ -321,7 +342,7 @@ public class HibernateUtil {
 		// p.setCollege_name("材料学院");
 		// HibernateUtil.updatePaper(p);
 		// HibernateUtil.resetExpertPwd(1234839);
-		System.out.println(HibernateUtil.getOnePaperCount(1).getTitle());
+		System.out.println(HibernateUtil.deletePaper(2));
 		HibernateUtil.DeHibernateOperation();
 	}
 
