@@ -30,7 +30,11 @@ $(document).ready(function() {
 function loadContent(jsonData){
 	wholeThesisData=jsonData.paper;
 	$.each(jsonData.paper, function(idx, paperItem){
-		insertNewRow(paperItem.id, paperItem.college_name, paperItem.first_author+","+paperItem.other_authors, paperItem.title, paperItem.journal, paperItem.issues, paperItem.post_date, paperItem.language, paperItem.journal_type, paperItem.pdf_url);
+		var tmpAuthorName=paperItem.first_author;
+		if(paperItem.other_authors!=""){
+			tmpAuthorName=tmpAuthorName+","+paperItem.other_authors;
+		}
+		insertNewRow(paperItem.id, paperItem.college_name, tmpAuthorName, paperItem.title, paperItem.journal, paperItem.issues, paperItem.post_date, paperItem.language, paperItem.journal_type, paperItem.pdf_url);
 	});
 	pageOffset=parseInt(jsonData.pageOffset);
 	maxPageCount=parseInt(jsonData.pageCount);

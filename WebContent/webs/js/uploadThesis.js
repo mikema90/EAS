@@ -18,10 +18,12 @@ function () {
 		thesisInfo = JSON.parse($.cookie(infoId));
 		$("#thesisTypeSelector").find("option:contains('" + thesisInfo.category + "')").attr("selected", "selected");
 		insertAuthor2nd(thesisInfo.first_author, thesisInfo.first_author_wid);
-		var otherAuthorNames=thesisInfo.other_authors.split(",");
-		var otherAuthorIds=thesisInfo.other_authors_wid.split(",");
-		for(var i=0;i<otherAuthorNames.length;i++){
-			insertAuthor2nd(otherAuthorNames[i], otherAuthorIds[i]);
+		if(thesisInfo.other_authors!=""){
+			var otherAuthorNames=thesisInfo.other_authors.split(",");
+			var otherAuthorIds=thesisInfo.other_authors_wid.split(",");
+			for(var i=0;i<otherAuthorNames.length;i++){
+				insertAuthor2nd(otherAuthorNames[i], otherAuthorIds[i]);
+			}
 		}
 		$("#thesisNameInputBox").val(thesisInfo.title);
 		$("#periodicalNameInputBox").val(thesisInfo.journal);
