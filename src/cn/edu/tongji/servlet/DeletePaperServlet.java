@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
+import cn.edu.tongji.util.FileUtil;
 import cn.edu.tongji.util.HibernateUtil;
 
 @WebServlet("/deletePaper")
@@ -26,6 +27,7 @@ public class DeletePaperServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// cover Chinese character
@@ -34,7 +36,13 @@ public class DeletePaperServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		int paper_id = Integer.valueOf(request.getParameter("paper_id"));
+		String pdf_url = request.getParameter("pdf_url");
 		int upstatus = HibernateUtil.deletePaper(paper_id);
+
+		// delete pdf file
+		String filePath = request.getRealPath("/") + pdf_url;
+		System.out.println(filePath);
+		FileUtil.deleteFile(filePath);
 
 		JSONObject result = new JSONObject();
 		if (upstatus == 1) {
