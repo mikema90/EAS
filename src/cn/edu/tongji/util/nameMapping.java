@@ -1,7 +1,10 @@
 package cn.edu.tongji.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import model.college;
 
 /**
  * Singleton
@@ -16,9 +19,11 @@ public class nameMapping {
 	private nameMapping() {
 		// TODO Auto-generated constructor stub
 		// put for collegeMap
-		collegeMap.put("7700", "汽车学院");
-		collegeMap.put("6600", "建筑与城市规划学院");
-		collegeMap.put("8800", "软件学院");
+		List<college> colleges = HibernateUtil.getCollege();
+		for(int i = 0; i < colleges.size(); i++){
+			college temp = colleges.get(i);
+			collegeMap.put(String.valueOf(temp.getCollege_id()), temp.getName());
+		}
 		
 		// put for categoryMap
 		categoryMap.put("eduTheory", "教育理论");
