@@ -143,6 +143,14 @@ function nextPage(){
 	}
 }
 
+function changePageOffset(){
+	window.location="thesisList.html?pageOffset="+$("#pageOffset").val()+"&maxItemCount="+$("#maxItemCount").val();
+}
+
+function changeMaxItemCount(){
+		window.location="thesisList.html?pageOffset=1&maxItemCount="+$("#maxItemCount").val();
+}
+
 function getParam(name){
 	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);
