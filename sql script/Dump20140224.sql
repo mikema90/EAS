@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
   `opendeclare` int(1) DEFAULT '0',
   `openreview` int(1) DEFAULT '0',
   PRIMARY KEY (`id`,`work_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='table for admin';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='table for admin';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES (1,1111,'admin','8888',0,0);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +68,7 @@ CREATE TABLE `college` (
 
 LOCK TABLES `college` WRITE;
 /*!40000 ALTER TABLE `college` DISABLE KEYS */;
-INSERT INTO `college` VALUES (1,8800,'软件学院','123456',0),(2,7700,'土木学院','8888',0);
+INSERT INTO `college` VALUES (1,8800,'软件学院','8888',0),(2,7700,'土木学院','8888',0);
 /*!40000 ALTER TABLE `college` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,8 +104,31 @@ CREATE TABLE `expert` (
 
 LOCK TABLES `expert` WRITE;
 /*!40000 ALTER TABLE `expert` DISABLE KEYS */;
-INSERT INTO `expert` VALUES (1,1234839,NULL,'马国来','123456',1,1,0,0,1,0,0,1,0);
+INSERT INTO `expert` VALUES (1,1234839,8800,'马国来','8888',1,1,0,0,1,0,0,1,0);
 /*!40000 ALTER TABLE `expert` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mapping`
+--
+
+DROP TABLE IF EXISTS `mapping`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mapping` (
+  `issues` varchar(30) NOT NULL,
+  `journal_type` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`issues`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='mapping the relationship between issues and journal_type';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mapping`
+--
+
+LOCK TABLES `mapping` WRITE;
+/*!40000 ALTER TABLE `mapping` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mapping` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -121,18 +145,18 @@ CREATE TABLE `paper` (
   `category` varchar(45) DEFAULT NULL,
   `first_author` varchar(10) DEFAULT NULL,
   `first_author_wid` int(11) DEFAULT NULL,
-  `other_authors` varchar(45) DEFAULT NULL,
-  `other_authors_wid` varchar(45) DEFAULT NULL,
+  `other_authors` varchar(90) DEFAULT NULL,
+  `other_authors_wid` varchar(90) DEFAULT NULL,
   `title` varchar(90) DEFAULT NULL,
   `journal` varchar(90) DEFAULT NULL,
   `issues` varchar(30) DEFAULT NULL COMMENT 'ISBN号',
-  `journal_type` varchar(5) DEFAULT NULL COMMENT '核心期刊类型',
+  `journal_type` varchar(30) DEFAULT NULL COMMENT '核心期刊类型',
   `post_date` datetime DEFAULT NULL,
   `language` varchar(10) DEFAULT NULL,
-  `pdf_url` varchar(90) DEFAULT NULL,
+  `pdf_url` varchar(120) DEFAULT NULL,
   `passed` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,7 +165,7 @@ CREATE TABLE `paper` (
 
 LOCK TABLES `paper` WRITE;
 /*!40000 ALTER TABLE `paper` DISABLE KEYS */;
-INSERT INTO `paper` VALUES (1,1234839,NULL,NULL,NULL,NULL,NULL,NULL,'大数据',NULL,NULL,NULL,NULL,NULL,NULL,0),(2,0,'材料学院',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0),(3,88,'软件学院','教育实践','马国来',NULL,'',NULL,'大数据时代','软件学报','ISSN12345678-12345678','A','2013-12-01 00:00:00','中文','0088\\大数据时代.pdf',0),(4,88,'软件学院','教育实践','马国来',1234839,'张飞,','1111111,','Hits算法改进','算法期刊','ISSN12345678-A','A','2013-10-01 00:00:00','中文','0088\\Hits算法改进.pdf',0);
+INSERT INTO `paper` VALUES (4,8800,'软件学院','教育理论','尹长青',1234839,'','','data mining','IEEE','ISSN-2222-2222','A','2014-03-01 00:00:00','英文','8800\\data mining.pdf',0),(5,8800,'软件学院','教育理论','马国来',1234839,'jack','0000','中英文化深入研究','文化周刊','ISSN-2222-2222','A','2013-12-01 00:00:00','英文','8800\\中英文化深入研究.pdf',0),(6,8800,'软件学院','教育理论','刘琴',111,'bbb,ccc','222,333','detch','paper','ISBN-qqqqqqqqqqqqa','A','2014-01-01 00:00:00','中文','8800\\detch.pdf',0),(7,8800,'软件学院','教育理论','尹长青',1234839,'','','data analysis','IEEE','ISSN-2222-2222','A','2014-03-01 00:00:00','英文','8800\\data analysis.pdf',0),(8,7700,'土木学院','教育理论','严峻',1234839,'jack','0000','土木研究','土木周刊','ISSN-2222-2222','A','2013-12-01 00:00:00','英文','8800\\土木研究.pdf',0),(10,7700,'土木学院','教育实践','土老师',22222222,'穆老师','33333333','土木学','土木周刊','CN-22-2222','A','2014-01-01 00:00:00','中文','7700\\土木学.pdf',0),(11,7700,'土木学院','教育理论','xxx',1234,'','','xxx','xxx','ISBN-wwwwwwwwwwwww','A','2014-01-01 00:00:00','中文','7700\\xxx.pdf',0);
 /*!40000 ALTER TABLE `paper` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,4 +205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-02-22 14:29:55
+-- Dump completed on 2014-02-24 23:32:26

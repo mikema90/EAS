@@ -13,5 +13,6 @@
   <mapping resource="model/expert.hbm.xml"/>
   <mapping resource="model/paper.hbm.xml"/>
   <mapping resource="model/reviewschedule.hbm.xml"/>
+  <mapping resource="model/mapping.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>
