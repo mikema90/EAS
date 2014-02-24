@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.HibernateUtil;
@@ -38,6 +39,7 @@ public class GetPaperServlet extends HttpServlet {
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
 
 		int pageOffset = Integer.valueOf(request.getParameter("pageOffset"));
 		int maxItemCount = Integer
@@ -49,11 +51,19 @@ public class GetPaperServlet extends HttpServlet {
 		if (maxItemCount <= 0) {
 			maxItemCount = 25;
 		}
-		String college_id = "8800";
 
-		int icount = HibernateUtil.getPaperCount(Integer.valueOf(college_id));
-		int pageCount=icount / maxItemCount;
-		if(icount % maxItemCount!=0){
+		String identity = (String) session.getAttribute("identity");
+		String college_id = (String) session.getAttribute("username");
+		int icount = 0;
+
+		if (identity.equals("college")) {
+			icount = HibernateUtil.getPaperCount(Integer.valueOf(college_id));
+		} else if (identity.equals("admin")) {
+			icount = HibernateUtil.getAllPaperCount();
+		}
+
+		int pageCount = icount / maxItemCount;
+		if (icount % maxItemCount != 0) {
 			pageCount++;
 		}
 
@@ -61,8 +71,14 @@ public class GetPaperServlet extends HttpServlet {
 			pageOffset = pageCount;
 		}
 		int startIndex = (pageOffset - 1) * maxItemCount;
-		List<paper> papers = HibernateUtil.getPaper(startIndex, maxItemCount,
-				Integer.valueOf(college_id));
+
+		List<paper> papers = null;
+		if (identity.equals("college")) {
+			papers = HibernateUtil.getPaper(startIndex, maxItemCount,
+					Integer.valueOf(college_id));
+		} else if (identity.equals("admin")) {
+			papers = HibernateUtil.getAllPaper(startIndex, maxItemCount);
+		}
 
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,

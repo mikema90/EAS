@@ -21,8 +21,10 @@ public class HibernateUtil {
 	private static String admin_login_sql = "from admin where work_id = ? and pwd = ?";
 	private static String college_login_sql = "from college where college_id = ? and pwd = ?";
 
+	private static String get_all_paper_sql = "from paper order by first_author";
 	private static String get_paper_sql = "from paper where college_id = ? order by first_author";
 	private static String get_one_paper_sql = "from paper where id = ?";
+	private static String get_all_paper_count_sql = "select count(*) from paper";
 	private static String get_paper_count_sql = "select count(*) from paper where college_id = ?";
 	private static String get_college_sql = "from college";
 
@@ -110,6 +112,20 @@ public class HibernateUtil {
 	}
 
 	@SuppressWarnings("unchecked")
+	public static List<paper> getAllPaper(int pageroffset, int maxcount) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		List<paper> papers = session.createQuery(get_all_paper_sql)
+				.setFirstResult(pageroffset).setMaxResults(maxcount).list();
+
+		session.getTransaction().commit();
+		session.close();
+
+		return papers;
+	}
+
+	@SuppressWarnings("unchecked")
 	public static List<paper> getPaper(int pageroffset, int maxcount,
 			int college_id) {
 		Session session = m_sf.openSession();
@@ -142,6 +158,19 @@ public class HibernateUtil {
 		session.close();
 
 		return p;
+	}
+
+	public static int getAllPaperCount() {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int icount = ((Long) session.createQuery(get_all_paper_count_sql)
+				.iterate().next()).intValue();
+
+		session.getTransaction().commit();
+		session.close();
+
+		return icount;
 	}
 
 	public static int getPaperCount(int college_id) {
@@ -321,7 +350,7 @@ public class HibernateUtil {
 
 		session.getTransaction().commit();
 		session.close();
-		
+
 		return upstatus;
 	}
 
