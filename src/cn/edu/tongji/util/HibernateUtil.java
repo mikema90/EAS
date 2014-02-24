@@ -21,7 +21,7 @@ public class HibernateUtil {
 	private static String admin_login_sql = "from admin where work_id = ? and pwd = ?";
 	private static String college_login_sql = "from college where college_id = ? and pwd = ?";
 
-	private static String get_all_paper_sql = "from paper order by first_author";
+	private static String get_all_paper_sql = "from paper order by college_id, first_author";
 	private static String get_paper_sql = "from paper where college_id = ? order by first_author";
 	private static String get_one_paper_sql = "from paper where id = ?";
 	private static String get_all_paper_count_sql = "select count(*) from paper";
