@@ -125,6 +125,12 @@ public class FileUtil {
 		wcf_center.setVerticalAlignment(VerticalAlignment.CENTRE);
 		wcf_center.setAlignment(Alignment.CENTRE);
 		wcf_center.setWrap(true);
+		
+		WritableCellFormat wcf_left = new WritableCellFormat(NormalFont);
+		wcf_left.setBorder(Border.NONE, BorderLineStyle.THIN);
+		wcf_left.setVerticalAlignment(VerticalAlignment.CENTRE);
+		wcf_left.setAlignment(Alignment.LEFT);
+		wcf_left.setWrap(true);
 		// --------------------------------------------
 
 		WritableWorkbook workbook = Workbook.createWorkbook(targetFile);
@@ -145,19 +151,28 @@ public class FileUtil {
 		sheet.mergeCells(0, 0, 8, 0);
 		sheet.addCell(new Label(0, 0, "______年教学论文汇总表", wcf_title));
 
+		// table signature
+		int signature_pos = 1;
+		sheet.setRowView(signature_pos, 370, false);
+		sheet.mergeCells(0, signature_pos, 1, signature_pos);
+		sheet.mergeCells(2, signature_pos, 3, signature_pos);
+		sheet.addCell(new Label(0, signature_pos, "院系盖章：__________", wcf_left));
+		sheet.addCell(new Label(2, signature_pos, "院长签名：__________", wcf_left));
+
 		// table title
-		sheet.addCell(new Label(0, 1, "序号", wcf_table));
-		sheet.addCell(new Label(1, 1, "学院（系）", wcf_table));
-		sheet.addCell(new Label(2, 1, "姓名", wcf_table));
-		sheet.addCell(new Label(3, 1, "论文名称", wcf_table));
-		sheet.addCell(new Label(4, 1, "期刊名称", wcf_table));
-		sheet.addCell(new Label(5, 1, "刊号", wcf_table));
-		sheet.addCell(new Label(6, 1, "发表时间", wcf_table));
-		sheet.addCell(new Label(7, 1, "是否外文", wcf_table));
-		sheet.addCell(new Label(8, 1, "是否属于核心", wcf_table));
+		int title_row_index = 3;
+		sheet.addCell(new Label(0, title_row_index, "序号", wcf_table));
+		sheet.addCell(new Label(1, title_row_index, "学院（系）", wcf_table));
+		sheet.addCell(new Label(2, title_row_index, "姓名", wcf_table));
+		sheet.addCell(new Label(3, title_row_index, "论文名称", wcf_table));
+		sheet.addCell(new Label(4, title_row_index, "期刊名称", wcf_table));
+		sheet.addCell(new Label(5, title_row_index, "刊号", wcf_table));
+		sheet.addCell(new Label(6, title_row_index, "发表时间", wcf_table));
+		sheet.addCell(new Label(7, title_row_index, "是否外文", wcf_table));
+		sheet.addCell(new Label(8, title_row_index, "是否属于核心", wcf_table));
 
 		// table content
-		int content_row_index = 2;
+		int content_row_index = title_row_index + 1;
 		for (int i = 0; i < papers.size(); i++) {
 			paper temp = papers.get(i);
 			Date post_date = temp.getPost_date();
@@ -183,15 +198,7 @@ public class FileUtil {
 			sheet.addCell(new Label(8, content_row_index + i, coreJournal,
 					wcf_center));
 		}
-		// table footer
-		int blank_distinct = 5;
-		int footer_pos = content_row_index + papers.size() + blank_distinct;
-		sheet.setRowView(footer_pos, 500, false);
-		sheet.setRowView(footer_pos + 1, 1000, false);
-		sheet.mergeCells(5, footer_pos, 8, footer_pos);
-		sheet.mergeCells(5, footer_pos + 1, 8, footer_pos + 1);
-		sheet.addCell(new Label(5, footer_pos, "院长签名：__________", wcf_title));
-		sheet.addCell(new Label(5, footer_pos + 1, "院系盖章：__________", wcf_title));
+
 		// write into file
 		workbook.write();
 		workbook.close();
@@ -207,7 +214,7 @@ public class FileUtil {
 		// List<paper>papers = new ArrayList<paper>();
 		// papers.add(temp);
 		//
-		List<paper>papers = HibernateUtil.getPaper(0, 25, 8800);
+		List<paper> papers = HibernateUtil.getPaper(0, 25, 8800);
 		generateXlsFile("C:\\jxl\\教学汇总表.xls", papers);
 		// System.out.println(renameFile("C:\\jxl\\mike.pdf", "jack.pdf"));
 		// deleteFile("C:\\jxl\\I am mike.pdf");
