@@ -149,30 +149,38 @@ function delAuthorInfo(targetElement) {
 
 function changePeriodicalSnSelector() {
 	var targetParent = $("#periodicalSelector").closest(".oneLine");
-	if ($("#periodicalSelector").val() == "ISSN") {
-		targetParent.removeClass("isISBN");
-		targetParent.addClass("isISSN");
-	} else {
-		targetParent.removeClass("isISSN");
-		targetParent.addClass("isISBN");
-	}
+	targetParent.removeClass("isCN");
+	targetParent.removeClass("isISBN");
+	targetParent.removeClass("isISSN");
+	targetParent.addClass("is"+$("#periodicalSelector").val());
 	$(".periodicalSn.sn1").val("");
 	$(".periodicalSn.sn2").val("");
+	$("#periodicalType").val("");
 }
 
 function onChangeSn1(targetElement) {
 	if ($("#periodicalSelector").val() == "ISSN") {
 		if ($(targetElement).val().length >= 4) {
 			$(".periodicalSn.sn2").focus();
-			if ($(targetElement).val().length >= 5) {
+			if ($(targetElement).val().length > 4) {
 				$(targetElement).val($(targetElement).val().substr(0, 4));
 			}
 		}
 	} else if ($("#periodicalSelector").val() == "ISBN") {
 		if ($(targetElement).val().length >= 13) {
 			$(targetElement).val($(targetElement).val().substr(0, 13));
+			if ($(targetElement).val().length > 13) {
+				$(targetElement).val($(targetElement).val().substr(0, 4));
+			}
 		}
-	}
+	}else if ($("#periodicalSelector").val() == "CN") {
+		if ($(targetElement).val().length >= 2) {
+			$(".periodicalSn.sn2").focus();
+			if ($(targetElement).val().length > 2) {
+				$(targetElement).val($(targetElement).val().substr(0, 2));
+			}
+		}
+	} 
 }
 
 function onChangeSn2(targetElement) {
@@ -247,6 +255,8 @@ function submitForm() {
 		alert("ISSN需要8位数字或字母并且由短横隔开");
 	} else if ($("#periodicalSelector").val() == "ISBN" && $(".periodicalSn.sn1").val().length != 13) {
 		alert("ISSN需要13位数字");
+	}else if ($("#periodicalSelector").val() == "CN" && ($(".periodicalSn.sn1").val().length != 2||($(".periodicalSn.sn2").val().length != 2 && $(".periodicalSn.sn2").val().length != 4))) {
+		alert("CN需要两位+两位字符，或者两位+四位字符");
 	} else if ($("#uploadingStatus").text() != "上传成功！" && $("#uploadingStatus").text() != "不上传新文件则保留原文件") {
 		alert("请上传附件");
 	} else {

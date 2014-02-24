@@ -1,217 +1,218 @@
 @charset "utf-8";
+
 /* CSS Document */
 
-#contentTitle{
-	font-size:20px;
-	font-weight:800;
-	margin-top:15px;
-	width:100%;
-	text-align:center;
+
+#contentTitle {
+	font-size: 20px;
+	font-weight: 800;
+	margin-top: 15px;
+	width: 100%;
+	text-align: center;
 }
 
-#downContent{
-	width:600px;
-	margin-left:auto;
-	margin-right:auto;
+#downContent {
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-.dataNameTag{
-	font-weight:bold;
-	width:100px;
-	line-height:30px;
-	height:30px;
-	float:left;
+.dataNameTag {
+	font-weight: bold;
+	width: 100px;
+	line-height: 30px;
+	height: 30px;
+	float: left;
 }
 
-.oneLine{
-	line-height:40px;
-	height:40px;
-	margin-top:5px;
-	margin-bottom:5px;
+.oneLine {
+	line-height: 40px;
+	height: 40px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
-#authorListTable a{
-	margin-left:2px;
-	margin-right:2px;
+#authorListTable a {
+	margin-left: 2px;
+	margin-right: 2px;
 }
 
-#thesisTypeSelector{
-	width:120px;
-	float:left;
-	margin-top:-2px;
-	height:33px;
-	font-size:18px;
+#thesisTypeSelector {
+	width: 120px;
+	float: left;
+	margin-top: -2px;
+	height: 33px;
+	font-size: 18px;
 }
 
-#exeBtns input{
-	text-align:center;
-	font-weight:600;
-	font-size:15px;
-	margin-top:5px;
-	display:block;
-	width:100px;
-	height:35px;
-	margin-left:5px;
+#exeBtns input {
+	text-align: center;
+	font-weight: 600;
+	font-size: 15px;
+	margin-top: 5px;
+	display: block;
+	width: 100px;
+	height: 35px;
+	margin-left: 5px;
 }
 
-#exeBtns{
-	margin-top:20px;
-	width:230px;
-	margin-left:auto;
-	margin-right:auto;
-	margin-bottom:80px;
+#exeBtns {
+	margin-top: 20px;
+	width: 230px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 80px;
 }
 
-#schoolSelector{
-	float:left;
-	width:280px;
-	height:30px;
-	margin-right:20px;
-	font-size:18px;
+#schoolSelector {
+	float: left;
+	width: 280px;
+	height: 30px;
+	margin-right: 20px;
+	font-size: 18px;
 }
 
-#thesisNameInputBox, #periodicalNameInputBox{
-	margin-top:-2px;
-	height:27px;
-	font-size:18px;
+#thesisNameInputBox, #periodicalNameInputBox {
+	margin-top: -2px;
+	height: 27px;
+	font-size: 18px;
 }
 
-#thesisNameInputBox, #periodicalNameInputBox{
-	width:490px;
+#thesisNameInputBox, #periodicalNameInputBox {
+	width: 490px;
 }
 
-#periodicalSelector, .timeSelector{
-	float:left;
-	width:85px;
-	height:30px;
-	font-size:18px;
-	margin-right:10px;
+#periodicalSelector, .timeSelector {
+	float: left;
+	width: 85px;
+	height: 30px;
+	font-size: 18px;
+	margin-right: 10px;
 }
 
-.isISBN .sn2, .isISBN #slash{
-	display:none;
+.isISBN .sn2, .isISBN #slash {
+	display: none;
 }
 
-.isISBN .sn1{
-	width:140px;
+.isISBN .sn1 {
+	width: 140px;
 }
 
-.isISSN .periodicalSn{
-	width:80px;
+.isISSN .periodicalSn, .isCN .periodicalSn {
+	width: 80px;
 }
 
-.periodicalSn{
-	text-align:center;
-	float:left;
-	height:25px;
-	font-size:18px;
+.periodicalSn {
+	text-align: center;
+	float: left;
+	height: 25px;
+	font-size: 18px;
 }
 
-#slash, #isForeignLanguage{
-	float:left;
-	margin-top:-5px;
-	font-weight:bold;
-	font-size:18px;
-	margin-left:5px;
-	margin-right:5px;
+#slash, #isForeignLanguage {
+	float: left;
+	margin-top: -5px;
+	font-weight: bold;
+	font-size: 18px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
-#thesisTypeSelector, #schoolSelector, #thesisNameInputBox, #periodicalNameInputBox, #periodicalSelector, #languageSelector, .periodicalSn, .timeSelector, isForeignLanguageSelector, .authorName input, .authorId input{
-	border-width:2px;
-	border-color:#426da2;
-	border-style:solid;
+#thesisTypeSelector, #schoolSelector, #thesisNameInputBox, #periodicalNameInputBox, #periodicalSelector, #languageSelector, .periodicalSn, .timeSelector, isForeignLanguageSelector, .authorName input, .authorId input {
+	border-width: 2px;
+	border-color: #426da2;
+	border-style: solid;
 }
 
-#languageSelector{
-	float:left;
-	width:80px;
-	height:30px;
-	font-size:18px;
+#languageSelector {
+	float: left;
+	width: 80px;
+	height: 30px;
+	font-size: 18px;
 }
 
-#authorListTable{
-	text-align:center;
-	margin-left:0px;
-	margin-bottom:15px;
-	table-layout:fixed;
-	border-color:#FFF;
-	border-bottom-width:1px;
-	width:598px;
+#authorListTable {
+	text-align: center;
+	margin-left: 0px;
+	margin-bottom: 15px;
+	table-layout: fixed;
+	border-color: #FFF;
+	border-bottom-width: 1px;
+	width: 598px;
 }
 
-#authorListTable td{
-	background-color:#d0d8e8;
-	text-overflow:ellipsis;
-	overflow:hidden;
-	white-space:nowrap;
-	padding:2px;
+#authorListTable td {
+	background-color: #d0d8e8;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 2px;
 }
 
-#authorListTable tr{
-	height:30px;
+#authorListTable tr {
+	height: 30px;
 }
 
-.operations span{
-	text-decoration:underline;
-	color:#414958;
-	cursor:pointer;
-	margin-left:2px;
-	margin-right:2px;
+.operations span {
+	text-decoration: underline;
+	color: #414958;
+	cursor: pointer;
+	margin-left: 2px;
+	margin-right: 2px;
 }
 
-.operations span:hover{
-	text-decoration:none;
+.operations span:hover {
+	text-decoration: none;
 }
 
-#columnName{
-	background-color:#4f81bd;
-	color:#FFF;
-	text-align:center;
-	padding-left:2px;
-	padding-right:2px;
+#columnName {
+	background-color: #4f81bd;
+	color: #FFF;
+	text-align: center;
+	padding-left: 2px;
+	padding-right: 2px;
 }
 
-.authorName input, .authorId input{
-	width:90%;
+.authorName input, .authorId input {
+	width: 90%;
 }
 
-#authorEditor{
-	display:none;
+#authorEditor {
+	display: none;
 }
 
-.authorName div, .authorId div, .editing .optEdit,
-/*.finishEdit .authorName input, .finishEdit .authorId input,*/ .finishEdit .optEditing{
-	display:none;
+.authorName div, .authorId div, .editing .optEdit, /*.finishEdit .authorName input, .finishEdit .authorId input,*/ .finishEdit .optEditing {
+	display: none;
 }
 
-.finishEdit .authorName input, .finishEdit .authorId input{
-	border-width:0px;
-	background:none;
-	text-align:center;
+.finishEdit .authorName input, .finishEdit .authorId input {
+	border-width: 0px;
+	background: none;
+	text-align: center;
 	font: 16px Verdana, Arial, Helvetica, sans-serif;
 }
 
-#openFile{
-	float:left;
-	margin-top:5px;
-	height:27px;
-	width:250px;
+#openFile {
+	float: left;
+	margin-top: 5px;
+	height: 27px;
+	width: 250px;
 }
 
-#uploadFile{
-	float:left;
-	font-size:14px;
-	margin-top:5px;
-	margin-left:5px;
-	text-align:center;
-	height:27px;
-	width:80px;
+#uploadFile {
+	float: left;
+	font-size: 14px;
+	margin-top: 5px;
+	margin-left: 5px;
+	text-align: center;
+	height: 27px;
+	width: 80px;
 }
 
-#uploadingStatus{
-	float:left;
-	font-size:15px;
-	font-weight:bold;
-	margin-left:7px;
-	margin-top:-2px;
+#uploadingStatus {
+	float: left;
+	font-size: 15px;
+	font-weight: bold;
+	margin-left: 7px;
+	margin-top: -2px;
 }
