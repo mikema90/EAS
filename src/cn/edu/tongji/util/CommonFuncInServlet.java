@@ -59,9 +59,6 @@ public class CommonFuncInServlet {
 				Integer.valueOf(month) - 1, 1);
 		boolean passed = false;
 
-		// for testing --delete later
-		college_id = "8800";
-
 		String pdf_url = "";
 		if (fileTmpName == null || fileTmpName == "") {// not existing upload
 														// file
@@ -114,6 +111,8 @@ public class CommonFuncInServlet {
 			issues = issues + "-" + journalSN1 + "-" + journalSN2;
 		} else if (issues.equals("ISBN")) {
 			issues = issues + "-" + journalSN1;
+		} else if (issues.equals("CN")) {
+			issues = issues + "-" + journalSN1 + "-" + journalSN2;
 		}
 
 		p.setIssues(issues);
