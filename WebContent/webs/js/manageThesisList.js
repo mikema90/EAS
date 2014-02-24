@@ -1,5 +1,53 @@
 // JavaScript Document
-function insertNewRow(school, authorName, thesisName, periodicalName, periodicalSn, publishTime, isForeignLanguage, isCore, pdfId, firstExpertName, firstEvalResult, firstRemark, finalResult, reward){
+$(document).ready(function() {
+	//test();
+	pageOffset=getParam("pageOffset");
+	maxItemCount=getParam("maxItemCount");
+	if(pageOffset==null){
+		pageOffset=1;
+	}
+	if(maxItemCount==null){
+		maxItemCount=25;
+	}
+		$.ajax({
+		type: 'POST',
+		url: "../getPaper",
+		data: {pageOffset:pageOffset, maxItemCount:maxItemCount},
+		success: function (jsonData) {
+			if (jsonData.Status == "success") {
+				loadContent(jsonData);
+			} else {
+				alert("加载失败");
+			}
+		},
+		error: function () {
+			alert("加载失败");
+		},
+		dataType: 'json'
+	});
+});
+
+function loadContent(jsonData){
+	wholeThesisData=jsonData.paper;
+	$.each(jsonData.paper, function(idx, paperItem){
+		var tmpAuthorName=paperItem.first_author;
+		if(paperItem.other_authors!=""){
+			tmpAuthorName=tmpAuthorName+","+paperItem.other_authors;
+		}
+		insertNewRow(paperItem.id, paperItem.college_name, tmpAuthorName, paperItem.title, paperItem.journal, paperItem.issues, paperItem.post_date, paperItem.language, paperItem.journal_type, paperItem.pdf_url, "", "", "", "", "");
+	});
+	pageOffset=parseInt(jsonData.pageOffset);
+	maxPageCount=parseInt(jsonData.pageCount);
+	for(var i=1;i<maxPageCount+1;i++){
+		var newOption = new Option(i + "", i + "");
+		$("#pageOffset").append(newOption);
+	}
+	$("#pageOffset").find("[value='" + pageOffset + "']").attr("selected", "selected");
+	var maxItemCount=getParam("maxItemCount");
+	$("#maxItemCount").find("[value='" + maxItemCount + "']").attr("selected", "selected");
+}
+
+function insertNewRow(thesisId, school, authorName, thesisName, periodicalName, periodicalSn, publishTime, isForeignLanguage, isCore, pdfId, firstExpertName, firstEvalResult, firstRemark, finalResult, reward){
 	var newRow=$("#templates .fullColumnRow").clone(true);
 	var currentRowId;
 	if($("#contentTable").find(".rowId:last").length==0){
@@ -8,6 +56,7 @@ function insertNewRow(school, authorName, thesisName, periodicalName, periodical
 		currentRowId=parseInt($("#contentTable").find(".rowId:last").text());
 	}
 	newRow.find(".rowId").text(currentRowId+1);
+	newRow.find(".thesisId").text(thesisId);
 	newRow.find(".school").text(school);
 	newRow.find(".authorName").text(authorName);
 	newRow.find(".thesisName").text(thesisName);
@@ -54,8 +103,57 @@ function openEvaluation(){
 	alert("确定开放申报？");
 }
 
+function downloadSummarySheet(){
+	$.ajax({
+		type: 'POST',
+		url: "../downloadSummarySheet",
+		success: function (jsonData) {
+			if (jsonData.Status == "success") {
+				//alert("<form action=\""+ "../"+jsonData.path.replace("\\","/") +"\" method=\'post\'></form>");
+				jQuery("<form action=\""+ "../"+jsonData.path.replace("\\","/") +"\" method=\'post\'></form>").appendTo('body').submit().remove();
+				//window.open("../"+jsonData.path.replace("\\","/"));
+			} else {
+				alert("下载失败，请重试");
+			}
+		},
+		error: function () {
+			alert("下载失败，请重试");
+		},
+		dataType: 'json'
+	});
+}
+
+function previousPage(){
+	if(parseInt(pageOffset)<=1){
+		alert("已经是第一页了");
+		return;
+	}else{
+		//alert("thesisList.html?pageOffset="+(parseInt(pageOffset)-1)+"&maxItemCount="+maxItemCount);
+		window.location="manageThesisList.html?pageOffset="+(parseInt(pageOffset)-1)+"&maxItemCount="+maxItemCount;
+	}
+}
+
+function nextPage(){
+	if(parseInt(pageOffset)>=maxPageCount){
+		alert("已经是最后一页了");
+		return;
+	}else{
+		//alert("thesisList.html?pageOffset="+(parseInt(pageOffset)+1)+"&maxItemCount="+maxItemCount);
+		window.location="manageThesisList.html?pageOffset="+(parseInt(pageOffset)+1)+"&maxItemCount="+maxItemCount;
+	}
+}
+
+function getParam(name){
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if (r!=null){
+		return unescape(r[2]);
+	}
+	return null;
+}
+
 function TestA(){
-	insertNewRow("院系XXX", "作者小明", "论文名", "期刊名balabala", "期刊号xxxx", "xxxx年xx月xx日", "是", "是", "pdfIdAbcdefg", "专家XXX", "不属于", "嗯嗯嗯", "不属于", "500");
+	insertNewRow("5","院系XXX", "作者小明", "论文名", "期刊名balabala", "期刊号xxxx", "xxxx年xx月xx日", "是", "是", "pdfIdAbcdefg", "专家XXX", "不属于", "嗯嗯嗯", "不属于", "500", "", "", "", "", "");
 }
 
 function TestB(){

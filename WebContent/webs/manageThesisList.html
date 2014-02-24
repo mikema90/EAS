@@ -21,12 +21,13 @@
       <td class="publishTime" rowspan="1">Januadfafasfsary</td>
       <td class="isForeignLanguage" rowspan="1">是</td>
       <td class="isCore" rowspan="1">是</td>
-      <td class="pdfId" rowspan="1"><a href="#">查看</a></td>
+      <td class="pdfId" rowspan="1"><a target="_blank" rel="external" href="#">查看</a></td>
       <td class="firstExpertName">专家1</td>
       <td class="firstEvalResult">结果1</td>
       <td class="firstRemark">意见1</td>
       <td class="finalResult" rowspan="1">属于</td>
       <td class="reward" rowspan="1">1000</td>
+      <td style="display:none;" class="thesisId"></td>
     </tr>
     <tr class="furtherExpert">
       <td class="expertName">专家2</td>
@@ -98,8 +99,18 @@
       <button>自动分配专家</button>
       <button>保存</button>
       <button>下载汇总表</button>
-      <button onClick="TestA()">TestA</button>
-      <button onClick="TestB()">TestB</button>
+      <span>页码:</span>
+      <select id="pageOffset" onchange="changePageOffset()">
+      </select>
+      <span>每页显示:</span>
+      <select id="maxItemCount" onchange="changeMaxItemCount()">
+        <option value="25" selected="selected">25</option>
+        <option value="50">50</option>
+        <option value="75">75</option>
+        <option value="100">100</option>
+      </select>
+      <button onclick="previousPage()">上一页</button>
+      <button onclick="nextPage()">下一页</button>
     </div>
   </div>
 </div>
