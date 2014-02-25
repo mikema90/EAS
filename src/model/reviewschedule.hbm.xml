@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 24, 2014 11:29:26 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Feb 25, 2014 1:52:59 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.reviewschedule" table="REVIEWSCHEDULE">
         <id name="id" type="int">
@@ -11,8 +11,8 @@
         <property name="paper_id" type="int">
             <column name="PAPER_ID" />
         </property>
-        <property name="exper_work_id" type="int">
-            <column name="EXPER_WORK_ID" />
+        <property name="expert_work_id" type="java.lang.String">
+            <column name="EXPERT_WORK_ID" />
         </property>
         <property name="status" type="int">
             <column name="STATUS" />

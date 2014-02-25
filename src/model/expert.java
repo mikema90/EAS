@@ -2,8 +2,8 @@ package model;
 
 public class expert {
 	private int id;
-	private int work_id;
-	private int college_id;
+	private String work_id;
+	private String college_id;
 	private String name;
 	private int pwd;
 	private boolean engineering;
@@ -24,19 +24,19 @@ public class expert {
 		this.id = id;
 	}
 
-	public int getWork_id() {
+	public String getWork_id() {
 		return work_id;
 	}
 
-	public void setWork_id(int work_id) {
+	public void setWork_id(String work_id) {
 		this.work_id = work_id;
 	}
 
-	public int getCollege_id() {
+	public String getCollege_id() {
 		return college_id;
 	}
 
-	public void setCollege_id(int college_id) {
+	public void setCollege_id(String college_id) {
 		this.college_id = college_id;
 	}
 

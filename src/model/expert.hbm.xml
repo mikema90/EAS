@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 24, 2014 11:29:26 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Feb 25, 2014 1:52:59 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.expert" table="EXPERT">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />
         </id>
-        <property name="work_id" type="int">
+        <property name="work_id" type="java.lang.String">
             <column name="WORK_ID" />
         </property>
-        <property name="college_id" type="int">
+        <property name="college_id" type="java.lang.String">
             <column name="COLLEGE_ID" />
         </property>
         <property name="name" type="java.lang.String">

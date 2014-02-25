@@ -3,7 +3,7 @@ package model;
 public class reviewschedule {
 	private int id;
 	private int paper_id;
-	private int exper_work_id;
+	private String expert_work_id;
 	private int status;
 	private String comment;
 
@@ -23,12 +23,12 @@ public class reviewschedule {
 		this.paper_id = paper_id;
 	}
 
-	public int getExper_work_id() {
-		return exper_work_id;
+	public String getExpert_work_id() {
+		return expert_work_id;
 	}
 
-	public void setExper_work_id(int exper_work_id) {
-		this.exper_work_id = exper_work_id;
+	public void setExpert_work_id(String expert_work_id) {
+		this.expert_work_id = expert_work_id;
 	}
 
 	public int getStatus() {

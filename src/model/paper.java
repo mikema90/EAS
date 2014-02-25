@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class paper {
 	private int id;
-	private int college_id;
+	private String college_id;
 	private String college_name;
 	private String category;
 	private String first_author;
@@ -28,11 +28,11 @@ public class paper {
 		this.id = id;
 	}
 
-	public int getCollege_id() {
+	public String getCollege_id() {
 		return college_id;
 	}
 
-	public void setCollege_id(int college_id) {
+	public void setCollege_id(String college_id) {
 		this.college_id = college_id;
 	}
 

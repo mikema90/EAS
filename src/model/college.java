@@ -2,7 +2,7 @@ package model;
 
 public class college {
 	private int id;
-	private int college_id;
+	private String college_id;
 	private String name;
 	private String pwd;
 	private boolean submitted;
@@ -15,11 +15,11 @@ public class college {
 		this.id = id;
 	}
 
-	public int getCollege_id() {
+	public String getCollege_id() {
 		return college_id;
 	}
 
-	public void setCollege_id(int college_id) {
+	public void setCollege_id(String college_id) {
 		this.college_id = college_id;
 	}
 

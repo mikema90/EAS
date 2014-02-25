@@ -76,7 +76,7 @@ public class CommonFuncInServlet {
 
 		paper p = new paper();
 		// fill data into paper
-		p.setCollege_id(Integer.valueOf(college_id));
+		p.setCollege_id(college_id);
 		p.setCollege_name(nameMapping.getInstance().collegeMap.get(college_id));
 		p.setCategory(nameMapping.getInstance().categoryMap.get(category));
 
