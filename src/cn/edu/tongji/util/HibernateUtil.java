@@ -27,7 +27,7 @@ public class HibernateUtil {
 	private static String get_all_paper_count_sql = "select count(*) from paper";
 	private static String get_paper_count_sql = "select count(*) from paper where college_id = ?";
 	private static String get_college_sql = "from college";
-	private static String get_mapping_sql = "select journal_type from mapping where issues = ?";
+	private static String get_mapping_sql = "select journal_type from mapping where issues = ? or issues = ?";
 
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
@@ -355,20 +355,20 @@ public class HibernateUtil {
 		return upstatus;
 	}
 
-	public static String getMapping(String issues) {
+	public static String getMapping(String issues, String journal) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
-		
+
 		String journal_type = (String) session.createQuery(get_mapping_sql)
-		.setString(0, issues).uniqueResult();
-		
+				.setString(0, issues).setString(1, journal).uniqueResult();
+
 		System.out.println("get " + issues + "`s journal_type mapping!");
 		session.getTransaction().commit();
 		session.close();
-		
+
 		return journal_type;
 	}
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// HibernateUtil ho = new HibernateUtil();
@@ -386,7 +386,7 @@ public class HibernateUtil {
 		// p.setCollege_name("材料学院");
 		// HibernateUtil.updatePaper(p);
 		// HibernateUtil.resetExpertPwd(1234839);
-		System.out.println(HibernateUtil.getMapping("CN-22-2222"));
+		// System.out.println(HibernateUtil.getMapping("CN-22-2222"));
 		HibernateUtil.DeHibernateOperation();
 	}
 

@@ -33,17 +33,19 @@ public class MappingServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		String issues = request.getParameter("issues");
-		String journal_type = HibernateUtil.getMapping(issues);
-		
+		// get issues and journal, transfer them into UpperCase
+		String issues = request.getParameter("issues").toUpperCase();
+		String journal = request.getParameter("journal").toUpperCase();
+		String journal_type = HibernateUtil.getMapping(issues, journal);
+
 		JSONObject result = new JSONObject();
 		result.accumulate("Status", "success");
-		if(journal_type != "" && journal_type != null){
+		if (journal_type != "" && journal_type != null) {
 			result.accumulate("journal_type", journal_type);
-		}else{
+		} else {
 			result.accumulate("journal_type", "非核心期刊");
 		}
-		
+
 		System.out.println(result.toString());
 		out.write(result.toString());
 		out.flush();
