@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `eas` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `eas`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
 --
--- Host: localhost    Database: eas
+-- Host: 127.0.0.1    Database: eas
 -- ------------------------------------------------------
--- Server version	5.6.16-log
+-- Server version	5.5.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `admin`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `work_id` int(11) NOT NULL COMMENT 'username (job number)',
+  `work_id` varchar(12) NOT NULL COMMENT 'username (job number)',
   `name` varchar(30) DEFAULT NULL,
   `pwd` varchar(30) DEFAULT NULL,
   `opendeclare` int(1) DEFAULT '0',
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,1111,'admin','8888',0,0);
+INSERT INTO `admin` VALUES (1,'admin','admin','888888',0,0);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,13 +53,13 @@ DROP TABLE IF EXISTS `college`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `college` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `college_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `college_id` varchar(12) NOT NULL,
   `name` varchar(30) DEFAULT NULL,
   `pwd` varchar(30) DEFAULT NULL,
   `submitted` int(1) DEFAULT '0' COMMENT '是否已经提交教务处',
   PRIMARY KEY (`id`,`college_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `college` (
 
 LOCK TABLES `college` WRITE;
 /*!40000 ALTER TABLE `college` DISABLE KEYS */;
-INSERT INTO `college` VALUES (1,8800,'软件学院','8888',0),(2,7700,'土木学院','8888',0);
+INSERT INTO `college` VALUES (1,'经济与管理学院','01000','888888',0),(2,'建筑与城市规划学院','02000','888888',0),(3,'土木工程学院','03000','888888',0),(4,'机械与能源工程学院','04000','888888',0),(5,'环境科学与工程学院','05000','888888',0),(6,'人文学院','07900','888888',0),(7,'材料科学与工程学院','08000','888888',0),(8,'电子与信息工程学院','10000','888888',0),(9,'外国语学院','11000','888888',0),(10,'数学系','12200','888888',0),(11,'化学系','12300','888888',0),(12,'物理科学与工程学院','58000','888888',0),(13,'国际文化交流学院','13000','888888',0),(14,'医学院','14000','888888',0),(15,'口腔医学院','14200','888888',0),(16,'交通运输工程学院','15000','888888',0),(17,'女子学院','16000','888888',0),(18,'生命科学与技术学院','17000','888888',0),(19,'传播与艺术学院','18000','888888',0),(20,'汽车学院','19000','888888',0),(21,'海洋与地球科学学院','31000','888888',0),(22,'软件学院','42000','888888',0),(23,'铁道与城市轨道交通研究院','43000','888888',0),(24,'电影学院','44000','888888',0),(25,'航空航天与力学学院','45000','888888',0),(26,'职业技术教育学院','49000','888888',0),(27,'网络学院','50000','888888',0),(28,'中德工程学院','51000','888888',0),(29,'法学院','52000','888888',0),(30,'政治与国际关系学院','53000','888888',0),(31,'设计与艺术学院','55000','888888',0),(32,'测绘与地理信息学院','57000','888888',0);
 /*!40000 ALTER TABLE `college` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,8 +81,8 @@ DROP TABLE IF EXISTS `expert`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `expert` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `work_id` int(11) NOT NULL,
-  `college_id` int(11) DEFAULT NULL,
+  `work_id` varchar(12) NOT NULL,
+  `college_id` varchar(12) DEFAULT NULL,
   `name` varchar(30) DEFAULT NULL,
   `pwd` varchar(30) DEFAULT NULL,
   `engineering` tinyint(1) DEFAULT '0',
@@ -104,7 +104,7 @@ CREATE TABLE `expert` (
 
 LOCK TABLES `expert` WRITE;
 /*!40000 ALTER TABLE `expert` DISABLE KEYS */;
-INSERT INTO `expert` VALUES (1,1234839,8800,'马国来','8888',1,1,0,0,1,0,0,1,0);
+INSERT INTO `expert` VALUES (1,'1234839','42000','马国来','888888',1,1,0,0,1,0,0,1,0);
 /*!40000 ALTER TABLE `expert` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,7 @@ DROP TABLE IF EXISTS `paper`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paper` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `college_id` int(11) DEFAULT NULL,
+  `college_id` varchar(12) DEFAULT NULL,
   `college_name` varchar(45) DEFAULT NULL,
   `category` varchar(45) DEFAULT NULL,
   `first_author` varchar(10) DEFAULT NULL,
@@ -156,7 +156,7 @@ CREATE TABLE `paper` (
   `pdf_url` varchar(120) DEFAULT NULL,
   `passed` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +165,6 @@ CREATE TABLE `paper` (
 
 LOCK TABLES `paper` WRITE;
 /*!40000 ALTER TABLE `paper` DISABLE KEYS */;
-INSERT INTO `paper` VALUES (4,8800,'软件学院','教育理论','尹长青',1234839,'','','data mining','IEEE','ISSN-2222-2222','A','2014-03-01 00:00:00','英文','8800\\data mining.pdf',0),(5,8800,'软件学院','教育理论','马国来',1234839,'jack','0000','中英文化深入研究','文化周刊','ISSN-2222-2222','A','2013-12-01 00:00:00','英文','8800\\中英文化深入研究.pdf',0),(6,8800,'软件学院','教育理论','刘琴',111,'bbb,ccc','222,333','detch','paper','ISBN-qqqqqqqqqqqqa','A','2014-01-01 00:00:00','中文','8800\\detch.pdf',0),(7,8800,'软件学院','教育理论','尹长青',1234839,'','','data analysis','IEEE','ISSN-2222-2222','A','2014-03-01 00:00:00','英文','8800\\data analysis.pdf',0),(8,7700,'土木学院','教育理论','严峻',1234839,'jack','0000','土木研究','土木周刊','ISSN-2222-2222','A','2013-12-01 00:00:00','英文','8800\\土木研究.pdf',0),(10,7700,'土木学院','教育实践','土老师',22222222,'穆老师','33333333','土木学','土木周刊','CN-22-2222','A','2014-01-01 00:00:00','中文','7700\\土木学.pdf',0),(11,7700,'土木学院','教育理论','xxx',1234,'','','xxx','xxx','ISBN-wwwwwwwwwwwww','A','2014-01-01 00:00:00','中文','7700\\xxx.pdf',0);
 /*!40000 ALTER TABLE `paper` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,11 +178,11 @@ DROP TABLE IF EXISTS `reviewschedule`;
 CREATE TABLE `reviewschedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `paper_id` int(11) DEFAULT NULL,
-  `expert_work_id` int(11) DEFAULT NULL,
+  `expert_work_id` varchar(12) DEFAULT NULL,
   `status` int(11) DEFAULT '0' COMMENT '1-属于\n2-不属于\n3-无法认定',
   `comment` varchar(180) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,7 +191,6 @@ CREATE TABLE `reviewschedule` (
 
 LOCK TABLES `reviewschedule` WRITE;
 /*!40000 ALTER TABLE `reviewschedule` DISABLE KEYS */;
-INSERT INTO `reviewschedule` VALUES (1,1,1234839,2,'it is not good enough');
 /*!40000 ALTER TABLE `reviewschedule` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -205,4 +203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-02-24 23:32:26
+-- Dump completed on 2014-02-25 15:41:29
