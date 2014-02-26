@@ -1,4 +1,5 @@
 // JavaScript Document
+var pageOffset;
 $(document).ready(function() {
 	//test();
 	pageOffset=getParam("pageOffset");

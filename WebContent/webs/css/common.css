@@ -67,7 +67,7 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 }
 
 #navigationBar{
-	padding-left:15px;
+	/*padding-left:15px;*/
 	background:#608cc4;
 	text-align:center;
 	height:30px;
