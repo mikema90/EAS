@@ -42,19 +42,26 @@ public class UpdatePaperServlet extends HttpServlet {
 		paper old_paper = HibernateUtil.getOnePaperCount(paper_id);
 		// from html
 		paper cur_paper = null;
+		boolean isSuccess = true; // check whether fill in paper successfully
 		try {
 			cur_paper = CommonFuncInServlet.fillinPaper(request);
 		} catch (paperFillException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			isSuccess = false;
 		}
-		cur_paper.setId(paper_id);
-
-		HibernateUtil.updatePaper(merge(old_paper, cur_paper, request));
 
 		JSONObject result = new JSONObject();
-		result.accumulate("Status", "success");
-		result.accumulate("redirectUrl", "thesisList.html");
+
+		if (isSuccess) {
+			cur_paper.setId(paper_id);
+			HibernateUtil.updatePaper(merge(old_paper, cur_paper, request));
+			result.accumulate("Status", "success");
+			result.accumulate("redirectUrl", "thesisList.html");
+		} else {
+			result.accumulate("Status", "failed");
+			result.accumulate("retMsg", "期刊名称和刊号不匹配！");
+		}
 
 		System.out.println(result.toString());
 		out.write(result.toString());

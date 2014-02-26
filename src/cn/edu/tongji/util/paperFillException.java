@@ -4,6 +4,7 @@ package cn.edu.tongji.util;
 public class paperFillException extends Exception {
 
 	private String errorMsg;
+
 	public paperFillException() {
 		// TODO Auto-generated constructor stub
 	}

@@ -36,7 +36,7 @@ public class AddPaperServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		paper p = null;
-		boolean isSuccess = true;
+		boolean isSuccess = true; // check whether fill in paper successfully
 		try {
 			p = CommonFuncInServlet.fillinPaper(request);
 		} catch (paperFillException e) {
@@ -44,18 +44,17 @@ public class AddPaperServlet extends HttpServlet {
 			e.printStackTrace();
 			isSuccess = false;
 		}
-		
-		
+
 		JSONObject result = new JSONObject();
-		if(isSuccess){
+		if (isSuccess) {
 			HibernateUtil.addPaper(p);
 			result.accumulate("Status", "success");
 			result.accumulate("redirectUrl", "thesisList.html");
-		}else{
+		} else {
 			result.accumulate("Status", "failed");
 			result.accumulate("retMsg", "期刊名称和刊号不匹配！");
 		}
-		
+
 		System.out.println(result.toString());
 		out.write(result.toString());
 		out.flush();
