@@ -12,39 +12,39 @@ function () {
 
 	var infoId = getParam("id");
 	if (infoId == null) {
-		submitUrl="../addPaper";
+		submitUrl = "../addPaper";
 		return;
 	} else {
 		thesisInfo = JSON.parse($.cookie(infoId));
 		$("#thesisTypeSelector").find("option:contains('" + thesisInfo.category + "')").attr("selected", "selected");
 		insertAuthor2nd(thesisInfo.first_author, thesisInfo.first_author_wid);
-		if(thesisInfo.other_authors!=""){
-			var otherAuthorNames=thesisInfo.other_authors.split(",");
-			var otherAuthorIds=thesisInfo.other_authors_wid.split(",");
-			for(var i=0;i<otherAuthorNames.length;i++){
+		if (thesisInfo.other_authors != "") {
+			var otherAuthorNames = thesisInfo.other_authors.split(",");
+			var otherAuthorIds = thesisInfo.other_authors_wid.split(",");
+			for (var i = 0; i < otherAuthorNames.length; i++) {
 				insertAuthor2nd(otherAuthorNames[i], otherAuthorIds[i]);
 			}
 		}
 		$("#thesisNameInputBox").val(thesisInfo.title);
 		$("#periodicalNameInputBox").val(thesisInfo.journal);
-		var periodicalSn=thesisInfo.issues.split("-");
+		var periodicalSn = thesisInfo.issues.split("-");
 		$("#periodicalSelector").val(periodicalSn[0]);
 		changePeriodicalSnSelector();
-		if(periodicalSn[0]=="ISSN"){
+		if (periodicalSn[0] == "ISSN") {
 			$(".periodicalSn.sn2").val(periodicalSn[2]);
 		}
 		$(".periodicalSn.sn1").val(periodicalSn[1]);
-		$(".timeSelector.timeOfYear option[value='"+thesisInfo.post_date.split("-")[0]+"']").attr("selected","selected");
-		$(".timeSelector.timeOfMonth option[value='"+parseInt(thesisInfo.post_date.split("-")[1])+"']").attr("selected","selected");
-		$("#languageSelector option:contains('"+thesisInfo.language+"')").attr("selected","selected");
+		$(".timeSelector.timeOfYear option[value='" + thesisInfo.post_date.split("-")[0] + "']").attr("selected", "selected");
+		$(".timeSelector.timeOfMonth option[value='" + parseInt(thesisInfo.post_date.split("-")[1]) + "']").attr("selected", "selected");
+		$("#languageSelector option:contains('" + thesisInfo.language + "')").attr("selected", "selected");
 		$("#uploadingStatus").css("color", "#F60");
 		$("#thesisId").val(thesisInfo.id);
 		$("#uploadingStatus").text("不上传新文件则保留原文件");
-		submitUrl="../updatePaper";
+		submitUrl = "../updatePaper";
 	}
 });
 
-function insertAuthor2nd(authorName, authorId){
+function insertAuthor2nd(authorName, authorId) {
 	var newAuthorInfo = $("#authorInfoTemplate").clone(true);
 	newAuthorInfo.find(".authorOrder").text($("#authorEditor").find(".authorOrder").text());
 	newAuthorInfo.find(".authorName").find("input").val(authorName);
@@ -77,8 +77,8 @@ function hideAuthorEditor() {
 function insertAuthorInfo() {
 	if ($("#authorNameInputBox").val() == "") {
 		alert("姓名不能为空");
-	} else if($("#authorIdInputBox").val().length>8){
-		 alert("工号不能超过8位");
+	} else if ($("#authorIdInputBox").val().length > 8) {
+		alert("工号不能超过8位");
 	} else {
 		insertAuthor2nd($("#authorNameInputBox").val(), $("#authorIdInputBox").val())
 		hideAuthorEditor();
@@ -154,7 +154,7 @@ function changePeriodicalSnSelector() {
 	targetParent.removeClass("isCN");
 	targetParent.removeClass("isISBN");
 	targetParent.removeClass("isISSN");
-	targetParent.addClass("is"+$("#periodicalSelector").val());
+	targetParent.addClass("is" + $("#periodicalSelector").val());
 	$(".periodicalSn.sn1").val("");
 	$(".periodicalSn.sn2").val("");
 	$("#periodicalType").val("");
@@ -175,36 +175,35 @@ function onChangeSn1(targetElement) {
 				$(targetElement).val($(targetElement).val().substr(0, 4));
 			}
 		}
-	}else if ($("#periodicalSelector").val() == "CN") {
+	} else if ($("#periodicalSelector").val() == "CN") {
 		if ($(targetElement).val().length >= 2) {
 			$(".periodicalSn.sn2").focus();
 			if ($(targetElement).val().length > 2) {
 				$(targetElement).val($(targetElement).val().substr(0, 2));
 			}
 		}
-	} 
+	}
 }
 
 function onChangeSn2(targetElement) {
-	if ($(targetElement).val().length >= 4) {
+	if ($(targetElement).val().length >= 4 && $("#periodicalSelector").val() != "CN") {
 		$(targetElement).val($(targetElement).val().substr(0, 4));
+	} else if ($(targetElement).val().length >= 7 && $("#periodicalSelector").val() == "CN") {
+		$(targetElement).val($(targetElement).val().substr(0, 7));
 	}
 }
 
 function uploadFile() {
-	if ($("#uploadingStatus").text() != "等待上传") {
-		alert("请选择文件");
-	} else {
-		$("#uploadingStatus").css("color", "#F60");
-		$("#uploadingStatus").text("正在上传...");
-		uploadingStatusNum = 3;
 
-		try {
-			$(window.frames["hidden_frame"].document).text("");
-		} catch (e) {}
-		checkingInterval = setInterval(checkUploadingStatus, 2000);
-		$("#uploadFileForm").submit();
-	}
+	$("#uploadingStatus").css("color", "#F60");
+	$("#uploadingStatus").text("正在上传...");
+	uploadingStatusNum = 3;
+
+	try {
+		$(window.frames["hidden_frame"].document).text("");
+	} catch (e) {}
+	checkingInterval = setInterval(checkUploadingStatus, 2000);
+	$("#uploadFileForm").submit();
 }
 
 function uploadingFailure() {
@@ -221,6 +220,27 @@ function uploadingSuccess(tempName) {
 	$("#fileTempName").val(tempName);
 	$("#uploadingStatus").css("color", "#0F0");
 	$("#uploadingStatus").text("上传成功！");
+}
+
+function checkPeriodicalSn(targetElement) {
+	if ($("#periodicalSelector").val() == "ISSN" || $("#periodicalSelector").val() == "CN") {
+		return;
+	}
+	$.ajax({
+		type: 'POST',
+		url: '../mapping',
+		data: {
+			periodicalType:$("#periodicalSelector").val(),
+			periodicalSn1:$(".periodicalSn.sn1").val(),
+			periodicalSn2:$(".periodicalSn.sn2").val(),
+			},
+		success: function (jsonData) {
+			if (jsonData.Status == "success") {
+				$("#periodicalTypeText").val(jsonData.retMsg);
+			}
+		},
+		dataType: 'json'
+	});
 }
 
 function checkUploadingStatus() {
@@ -257,7 +277,7 @@ function submitForm() {
 		alert("ISSN需要8位数字或字母并且由短横隔开");
 	} else if ($("#periodicalSelector").val() == "ISBN" && $(".periodicalSn.sn1").val().length != 13) {
 		alert("ISSN需要13位数字");
-	}else if ($("#periodicalSelector").val() == "CN" && ($(".periodicalSn.sn1").val().length != 2||($(".periodicalSn.sn2").val().length != 2 && $(".periodicalSn.sn2").val().length != 4))) {
+	} else if ($("#periodicalSelector").val() == "CN" && ($(".periodicalSn.sn1").val().length != 2 || ($(".periodicalSn.sn2").val().length != 2 && $(".periodicalSn.sn2").val().length != 4 && $(".periodicalSn.sn2").val().length != 7))) {
 		alert("CN需要两位+两位字符，或者两位+四位字符");
 	} else if ($("#uploadingStatus").text() != "上传成功！" && $("#uploadingStatus").text() != "不上传新文件则保留原文件") {
 		alert("请上传附件");
@@ -271,7 +291,7 @@ function submitForm() {
 				if (jsonData.Status == "success") {
 					window.location = jsonData.redirectUrl;
 				} else {
-					alert("保存未成功");
+					alert("保存失败:"+jsonData.retMsg);
 				}
 			},
 			error: function () {
@@ -282,9 +302,9 @@ function submitForm() {
 	}
 }
 
-function cancelForm(){
-	if(confirm("确认要放弃更改并返回吗？")==false){
+function cancelForm() {
+	if (confirm("确认要放弃更改并返回吗？") == false) {
 		return;
 	}
-	window.location="thesisList.html"
+	window.location = "thesisList.html"
 }

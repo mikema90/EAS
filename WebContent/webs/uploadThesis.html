@@ -89,10 +89,10 @@
             <option value="ISBN">ISBN</option>
             <option value="CN">CN</option>
           </select>
-          <input onkeyup="onChangeSn1(this)" class="periodicalSn sn1" type="text" name="periodicalSn1">
+          <input onblur="checkPeriodicalSn(this)" onkeyup="onChangeSn1(this)" class="periodicalSn sn1" type="text" name="periodicalSn1">
           <div id="slash">-</div>
-          <input onkeyup="onChangeSn2(this)" class="periodicalSn sn2" type="text" name="periodicalSn2">
-          <input name="periodicalType" id="periodicalType" style="border-width:0px;font: 16px Verdana, Arial, Helvetica, sans-serif;margin-left:10px;margin-top:5px;" value=""/>
+          <input onblur="checkPeriodicalSn(this)" onkeyup="onChangeSn2(this)" class="periodicalSn sn2" type="text" name="periodicalSn2">
+          <input name="periodicalTypeText" id="periodicalTypeText" style="border-width:0px;font: 16px Verdana, Arial, Helvetica, sans-serif;margin-left:10px;margin-top:5px;" value=""/>
         </div>
         <div class="clearfloat"></div>
         <div class="oneLine">
