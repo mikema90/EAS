@@ -116,7 +116,12 @@ public class CommonFuncInServlet {
 		}
 
 		p.setIssues(issues);
-		p.setJournal_type("A");
+		
+		String journal_type = HibernateUtil.getMapping(issues.toUpperCase(), journal.toUpperCase());
+		if(journal_type == "" || journal_type == null){
+			journal_type = "非核心期刊";
+		}
+		p.setJournal_type(journal_type);
 		p.setPost_date(post_date);
 		p.setLanguage(nameMapping.getInstance().languageMap.get(language));
 		p.setPdf_url(pdf_url);
