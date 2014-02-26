@@ -75,8 +75,10 @@ function hideAuthorEditor() {
 }
 
 function insertAuthorInfo() {
-	if ($("#authorNameInputBox").val() == "" || $("#authorIdInputBox").val() == "") {
-		alert("作者姓名和工号不能为空");
+	if ($("#authorNameInputBox").val() == "") {
+		alert("姓名不能为空");
+	} else if($("#authorIdInputBox").val().length>8){
+		 alert("工号不能超过8位");
 	} else {
 		insertAuthor2nd($("#authorNameInputBox").val(), $("#authorIdInputBox").val())
 		hideAuthorEditor();
