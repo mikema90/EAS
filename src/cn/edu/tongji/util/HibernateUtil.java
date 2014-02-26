@@ -355,14 +355,28 @@ public class HibernateUtil {
 		return upstatus;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static String getMapping(String issues, String journal) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
-		String journal_type = (String) session.createQuery(get_mapping_sql)
-				.setString(0, issues).setString(1, journal).uniqueResult();
-
 		System.out.println("get " + issues + "`s journal_type mapping!");
+
+		List<String> journal_types = session.createQuery(get_mapping_sql)
+				.setString(0, issues).setString(1, journal).list();
+		String journal_type = "";
+		if (journal_types.size() == 0) {
+			journal_type = "";
+		} else if (journal_types.size() == 1) {
+			journal_type = journal_types.get(0);
+		} else if (journal_types.size() == 2) { // check whether equal
+			if (journal_types.get(0).equals(journal_types.get(1))) {
+				journal_type = journal_types.get(0);
+			} else {
+				journal_type = "failed";
+			}
+		}
+
 		session.getTransaction().commit();
 		session.close();
 

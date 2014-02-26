@@ -13,6 +13,7 @@ import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.FileUtil;
 import cn.edu.tongji.util.HibernateUtil;
+import cn.edu.tongji.util.paperFillException;
 import model.paper;
 
 @WebServlet("/updatePaper")
@@ -40,7 +41,13 @@ public class UpdatePaperServlet extends HttpServlet {
 		// from DB
 		paper old_paper = HibernateUtil.getOnePaperCount(paper_id);
 		// from html
-		paper cur_paper = CommonFuncInServlet.fillinPaper(request);
+		paper cur_paper = null;
+		try {
+			cur_paper = CommonFuncInServlet.fillinPaper(request);
+		} catch (paperFillException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		cur_paper.setId(paper_id);
 
 		HibernateUtil.updatePaper(merge(old_paper, cur_paper, request));

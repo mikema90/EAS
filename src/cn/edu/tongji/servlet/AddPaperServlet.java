@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.HibernateUtil;
+import cn.edu.tongji.util.paperFillException;
 import net.sf.json.JSONObject;
 import model.paper;
 
@@ -34,13 +35,27 @@ public class AddPaperServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		paper p = CommonFuncInServlet.fillinPaper(request);
-		HibernateUtil.addPaper(p);
-
+		paper p = null;
+		boolean isSuccess = true;
+		try {
+			p = CommonFuncInServlet.fillinPaper(request);
+		} catch (paperFillException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			isSuccess = false;
+		}
+		
+		
 		JSONObject result = new JSONObject();
-		result.accumulate("Status", "success");
-		result.accumulate("redirectUrl", "thesisList.html");
-
+		if(isSuccess){
+			HibernateUtil.addPaper(p);
+			result.accumulate("Status", "success");
+			result.accumulate("redirectUrl", "thesisList.html");
+		}else{
+			result.accumulate("Status", "failed");
+			result.accumulate("retMsg", "期刊名称和刊号不匹配！");
+		}
+		
 		System.out.println(result.toString());
 		out.write(result.toString());
 		out.flush();

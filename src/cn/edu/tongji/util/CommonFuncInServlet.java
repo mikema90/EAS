@@ -39,15 +39,12 @@ public class CommonFuncInServlet {
 
 	@SuppressWarnings("deprecation")
 	public static paper fillinPaper(HttpServletRequest request)
-			throws IOException {
+			throws IOException, paperFillException {
 		HttpSession session = request.getSession();
 		String college_id = (String) session.getAttribute("username");
 		String category = request.getParameter("thesisType"), title = request
 				.getParameter("thesisName"), journal = request
-				.getParameter("periodicalName"), issues = request
-				.getParameter("periodicalType"), journalSN1 = request
-				.getParameter("periodicalSn1"), journalSN2 = request
-				.getParameter("periodicalSn2"), year = request
+				.getParameter("periodicalName"), year = request
 				.getParameter("timeYear"), month = request
 				.getParameter("timeMonth"), language = request
 				.getParameter("thesisLanguage"), fileTmpName = request
@@ -107,18 +104,17 @@ public class CommonFuncInServlet {
 		p.setTitle(title);
 		p.setJournal(journal);
 
-		if (issues.equals("ISSN")) {
-			issues = issues + "-" + journalSN1 + "-" + journalSN2;
-		} else if (issues.equals("ISBN")) {
-			issues = issues + "-" + journalSN1;
-		} else if (issues.equals("CN")) {
-			issues = issues + "-" + journalSN1 + "-" + journalSN2;
-		}
-
+		//get issues
+		String issues = mergeIssues(request);
 		p.setIssues(issues);
 		
 		String journal_type = HibernateUtil.getMapping(issues.toUpperCase(), journal.toUpperCase());
-		if(journal_type == "" || journal_type == null){
+		if(journal_type.equals("failed")){
+			paperFillException pfe = new paperFillException();
+			pfe.setErrorMsg("期刊名称和刊号不匹配！");
+			throw pfe;
+		}
+		else if(journal_type == "" || journal_type == null){
 			journal_type = "非核心期刊";
 		}
 		p.setJournal_type(journal_type);
@@ -128,6 +124,22 @@ public class CommonFuncInServlet {
 		p.setPassed(passed);
 
 		return p;
+	}
+	
+	public static String mergeIssues(HttpServletRequest request){
+		String issues = request
+				.getParameter("periodicalType"), journalSN1 = request
+				.getParameter("periodicalSn1"), journalSN2 = request
+				.getParameter("periodicalSn2");
+		if (issues.equals("ISSN")) {
+			issues = issues + "-" + journalSN1 + "-" + journalSN2;
+		} else if (issues.equals("ISBN")) {
+			issues = issues + "-" + journalSN1;
+		} else if (issues.equals("CN")) {
+			issues = issues + "-" + journalSN1 + "-" + journalSN2;
+		}
+		
+		return issues;
 	}
 
 	public static expert fillinExpert(HttpServletRequest request) {

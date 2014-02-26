@@ -34,16 +34,21 @@ public class MappingServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		// get issues and journal, transfer them into UpperCase
-		String issues = request.getParameter("issues").toUpperCase();
+		String issues = CommonFuncInServlet.mergeIssues(request).toUpperCase();
 		String journal = request.getParameter("journal").toUpperCase();
 		String journal_type = HibernateUtil.getMapping(issues, journal);
 
 		JSONObject result = new JSONObject();
-		result.accumulate("Status", "success");
-		if (journal_type != "" && journal_type != null) {
-			result.accumulate("journal_type", journal_type);
+		if (journal_type.equals("failed")) {
+			result.accumulate("Status", "failed");
+			result.accumulate("retMsg", "期刊名称和刊号不匹配！");
 		} else {
-			result.accumulate("journal_type", "非核心期刊");
+			result.accumulate("Status", "success");
+			if (journal_type != "" && journal_type != null) {
+				result.accumulate("retMsg", journal_type);
+			} else {
+				result.accumulate("retMsg", "非核心期刊");
+			}
 		}
 
 		System.out.println(result.toString());
