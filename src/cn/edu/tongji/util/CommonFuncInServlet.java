@@ -79,11 +79,11 @@ public class CommonFuncInServlet {
 		p.setCategory(nameMapping.getInstance().categoryMap.get(category));
 
 		String first_author = "", other_authors = "", other_authors_wid = "";
-		int first_author_wid = -1;
+		String first_author_wid = "";
 		for (int i = 0; i < authorNames.length; i++) {
 			if (i == 0) { // first_author
 				first_author = authorNames[i];
-				first_author_wid = Integer.valueOf(authorIds[i]);
+				first_author_wid = authorIds[i];
 			} else { // other authors
 				other_authors = other_authors + authorNames[i] + ",";
 				other_authors_wid = other_authors_wid + authorIds[i] + ",";
