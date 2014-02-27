@@ -218,9 +218,16 @@ function changeUploadingStatus() {
 }
 
 function uploadingSuccess(tempName) {
+	clearInterval(checkingInterval);
 	$("#fileTempName").val(tempName);
 	$("#uploadingStatus").css("color", "#0F0");
 	$("#uploadingStatus").text("上传成功！");
+}
+
+function uploadingFailed(errorMsg) {
+	clearInterval(checkingInterval);
+	$("#uploadingStatus").css("color", "#F00");
+	$("#uploadingStatus").text(errorMsg);
 }
 
 function checkPeriodicalSn(targetElement) {
@@ -250,6 +257,8 @@ function checkUploadingStatus() {
 	try {
 		var iframeContent = $(window.frames["hidden_frame"].document).text();
 		if (iframeContent.toLowerCase().indexOf("success") > 0) {
+			clearInterval(checkingInterval);
+		} else if(iframeContent.toLowerCase().indexOf("uploadingFailed") > 0){
 			clearInterval(checkingInterval);
 		} else if (iframeContent != "") {
 			clearInterval(checkingInterval);
