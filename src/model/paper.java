@@ -8,7 +8,7 @@ public class paper {
 	private String college_name;
 	private String category;
 	private String first_author;
-	private int first_author_wid;
+	private String first_author_wid;
 	private String other_authors;
 	private String other_authors_wid;
 	private String title;
@@ -60,11 +60,11 @@ public class paper {
 		this.first_author = first_author;
 	}
 
-	public int getFirst_author_wid() {
+	public String getFirst_author_wid() {
 		return first_author_wid;
 	}
 
-	public void setFirst_author_wid(int first_author_wid) {
+	public void setFirst_author_wid(String first_author_wid) {
 		this.first_author_wid = first_author_wid;
 	}
 
