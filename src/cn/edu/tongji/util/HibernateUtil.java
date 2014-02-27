@@ -357,6 +357,9 @@ public class HibernateUtil {
 
 	@SuppressWarnings("unchecked")
 	public static String getMapping(String issues, String journal) {
+		if (issues.startsWith("ISBN")) {
+			return "核心期刊";
+		}
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
@@ -366,14 +369,14 @@ public class HibernateUtil {
 				.setString(0, issues).setString(1, journal).list();
 		String journal_type = "";
 		if (journal_types.size() == 0) {
-			journal_type = "";
+			journal_type = "非核心期刊";
 		} else if (journal_types.size() == 1) {
 			journal_type = journal_types.get(0);
 		} else if (journal_types.size() == 2) { // check whether equal
 			if (journal_types.get(0).equals(journal_types.get(1))) {
 				journal_type = journal_types.get(0);
 			} else {
-				journal_type = "failed";
+				journal_type = "#failed#";
 			}
 		}
 

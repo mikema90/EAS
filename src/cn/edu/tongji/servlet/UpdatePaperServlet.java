@@ -13,7 +13,7 @@ import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.FileUtil;
 import cn.edu.tongji.util.HibernateUtil;
-import cn.edu.tongji.util.paperFillException;
+import cn.edu.tongji.util.typeMappingException;
 import model.paper;
 
 @WebServlet("/updatePaper")
@@ -40,27 +40,25 @@ public class UpdatePaperServlet extends HttpServlet {
 		int paper_id = Integer.valueOf(request.getParameter("paper_id"));
 		// from DB
 		paper old_paper = HibernateUtil.getOnePaperCount(paper_id);
-		// from html
+
 		paper cur_paper = null;
+		JSONObject result = null;
 		boolean isSuccess = true; // check whether fill in paper successfully
+
 		try {
+			// from html
 			cur_paper = CommonFuncInServlet.fillinPaper(request);
-		} catch (paperFillException e) {
+		} catch (typeMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			isSuccess = false;
+			result = CommonFuncInServlet.handleJournalType("#failed#", 2);
 		}
-
-		JSONObject result = new JSONObject();
 
 		if (isSuccess) {
 			cur_paper.setId(paper_id);
 			HibernateUtil.updatePaper(merge(old_paper, cur_paper, request));
-			result.accumulate("Status", "success");
-			result.accumulate("redirectUrl", "thesisList.html");
-		} else {
-			result.accumulate("Status", "failed");
-			result.accumulate("retMsg", "期刊名称和刊号不匹配！");
+			result = CommonFuncInServlet.handleJournalType("#success#", 2);
 		}
 
 		System.out.println(result.toString());

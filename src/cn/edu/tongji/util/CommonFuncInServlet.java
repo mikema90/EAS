@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
 import model.expert;
 import model.paper;
 
@@ -39,7 +40,7 @@ public class CommonFuncInServlet {
 
 	@SuppressWarnings("deprecation")
 	public static paper fillinPaper(HttpServletRequest request)
-			throws IOException, paperFillException {
+			throws IOException, typeMappingException {
 		HttpSession session = request.getSession();
 		String college_id = (String) session.getAttribute("username");
 		String category = request.getParameter("thesisType"), title = request
@@ -104,19 +105,17 @@ public class CommonFuncInServlet {
 		p.setTitle(title);
 		p.setJournal(journal);
 
-		//get issues
+		// get issues
 		String issues = mergeIssues(request);
 		p.setIssues(issues);
-		
-		String journal_type = HibernateUtil.getMapping(issues.toUpperCase(), journal.toUpperCase());
-		if(journal_type.equals("failed")){
-			paperFillException pfe = new paperFillException();
-			pfe.setErrorMsg("期刊名称和刊号不匹配！");
-			throw pfe;
+
+		String journal_type = HibernateUtil.getMapping(issues.toUpperCase(),
+				journal.toUpperCase());
+		if (journal_type.equals("#failed#")) {
+			// 期刊名称和刊号不匹配
+			throw new typeMappingException();
 		}
-		else if(journal_type == "" || journal_type == null){
-			journal_type = "非核心期刊";
-		}
+
 		p.setJournal_type(journal_type);
 		p.setPost_date(post_date);
 		p.setLanguage(nameMapping.getInstance().languageMap.get(language));
@@ -125,10 +124,9 @@ public class CommonFuncInServlet {
 
 		return p;
 	}
-	
-	public static String mergeIssues(HttpServletRequest request){
-		String issues = request
-				.getParameter("periodicalType"), journalSN1 = request
+
+	public static String mergeIssues(HttpServletRequest request) {
+		String issues = request.getParameter("periodicalType"), journalSN1 = request
 				.getParameter("periodicalSn1"), journalSN2 = request
 				.getParameter("periodicalSn2");
 		if (issues.equals("ISSN")) {
@@ -138,8 +136,38 @@ public class CommonFuncInServlet {
 		} else if (issues.equals("CN")) {
 			issues = issues + "-" + journalSN1 + "-" + journalSN2;
 		}
-		
+
 		return issues;
+	}
+
+	/**
+	 * 
+	 * @param journal_type
+	 * @param flag
+	 *            1 --- from mapping servlet 2 --- from addpaper servlet
+	 * @return
+	 */
+	public static JSONObject handleJournalType(String journal_type, int flag) {
+		JSONObject result = new JSONObject();
+		if (flag == 1) {
+			if (journal_type.equals("#failed#")) {
+				result.accumulate("Status", "failed");
+				result.accumulate("retMsg", "期刊名称与刊号不匹配!");
+			} else {
+				result.accumulate("Status", "success");
+				result.accumulate("retMsg", journal_type);
+			}
+		} else if (flag == 2) {
+			if (journal_type.equals("#failed#")) {
+				result.accumulate("Status", "failed");
+				result.accumulate("retMsg", "期刊名称与刊号不匹配！");
+			} else if (journal_type.equals("#success#")) {
+				result.accumulate("Status", "success");
+				result.accumulate("redirectUrl", "thesisList.html");
+			}
+		}
+
+		return result;
 	}
 
 	public static expert fillinExpert(HttpServletRequest request) {
