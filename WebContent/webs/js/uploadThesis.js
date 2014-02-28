@@ -281,7 +281,9 @@ function checkUploadingStatus() {
 }
 
 function submitForm() {
-	if ($("#authorListTable tbody").find("tr").length < 4) {
+	if($("#thesisTypeSelector").val()=="unSelected"){
+		alert("请选择论文类别");
+	} else if ($("#authorListTable tbody").find("tr").length < 4) {
 		alert("作者不能为空");
 	} else if ($("#thesisNameInputBox").val() == "" || $("#periodicalNameInputBox").val() == "") {
 		alert("论文和期刊名称不能为空");
