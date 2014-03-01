@@ -40,7 +40,8 @@ public class LoginServlet extends HttpServlet {
 
 		JSONObject result = new JSONObject();
 		// set result and output
-		if (HibernateUtil.isPwdValid(identity, username, pwd)) {
+		if (identity != "" && username != "" && pwd != ""
+				&& HibernateUtil.isPwdValid(identity, username, pwd)) {
 			HttpSession session = request.getSession();
 			// set current user profile
 			session.setAttribute("identity", identity);
