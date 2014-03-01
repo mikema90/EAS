@@ -4,7 +4,7 @@ public class admin {
 	private int id;
 	private String work_id;
 	private String name;
-	private int pwd;
+	private String pwd;
 	private boolean opendeclare;
 	private boolean openreview;
 
@@ -32,11 +32,11 @@ public class admin {
 		this.name = name;
 	}
 
-	public int getPwd() {
+	public String getPwd() {
 		return pwd;
 	}
 
-	public void setPwd(int pwd) {
+	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
 

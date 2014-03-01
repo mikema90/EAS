@@ -85,17 +85,11 @@ CREATE TABLE `expert` (
   `college_id` varchar(12) DEFAULT NULL,
   `name` varchar(30) DEFAULT NULL,
   `pwd` varchar(30) DEFAULT NULL,
-  `engineering` tinyint(1) DEFAULT '0',
-  `science` tinyint(1) DEFAULT '0',
-  `medicine` tinyint(1) DEFAULT '0',
-  `arts` tinyint(1) DEFAULT '0',
-  `english` tinyint(1) DEFAULT '0',
-  `deutsch` tinyint(1) DEFAULT '0',
-  `japanese` tinyint(1) DEFAULT '0',
-  `other` tinyint(1) DEFAULT '0',
-  `submitted` int(1) DEFAULT '0',
+  `subject` varchar(45) DEFAULT NULL,
+  `language` varchar(15) DEFAULT NULL,
+  `submitted` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`,`work_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +98,7 @@ CREATE TABLE `expert` (
 
 LOCK TABLES `expert` WRITE;
 /*!40000 ALTER TABLE `expert` DISABLE KEYS */;
-INSERT INTO `expert` VALUES (1,'1234839','42000','马国来','888888',1,1,0,0,1,0,0,1,0);
+INSERT INTO `expert` VALUES (1,'1234839','42000','马国来','888888','工学,理学,医学生命,文管艺术及其他','中文,英文,德文,日文,其他',NULL),(2,'2222222','19000','何杰','888888','工学,理学','英文',NULL);
 /*!40000 ALTER TABLE `expert` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +151,7 @@ CREATE TABLE `paper` (
   `pdf_url` varchar(120) DEFAULT NULL,
   `passed` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +160,7 @@ CREATE TABLE `paper` (
 
 LOCK TABLES `paper` WRITE;
 /*!40000 ALTER TABLE `paper` DISABLE KEYS */;
-INSERT INTO `paper` VALUES (1,'42000','软件学院','教育理论','马国来','1234839','尹长青','0000000','大数据概论','软件学报','ISSN-2222-2222','A','2014-01-01 00:00:00','中文','42000\\大数据概论.pdf',0),(2,'19000','汽车学院','教育理论','何杰','1234567','','','汽车原理','汽车周报','ISSN-1111-1111','A','2013-10-01 00:00:00','中文','19000\\汽车原理.pdf',0),(3,'42000','软件学院','教育理论','张林','1111111','梁爽','0000000','朴素贝叶斯算法优化','模式识别','ISSN-2222-2222','A类核心期刊','2014-01-01 00:00:00','中文','42000\\朴素贝叶斯算法优化.pdf',0),(4,'42000','软件学院','教育理论','xxx','123456','','','pr','软件学报','ISSN-1234-1344','B类核心期刊','2013-08-01 00:00:00','英文','42000\\pr.pdf',0),(5,'42000','软件学院','教育理论','sss','1234','','','xxx','xxx','ISSN-1234-1234','非核心期刊','2014-01-01 00:00:00','中文','42000\\xxx.pdf',0),(6,'42000','软件学院','教育理论','xxx','123','ccc,www',',456','123456','qdqdq','ISSN-2222-2222','非核心期刊','2014-01-01 00:00:00','中文','42000\\123456.pdf',0),(7,'42000','软件学院','教育理论','zhanglin','','马国来,ls','1234839,','Test','上海建设工程','ISSN-2222-2222','非核心期刊','2014-01-01 00:00:00','中文','42000\\Test.pdf',0),(8,'42000','软件学院','教育理论','vvv','1234','','','weq','JOURNAL OF ACCOUNTING AND ECONOM','ISSN-2222-2223','非核心期刊','2014-01-01 00:00:00','中文','42000\\weq.pdf',0);
+INSERT INTO `paper` VALUES (1,'42000','软件学院','教育理论','马国来','1234839','尹长青','0000000','大数据概论','软件学报','ISSN-2222-2222','A','2014-01-01 00:00:00','中文','42000\\大数据概论.pdf',0),(2,'19000','汽车学院','教育理论','何杰','1234567','','','汽车原理','汽车周报','ISSN-1111-1111','A','2013-10-01 00:00:00','中文','19000\\汽车原理.pdf',0),(3,'42000','软件学院','教育理论','张林','1111111','梁爽','0000000','朴素贝叶斯算法优化','模式识别','ISSN-2222-2222','A类核心期刊','2014-01-01 00:00:00','中文','42000\\朴素贝叶斯算法优化.pdf',0),(4,'42000','软件学院','教育理论','xxx','123456','','','pr','软件学报','ISSN-1234-1344','B类核心期刊','2013-08-01 00:00:00','英文','42000\\pr.pdf',0),(5,'42000','软件学院','教育理论','sss','1234','','','xxx','xxx','ISSN-1234-1234','非核心期刊','2014-01-01 00:00:00','中文','42000\\xxx.pdf',0),(6,'42000','软件学院','教育理论','xxx','123','ccc,www',',456','123456','qdqdq','ISSN-2222-2222','非核心期刊','2014-01-01 00:00:00','中文','42000\\123456.pdf',0),(7,'42000','软件学院','教育理论','zhanglin','','马国来,ls','1234839,','Test','上海建设工程','ISSN-2222-2222','非核心期刊','2014-01-01 00:00:00','中文','42000\\Test.pdf',0),(8,'42000','软件学院','教育理论','vvv','1234','','','weq','JOURNAL OF ACCOUNTING AND ECONOM','ISSN-2222-2223','非核心期刊','2014-01-01 00:00:00','中文','42000\\weq.pdf',0),(9,'42000','软件学院','教育实践','mike','1234567','马国来','','network','IEEE','ISSN-2222-2222','非核心期刊','2014-01-01 00:00:00','日文','42000\\network.pdf',0),(10,'43000','铁道与城市轨道交通研究院','教育实践','xxx','xxx','','','ddddd','eeee','ISSN-3333-3333','非核心期刊','2014-01-01 00:00:00','德文','43000\\ddddd.pdf',0),(11,'43000','铁道与城市轨道交通研究院','教育实践','yyy','yyy','','','yyyy','yyyyy','ISSN-5555-5555','非核心期刊','2014-01-01 00:00:00','英文','43000\\yyyy.pdf',0);
 /*!40000 ALTER TABLE `paper` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,4 +199,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-01  9:49:08
+-- Dump completed on 2014-03-01 11:45:52

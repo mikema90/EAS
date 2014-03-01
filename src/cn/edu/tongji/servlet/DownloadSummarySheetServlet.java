@@ -45,7 +45,8 @@ public class DownloadSummarySheetServlet extends HttpServlet {
 
 		int pageroffset = 0;
 		int maxcount = -1; // set -1 if want to get all papers
-		List<paper> papers = HibernateUtil.getPaper(pageroffset, maxcount, Integer.valueOf(college_id));
+		List<paper> papers = HibernateUtil.getPaper(pageroffset, maxcount,
+				college_id);
 		String rootPath = request.getRealPath("/");
 		String filePath = "PaperSummary" + File.separator + college_id
 				+ "_Summary.xls";

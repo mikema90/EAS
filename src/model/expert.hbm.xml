@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 27, 2014 10:41:26 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Mar 1, 2014 11:39:26 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.expert" table="EXPERT">
         <id name="id" type="int">
@@ -17,32 +17,14 @@
         <property name="name" type="java.lang.String">
             <column name="NAME" />
         </property>
-        <property name="pwd" type="int">
+        <property name="pwd" type="java.lang.String">
             <column name="PWD" />
         </property>
-        <property name="engineering" type="boolean">
-            <column name="ENGINEERING" />
+        <property name="subject" type="java.lang.String">
+            <column name="SUBJECT" />
         </property>
-        <property name="science" type="boolean">
-            <column name="SCIENCE" />
-        </property>
-        <property name="medicine" type="boolean">
-            <column name="MEDICINE" />
-        </property>
-        <property name="arts" type="boolean">
-            <column name="ARTS" />
-        </property>
-        <property name="english" type="boolean">
-            <column name="ENGLISH" />
-        </property>
-        <property name="deutsch" type="boolean">
-            <column name="DEUTSCH" />
-        </property>
-        <property name="japanese" type="boolean">
-            <column name="JAPANESE" />
-        </property>
-        <property name="other" type="boolean">
-            <column name="OTHER" />
+        <property name="language" type="java.lang.String">
+            <column name="LANGUAGE" />
         </property>
         <property name="submitted" type="boolean">
             <column name="SUBMITTED" />

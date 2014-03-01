@@ -11,3 +11,22 @@ BEGIN
 END$$  
   
 DELIMITER ; 
+
+
+DELIMITER $$  
+  
+DROP FUNCTION IF EXISTS `sims`.`func_get_split_string_total`$$  
+  
+CREATE DEFINER=`root`@`localhost` FUNCTION `func_get_split_string_total`(  
+f_string varchar(1000),f_delimiter varchar(5)  
+) RETURNS int(11)  
+BEGIN  
+  declare returnInt int(11);  
+  if length(f_delimiter)=2  then  
+     return 1+(length(f_string) - length(replace(f_string,f_delimiter,'')))/2;  
+  else      
+     return 1+(length(f_string) - length(replace(f_string,f_delimiter,'')));  
+  end if;  
+END$$  
+  
+DELIMITER ;  

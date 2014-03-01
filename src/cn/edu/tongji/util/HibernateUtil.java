@@ -29,15 +29,14 @@ public class HibernateUtil {
 	private static String get_college_sql = "from college";
 	private static String get_mapping_sql = "select journal_type from mapping where issues = ? or issues = ?";
 	private static String get_opendeclare_sql = "select opendeclare from admin where work_id = 'admin'";
-	
-	
+
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
 	private static String college_pwdmodify_sql = "update college set pwd = ? where college_id = ? and pwd = ?";
 	private static String update_reviewstatus_sql = "update reviewschedule set status = ?, comment = ? where paper_id = ? and expert_work_id = ?";
 
-	private static String reset_college_pwd_sql = "update college set pwd = '8888' where college_id = ?";
-	private static String reset_expert_pwd_sql = "update expert set pwd = '8888' where work_id = ?";
+	private static String reset_college_pwd_sql = "update college set pwd = '888888' where college_id = ?";
+	private static String reset_expert_pwd_sql = "update expert set pwd = '888888' where work_id = ?";
 
 	private static String delete_paper_sql = "delete from paper where id = ?";
 
@@ -84,18 +83,24 @@ public class HibernateUtil {
 		return is_valid;
 	}
 
-	public static boolean isOpenDeclare(){
+	/**
+	 * check whether paper declare has been opened
+	 * 
+	 * @return
+	 */
+	public static boolean isOpenDeclare() {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
-		
-		boolean isOD = (boolean)session.createQuery(get_opendeclare_sql).uniqueResult();
-		
+
+		boolean isOD = (boolean) session.createQuery(get_opendeclare_sql)
+				.uniqueResult();
+
 		session.getTransaction().commit();
 		session.close();
-		
+
 		return isOD;
 	}
-	
+
 	/**
 	 * add paper into DB
 	 * 
@@ -142,17 +147,17 @@ public class HibernateUtil {
 
 	@SuppressWarnings("unchecked")
 	public static List<paper> getPaper(int pageroffset, int maxcount,
-			int college_id) {
+			String college_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		List<paper> papers = null;
 		if (maxcount == -1) {// get all
 			papers = session.createQuery(get_paper_sql)
-					.setInteger(0, college_id).list();
+					.setString(0, college_id).list();
 		} else { // get specific rows
 			papers = session.createQuery(get_paper_sql)
-					.setInteger(0, college_id).setFirstResult(pageroffset)
+					.setString(0, college_id).setFirstResult(pageroffset)
 					.setMaxResults(maxcount).list();
 		}
 
@@ -188,12 +193,12 @@ public class HibernateUtil {
 		return icount;
 	}
 
-	public static int getPaperCount(int college_id) {
+	public static int getPaperCount(String college_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		int icount = ((Long) session.createQuery(get_paper_count_sql)
-				.setInteger(0, college_id).iterate().next()).intValue();
+				.setString(0, college_id).iterate().next()).intValue();
 
 		session.getTransaction().commit();
 		session.close();
@@ -307,12 +312,12 @@ public class HibernateUtil {
 	 * 
 	 * @param college_id
 	 */
-	public static int resetCollegePwd(int college_id) {
+	public static int resetCollegePwd(String college_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		int upstatus = session.createQuery(reset_college_pwd_sql)
-				.setInteger(0, college_id).executeUpdate();
+				.setString(0, college_id).executeUpdate();
 
 		if (upstatus == 1) {
 			System.out.println("update college pwd successfully!");
@@ -331,12 +336,12 @@ public class HibernateUtil {
 	 * 
 	 * @param work_id
 	 */
-	public static int resetExpertPwd(int work_id) {
+	public static int resetExpertPwd(String work_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		int upstatus = session.createQuery(reset_expert_pwd_sql)
-				.setInteger(0, work_id).executeUpdate();
+				.setString(0, work_id).executeUpdate();
 
 		if (upstatus == 1) {
 			System.out.println("update expert pwd successfully!");

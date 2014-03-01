@@ -125,7 +125,7 @@ public class FileUtil {
 		wcf_center.setVerticalAlignment(VerticalAlignment.CENTRE);
 		wcf_center.setAlignment(Alignment.CENTRE);
 		wcf_center.setWrap(true);
-		
+
 		WritableCellFormat wcf_left = new WritableCellFormat(NormalFont);
 		wcf_left.setBorder(Border.NONE, BorderLineStyle.THIN);
 		wcf_left.setVerticalAlignment(VerticalAlignment.CENTRE);
@@ -207,17 +207,8 @@ public class FileUtil {
 
 	public static void main(String[] args) throws IOException, JXLException {
 		// TODO Auto-generated method stub
-		// paper temp = new paper();
-		// temp.setCollege_id(88);
-		// temp.setCollege_name("软件学院");
-		// temp.setPost_date(new Date(2013, 11, 1));
-		// List<paper>papers = new ArrayList<paper>();
-		// papers.add(temp);
-		//
-		List<paper> papers = HibernateUtil.getPaper(0, 25, 8800);
+		List<paper> papers = HibernateUtil.getPaper(0, 25, "42000");
 		generateXlsFile("C:\\jxl\\教学汇总表.xls", papers);
-		// System.out.println(renameFile("C:\\jxl\\mike.pdf", "jack.pdf"));
-		// deleteFile("C:\\jxl\\I am mike.pdf");
 	}
 
 }

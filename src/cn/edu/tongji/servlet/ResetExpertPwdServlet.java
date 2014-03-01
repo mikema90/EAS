@@ -34,7 +34,7 @@ public class ResetExpertPwdServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String work_id = request.getParameter("workId");
-		int upstatus = HibernateUtil.resetExpertPwd(Integer.valueOf(work_id));
+		int upstatus = HibernateUtil.resetExpertPwd(work_id);
 
 		JSONObject result = new JSONObject();
 		if (upstatus == 1) {
