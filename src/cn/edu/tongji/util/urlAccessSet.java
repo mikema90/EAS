@@ -18,8 +18,8 @@ public class urlAccessSet {
 		// put for college
 		collegeSet.add("thesisList.html");
 		collegeSet.add("uploadThesis.html");
-		collegeSet.add("changePwd.html");
-		adminSet.add("changePwd.html");
+		collegeSet.add("changePwdA.html");
+		adminSet.add("changePwdB.html");
 		adminSet.add("manageThesisList.html");
 	}
 
