@@ -13,11 +13,11 @@ import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.HibernateUtil;
 
-@WebServlet("/setDeclareStatus")
+@WebServlet("/getDeclareStatus")
 @SuppressWarnings("serial")
-public class SetDeclareStatusServlet extends HttpServlet {
+public class GetDeclareStatusServlet extends HttpServlet {
 
-	public SetDeclareStatusServlet() {
+	public GetDeclareStatusServlet() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,20 +33,13 @@ public class SetDeclareStatusServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		String sub_status = request.getParameter("submittingStatus");
+		boolean cur_status = HibernateUtil.isOpenDeclare();
+
 		JSONObject result = new JSONObject();
-		int upstatus = 0;
-
-		if (sub_status.equals("open")) {
-			upstatus = HibernateUtil.setDeclareStatus(true);
-		} else if (sub_status.equals("close")) {
-			upstatus = HibernateUtil.setDeclareStatus(false);
-		}
-
-		if (upstatus == 1) {
-			result.accumulate("Status", "success");
+		if (cur_status) {
+			result.accumulate("submittingStatus", "open");
 		} else {
-			result.accumulate("Status", "failed");
+			result.accumulate("submittingStatus", "close");
 		}
 
 		System.out.println(result.toString());
