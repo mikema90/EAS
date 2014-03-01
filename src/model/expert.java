@@ -5,15 +5,9 @@ public class expert {
 	private String work_id;
 	private String college_id;
 	private String name;
-	private int pwd;
-	private boolean engineering;
-	private boolean science;
-	private boolean medicine;
-	private boolean arts;
-	private boolean english;
-	private boolean deutsch;
-	private boolean japanese;
-	private boolean other;
+	private String pwd;
+	private String subject;
+	private String language;
 	private boolean submitted;
 
 	public int getId() {
@@ -48,76 +42,28 @@ public class expert {
 		this.name = name;
 	}
 
-	public int getPwd() {
+	public String getPwd() {
 		return pwd;
 	}
 
-	public void setPwd(int pwd) {
+	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
 
-	public boolean isEngineering() {
-		return engineering;
+	public String getSubject() {
+		return subject;
 	}
 
-	public void setEngineering(boolean engineering) {
-		this.engineering = engineering;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
-	public boolean isScience() {
-		return science;
+	public String getLanguage() {
+		return language;
 	}
 
-	public void setScience(boolean science) {
-		this.science = science;
-	}
-
-	public boolean isMedicine() {
-		return medicine;
-	}
-
-	public void setMedicine(boolean medicine) {
-		this.medicine = medicine;
-	}
-
-	public boolean isArts() {
-		return arts;
-	}
-
-	public void setArts(boolean arts) {
-		this.arts = arts;
-	}
-
-	public boolean isEnglish() {
-		return english;
-	}
-
-	public void setEnglish(boolean english) {
-		this.english = english;
-	}
-
-	public boolean isDeutsch() {
-		return deutsch;
-	}
-
-	public void setDeutsch(boolean deutsch) {
-		this.deutsch = deutsch;
-	}
-
-	public boolean isJapanese() {
-		return japanese;
-	}
-
-	public void setJapanese(boolean japanese) {
-		this.japanese = japanese;
-	}
-
-	public boolean isOther() {
-		return other;
-	}
-
-	public void setOther(boolean other) {
-		this.other = other;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public boolean isSubmitted() {

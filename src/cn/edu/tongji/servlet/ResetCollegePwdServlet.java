@@ -34,8 +34,7 @@ public class ResetCollegePwdServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String college_id = request.getParameter("schoolId");
-		int upstatus = HibernateUtil.resetCollegePwd(Integer
-				.valueOf(college_id));
+		int upstatus = HibernateUtil.resetCollegePwd(college_id);
 
 		JSONObject result = new JSONObject();
 		if (upstatus == 1) {

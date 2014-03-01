@@ -57,7 +57,7 @@ public class GetPaperServlet extends HttpServlet {
 		int icount = 0;
 
 		if (identity.equals("college")) {
-			icount = HibernateUtil.getPaperCount(Integer.valueOf(college_id));
+			icount = HibernateUtil.getPaperCount(college_id);
 		} else if (identity.equals("admin")) {
 			icount = HibernateUtil.getAllPaperCount();
 		}
@@ -75,7 +75,7 @@ public class GetPaperServlet extends HttpServlet {
 		List<paper> papers = null;
 		if (identity.equals("college")) {
 			papers = HibernateUtil.getPaper(startIndex, maxItemCount,
-					Integer.valueOf(college_id));
+					college_id);
 		} else if (identity.equals("admin")) {
 			papers = HibernateUtil.getAllPaper(startIndex, maxItemCount);
 		}

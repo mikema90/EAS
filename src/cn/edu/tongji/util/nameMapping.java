@@ -34,7 +34,7 @@ public class nameMapping {
 		categoryMap.put("other", "其它");
 		
 		// put for languageMap
-		languageMap.put("No", "中文");
+		languageMap.put("Chinese", "中文");
 		languageMap.put("English", "英文");
 		languageMap.put("German", "德文");
 		languageMap.put("Japanese", "日文");

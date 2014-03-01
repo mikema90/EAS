@@ -41,10 +41,6 @@ public class LoginServlet extends HttpServlet {
 		JSONObject result = new JSONObject();
 		// set result and output
 		if (HibernateUtil.isPwdValid(identity, username, pwd)) {
-			// request.setAttribute("key", "You login successfully!");
-			// request.getRequestDispatcher("output.jsp").forward(request,
-			// response);
-
 			HttpSession session = request.getSession();
 			// set current user profile
 			session.setAttribute("identity", identity);
@@ -52,11 +48,18 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("pwd", pwd);
 
 			result.accumulate("Status", "success");
+
 			if (identity.equals("college")) {
-				result.accumulate("redirectUrl", "thesisList.html");
-			}else if (identity.equals("admin")) {
+				if (HibernateUtil.isOpenDeclare()) {
+					result.accumulate("redirectUrl", "thesisList.html");
+				} else {// not open declare for college
+					result.accumulate("resMsg", "论文申报还未开放！");
+					result.accumulate("redirectUrl", "thesisList.html");
+				}
+
+			} else if (identity.equals("admin")) {
 				result.accumulate("redirectUrl", "manageThesisList.html");
-			}else{
+			} else {
 				result.accumulate("redirectUrl", "about:blank");
 			}
 		} else {

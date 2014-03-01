@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 27, 2014 10:41:26 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Mar 1, 2014 11:39:26 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.admin" table="ADMIN">
         <id name="id" type="int">
@@ -14,7 +14,7 @@
         <property name="name" type="java.lang.String">
             <column name="NAME" />
         </property>
-        <property name="pwd" type="int">
+        <property name="pwd" type="java.lang.String">
             <column name="PWD" />
         </property>
         <property name="opendeclare" type="boolean">

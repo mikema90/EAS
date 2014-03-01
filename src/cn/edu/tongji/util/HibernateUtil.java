@@ -28,14 +28,16 @@ public class HibernateUtil {
 	private static String get_paper_count_sql = "select count(*) from paper where college_id = ?";
 	private static String get_college_sql = "from college";
 	private static String get_mapping_sql = "select journal_type from mapping where issues = ? or issues = ?";
+	private static String get_opendeclare_sql = "select opendeclare from admin where work_id = 'admin'";
 
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
 	private static String college_pwdmodify_sql = "update college set pwd = ? where college_id = ? and pwd = ?";
 	private static String update_reviewstatus_sql = "update reviewschedule set status = ?, comment = ? where paper_id = ? and expert_work_id = ?";
 
-	private static String reset_college_pwd_sql = "update college set pwd = '8888' where college_id = ?";
-	private static String reset_expert_pwd_sql = "update expert set pwd = '8888' where work_id = ?";
+	private static String reset_college_pwd_sql = "update college set pwd = '888888' where college_id = ?";
+	private static String reset_expert_pwd_sql = "update expert set pwd = '888888' where work_id = ?";
+	private static String set_declare_status_sql = "update admin set opendeclare = ? where work_id = 'admin'";
 
 	private static String delete_paper_sql = "delete from paper where id = ?";
 
@@ -80,6 +82,24 @@ public class HibernateUtil {
 		session.getTransaction().commit();
 		session.close();
 		return is_valid;
+	}
+
+	/**
+	 * check whether paper declare has been opened
+	 * 
+	 * @return
+	 */
+	public static boolean isOpenDeclare() {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		boolean isOD = (boolean) session.createQuery(get_opendeclare_sql)
+				.uniqueResult();
+
+		session.getTransaction().commit();
+		session.close();
+
+		return isOD;
 	}
 
 	/**
@@ -128,17 +148,17 @@ public class HibernateUtil {
 
 	@SuppressWarnings("unchecked")
 	public static List<paper> getPaper(int pageroffset, int maxcount,
-			int college_id) {
+			String college_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		List<paper> papers = null;
 		if (maxcount == -1) {// get all
 			papers = session.createQuery(get_paper_sql)
-					.setInteger(0, college_id).list();
+					.setString(0, college_id).list();
 		} else { // get specific rows
 			papers = session.createQuery(get_paper_sql)
-					.setInteger(0, college_id).setFirstResult(pageroffset)
+					.setString(0, college_id).setFirstResult(pageroffset)
 					.setMaxResults(maxcount).list();
 		}
 
@@ -174,12 +194,12 @@ public class HibernateUtil {
 		return icount;
 	}
 
-	public static int getPaperCount(int college_id) {
+	public static int getPaperCount(String college_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		int icount = ((Long) session.createQuery(get_paper_count_sql)
-				.setInteger(0, college_id).iterate().next()).intValue();
+				.setString(0, college_id).iterate().next()).intValue();
 
 		session.getTransaction().commit();
 		session.close();
@@ -293,12 +313,12 @@ public class HibernateUtil {
 	 * 
 	 * @param college_id
 	 */
-	public static int resetCollegePwd(int college_id) {
+	public static int resetCollegePwd(String college_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		int upstatus = session.createQuery(reset_college_pwd_sql)
-				.setInteger(0, college_id).executeUpdate();
+				.setString(0, college_id).executeUpdate();
 
 		if (upstatus == 1) {
 			System.out.println("update college pwd successfully!");
@@ -317,17 +337,38 @@ public class HibernateUtil {
 	 * 
 	 * @param work_id
 	 */
-	public static int resetExpertPwd(int work_id) {
+	public static int resetExpertPwd(String work_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		int upstatus = session.createQuery(reset_expert_pwd_sql)
-				.setInteger(0, work_id).executeUpdate();
+				.setString(0, work_id).executeUpdate();
 
 		if (upstatus == 1) {
 			System.out.println("update expert pwd successfully!");
 		} else {
 			System.out.println("update expert pwd failed!!");
+		}
+
+		session.getTransaction().commit();
+		session.close();
+
+		return upstatus;
+	}
+
+	public static int setDeclareStatus(boolean status) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int upstatus = session.createQuery(set_declare_status_sql)
+				.setBoolean(0, status).executeUpdate();
+
+		if (upstatus == 1) {
+			System.out.println("update declare status to " + status
+					+ " successfully!");
+		} else {
+			System.out.println("update declare status to " + status
+					+ " failed!!");
 		}
 
 		session.getTransaction().commit();
@@ -358,7 +399,7 @@ public class HibernateUtil {
 	@SuppressWarnings("unchecked")
 	public static String getMapping(String issues, String journal) {
 		if (issues.startsWith("ISBN")) {
-			return "核心期刊";
+			return "非核心期刊";
 		}
 		Session session = m_sf.openSession();
 		session.beginTransaction();
@@ -388,22 +429,7 @@ public class HibernateUtil {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// HibernateUtil ho = new HibernateUtil();
-		// boolean b = ho.hasPermission("expert", "082928", "123456");
-		// System.out.println(b);
-		// ho.pwdModify("expert", "1234839", "1234", "123456");
-		// HibernateUtil.updateReviewStatus("1", "1234839", "2",
-		// "it is not good enough");
-		// List<paper> papers = HibernateUtil.getPaper(0, 3, 8800);
-		// for (int i = 0; i < papers.size(); i++) {
-		// System.out.println(papers.get(i).getTitle());
-		// }
-		// paper p = new paper();
-		// p.setId(2);
-		// p.setCollege_name("材料学院");
-		// HibernateUtil.updatePaper(p);
-		// HibernateUtil.resetExpertPwd(1234839);
-		// System.out.println(HibernateUtil.getMapping("CN-22-2222"));
+		System.out.println(HibernateUtil.setDeclareStatus(true));
 		HibernateUtil.DeHibernateOperation();
 	}
 

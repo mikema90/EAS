@@ -13,11 +13,11 @@ import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.HibernateUtil;
 
-@WebServlet("/resetexpertpwd")
+@WebServlet("/getDeclareStatus")
 @SuppressWarnings("serial")
-public class ResetExpertPwdServlet extends HttpServlet {
+public class GetDeclareStatusServlet extends HttpServlet {
 
-	public ResetExpertPwdServlet() {
+	public GetDeclareStatusServlet() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,12 +33,13 @@ public class ResetExpertPwdServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		String work_id = request.getParameter("workId");
-		int upstatus = HibernateUtil.resetExpertPwd(work_id);
+		boolean cur_status = HibernateUtil.isOpenDeclare();
 
 		JSONObject result = new JSONObject();
-		if (upstatus == 1) {
-			result.accumulate("Status", "success");
+		if (cur_status) {
+			result.accumulate("submittingStatus", "open");
+		} else {
+			result.accumulate("submittingStatus", "close");
 		}
 
 		System.out.println(result.toString());
