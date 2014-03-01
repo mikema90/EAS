@@ -358,7 +358,7 @@ public class HibernateUtil {
 	@SuppressWarnings("unchecked")
 	public static String getMapping(String issues, String journal) {
 		if (issues.startsWith("ISBN")) {
-			return "核心期刊";
+			return "非核心期刊";
 		}
 		Session session = m_sf.openSession();
 		session.beginTransaction();
