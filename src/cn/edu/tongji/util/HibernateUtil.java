@@ -37,6 +37,7 @@ public class HibernateUtil {
 
 	private static String reset_college_pwd_sql = "update college set pwd = '888888' where college_id = ?";
 	private static String reset_expert_pwd_sql = "update expert set pwd = '888888' where work_id = ?";
+	private static String set_declare_status_sql = "update admin set opendeclare = ? where work_id = 'admin'";
 
 	private static String delete_paper_sql = "delete from paper where id = ?";
 
@@ -355,6 +356,27 @@ public class HibernateUtil {
 		return upstatus;
 	}
 
+	public static int setDeclareStatus(boolean status) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int upstatus = session.createQuery(set_declare_status_sql)
+				.setBoolean(0, status).executeUpdate();
+
+		if (upstatus == 1) {
+			System.out.println("update declare status to " + status
+					+ " successfully!");
+		} else {
+			System.out.println("update declare status to " + status
+					+ " failed!!");
+		}
+
+		session.getTransaction().commit();
+		session.close();
+
+		return upstatus;
+	}
+
 	public static int deletePaper(int paper_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
@@ -407,7 +429,7 @@ public class HibernateUtil {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(HibernateUtil.isOpenDeclare());
+		System.out.println(HibernateUtil.setDeclareStatus(true));
 		HibernateUtil.DeHibernateOperation();
 	}
 
