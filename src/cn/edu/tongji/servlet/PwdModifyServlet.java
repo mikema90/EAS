@@ -2,7 +2,6 @@ package cn.edu.tongji.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.HibernateUtil;
-import model.paper;
 
 @WebServlet("/pwdmodify")
 @SuppressWarnings("serial")
@@ -43,16 +42,18 @@ public class PwdModifyServlet extends HttpServlet {
 		String old_pwd = request.getParameter("formerPwd");
 		String new_pwd = request.getParameter("newPwd");
 
-		String result;
+		JSONObject result = new JSONObject();
 		if (cur_pwd.equals(old_pwd)) {// old password equal login password
 			HibernateUtil.pwdModify(identity, username, cur_pwd, new_pwd);
-			result = "{\"Status\":\"success\",\"retMsg\":\"密码修改成功，请重新登录。\"}";
+			result.accumulate("Status", "success");
+			result.accumulate("retMsg", "密码修改成功，请重新登录");
 			session.invalidate();
 			System.out.println(result);
-		}else{
-			result = "{\"Status\":\"error\",\"retMsg\":\"原密码输入错误，请重新输入\"}";
+		} else {
+			result.accumulate("Status", "error");
+			result.accumulate("retMsg", "原密码输入错误，请重新输入");
 		}
-		out.write(result);
+		out.write(result.toString());
 		out.flush();
 		out.close();
 	}
