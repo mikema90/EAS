@@ -35,30 +35,37 @@ public class UpdatePaperServlet extends HttpServlet {
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
-
-		// get paper_id from request
-		int paper_id = Integer.valueOf(request.getParameter("paper_id"));
-		// from DB
-		paper old_paper = HibernateUtil.getOnePaperCount(paper_id);
-
-		paper cur_paper = null;
 		JSONObject result = null;
-		boolean isSuccess = true; // check whether fill in paper successfully
 
-		try {
-			// from html
-			cur_paper = CommonFuncInServlet.fillinPaper(request);
-		} catch (typeMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			isSuccess = false;
-			result = CommonFuncInServlet.handleJournalType("#failed#", 2);
-		}
+		boolean declareStatus = HibernateUtil.isOpenDeclare();
+		if (declareStatus) {
+			// get paper_id from request
+			int paper_id = Integer.valueOf(request.getParameter("paper_id"));
+			// from DB
+			paper old_paper = HibernateUtil.getOnePaperCount(paper_id);
+			paper cur_paper = null;
+			boolean isSuccess = true; // check whether fill in paper
+										// successfully
 
-		if (isSuccess) {
-			cur_paper.setId(paper_id);
-			HibernateUtil.updatePaper(merge(old_paper, cur_paper, request));
-			result = CommonFuncInServlet.handleJournalType("#success#", 2);
+			try {
+				// from html
+				cur_paper = CommonFuncInServlet.fillinPaper(request);
+			} catch (typeMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				isSuccess = false;
+				result = CommonFuncInServlet.handleJournalType("#failed#", 2);
+			}
+
+			if (isSuccess) {
+				cur_paper.setId(paper_id);
+				HibernateUtil.updatePaper(merge(old_paper, cur_paper, request));
+				result = CommonFuncInServlet.handleJournalType("#success#", 2);
+			}
+		} else {
+			result = new JSONObject();
+			result.accumulate("Status", "failed");
+			result.accumulate("retMsg", "论文申报未开放！保存失败！");
 		}
 
 		System.out.println(result.toString());

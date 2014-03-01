@@ -35,19 +35,24 @@ public class DeletePaperServlet extends HttpServlet {
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
-
-		int paper_id = Integer.valueOf(request.getParameter("paper_id"));
-		paper p = HibernateUtil.getOnePaperCount(paper_id);
-		int upstatus = HibernateUtil.deletePaper(paper_id);
-
-		// delete pdf file
-		String filePath = request.getRealPath("/") + p.getPdf_url();
-		System.out.println("delete file:" + filePath);
-		FileUtil.deleteFile(filePath);
-
 		JSONObject result = new JSONObject();
-		if (upstatus == 1) {
-			result.accumulate("Status", "success");
+
+		boolean declareStatus = HibernateUtil.isOpenDeclare();
+		if (declareStatus) {
+			int paper_id = Integer.valueOf(request.getParameter("paper_id"));
+			paper p = HibernateUtil.getOnePaperCount(paper_id);
+			int upstatus = HibernateUtil.deletePaper(paper_id);
+
+			// delete pdf file
+			String filePath = request.getRealPath("/") + p.getPdf_url();
+			System.out.println("delete file:" + filePath);
+			FileUtil.deleteFile(filePath);
+
+			if (upstatus == 1) {
+				result.accumulate("Status", "success");
+			}
+		} else {
+			result.accumulate("Status", "failed");
 		}
 
 		System.out.println(result.toString());

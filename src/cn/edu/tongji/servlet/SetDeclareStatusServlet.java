@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
@@ -32,26 +33,32 @@ public class SetDeclareStatusServlet extends HttpServlet {
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
-
-		String sub_status = request.getParameter("submittingStatus");
 		JSONObject result = new JSONObject();
-		int upstatus = 0;
 
-		if (sub_status.equals("open")) {
-			upstatus = HibernateUtil.setDeclareStatus(true);
-		} else if (sub_status.equals("close")) {
-			upstatus = HibernateUtil.setDeclareStatus(false);
-		}
+		HttpSession session = request.getSession();
+		String identity = (String) session.getAttribute("identity");
+		if (identity.equals("admin")) {
+			String sub_status = request.getParameter("submittingStatus");
+			int upstatus = 0;
 
-		if (upstatus == 1) {
-			result.accumulate("Status", "success");
+			if (sub_status.equals("open")) {
+				upstatus = HibernateUtil.setDeclareStatus(true);
+			} else if (sub_status.equals("close")) {
+				upstatus = HibernateUtil.setDeclareStatus(false);
+			}
+
+			if (upstatus == 1) {
+				result.accumulate("Status", "success");
+			} else {
+				result.accumulate("Status", "failed");
+			}
+
+			System.out.println(result.toString());
+			out.write(result.toString());
+			out.flush();
+			out.close();
 		} else {
 			result.accumulate("Status", "failed");
 		}
-
-		System.out.println(result.toString());
-		out.write(result.toString());
-		out.flush();
-		out.close();
 	}
 }

@@ -50,13 +50,7 @@ public class LoginServlet extends HttpServlet {
 			result.accumulate("Status", "success");
 
 			if (identity.equals("college")) {
-				if (HibernateUtil.isOpenDeclare()) {
-					result.accumulate("redirectUrl", "thesisList.html");
-				} else {// not open declare for college
-					result.accumulate("resMsg", "论文申报还未开放！");
-					result.accumulate("redirectUrl", "thesisList.html");
-				}
-
+				result.accumulate("redirectUrl", "thesisList.html");
 			} else if (identity.equals("admin")) {
 				result.accumulate("redirectUrl", "manageThesisList.html");
 			} else {

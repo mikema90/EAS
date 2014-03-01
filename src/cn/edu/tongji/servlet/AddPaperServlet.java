@@ -34,23 +34,30 @@ public class AddPaperServlet extends HttpServlet {
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
-
 		paper p = null;
 		JSONObject result = null;
-		boolean isSuccess = true; // check whether fill in paper successfully
 
-		try {
-			p = CommonFuncInServlet.fillinPaper(request);
-		} catch (typeMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			isSuccess = false;
-			result = CommonFuncInServlet.handleJournalType("#failed#", 2);
-		}
+		boolean declareStatus = HibernateUtil.isOpenDeclare();
+		if (declareStatus) {// status open
+			boolean isSuccess = true; // check whether fill in paper
+										// successfully
+			try {
+				p = CommonFuncInServlet.fillinPaper(request);
+			} catch (typeMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				isSuccess = false;
+				result = CommonFuncInServlet.handleJournalType("#failed#", 2);
+			}
 
-		if (isSuccess) {
-			HibernateUtil.addPaper(p);
-			result = CommonFuncInServlet.handleJournalType("#success#", 2);
+			if (isSuccess) {
+				HibernateUtil.addPaper(p);
+				result = CommonFuncInServlet.handleJournalType("#success#", 2);
+			}
+		} else { // not open
+			result = new JSONObject();
+			result.accumulate("Status", "failed");
+			result.accumulate("retMsg", "论文申报未开放！保存失败！");
 		}
 
 		System.out.println(result.toString());
