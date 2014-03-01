@@ -4,13 +4,11 @@ $(document).ready(function () {
 		type: 'POST',
 		url: "../getDeclareStatus",
 		success: function (jsonData) {
-			submittingStatus = jsonDtata.submittingStatus;
+			submittingStatus = jsonData.submittingStatus;
 			if (submittingStatus == "open") {
 				$("#submittingStatus").text("关闭申报");
 			} else if (submittingStatus == "close") {
 				$("#submittingStatus").text("开放申报");
-			} else {
-				alert("加载失败");
 			}
 		},
 		error: function () {
@@ -121,25 +119,39 @@ function increaseRowSpan() {
 }
 
 function changeSubmittingStatus() {
-	if (confirm("确定开放申报？") == false) {
+	var tmpStr;
+	var	requestStatus;
+	if(submittingStatus=="close"){
+		requestStatus="open";
+		tmpStr="开放";
+	}else if(requestStatus="open"){
+		requestStatus="close";
+		tmpStr="关闭";
+	}else{
+		alert("当前申报状态获取失败，请刷新页面。");
 		return;
 	}
+	
+	if (confirm("确定"+tmpStr+"申报？") == false) {
+		return;
+	}
+	
 	$.ajax({
 		type: 'POST',
 		url: "../setDeclareStatus",
 		data: {
-			submittingStatus: submittingStatus
+			submittingStatus: requestStatus
 		},
 		success: function (jsonData) {
 			if (jsonData.Status == "success") {
-				alert("请求成功");
+				alert("操作成功");
 				window.location.reload();
 			} else {
-				alert("请求失败，请刷新页面重试");
+				alert("操作失败，请刷新页面重试");
 			}
 		},
 		error: function () {
-			alert("请求失败，请刷新页面重试");
+			alert("操作失败，请刷新页面重试");
 		},
 		dataType: 'json'
 	});

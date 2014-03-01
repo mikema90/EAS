@@ -58,12 +58,12 @@ a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠
 }
 
 #headerName{
+	font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;
 	position:absolute;
 	margin-top:25px;
 	margin-left:30px;
 	float:left;
 	font-size:32px;
-	font-weight:bold;
 }
 
 #navigationBar{
