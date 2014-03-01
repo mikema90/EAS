@@ -28,7 +28,9 @@ public class HibernateUtil {
 	private static String get_paper_count_sql = "select count(*) from paper where college_id = ?";
 	private static String get_college_sql = "from college";
 	private static String get_mapping_sql = "select journal_type from mapping where issues = ? or issues = ?";
-
+	private static String get_opendeclare_sql = "select opendeclare from admin where work_id = 'admin'";
+	
+	
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
 	private static String college_pwdmodify_sql = "update college set pwd = ? where college_id = ? and pwd = ?";
@@ -82,6 +84,18 @@ public class HibernateUtil {
 		return is_valid;
 	}
 
+	public static boolean isOpenDeclare(){
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+		
+		boolean isOD = (boolean)session.createQuery(get_opendeclare_sql).uniqueResult();
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		return isOD;
+	}
+	
 	/**
 	 * add paper into DB
 	 * 
@@ -388,22 +402,7 @@ public class HibernateUtil {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// HibernateUtil ho = new HibernateUtil();
-		// boolean b = ho.hasPermission("expert", "082928", "123456");
-		// System.out.println(b);
-		// ho.pwdModify("expert", "1234839", "1234", "123456");
-		// HibernateUtil.updateReviewStatus("1", "1234839", "2",
-		// "it is not good enough");
-		// List<paper> papers = HibernateUtil.getPaper(0, 3, 8800);
-		// for (int i = 0; i < papers.size(); i++) {
-		// System.out.println(papers.get(i).getTitle());
-		// }
-		// paper p = new paper();
-		// p.setId(2);
-		// p.setCollege_name("材料学院");
-		// HibernateUtil.updatePaper(p);
-		// HibernateUtil.resetExpertPwd(1234839);
-		// System.out.println(HibernateUtil.getMapping("CN-22-2222"));
+		System.out.println(HibernateUtil.isOpenDeclare());
 		HibernateUtil.DeHibernateOperation();
 	}
 
