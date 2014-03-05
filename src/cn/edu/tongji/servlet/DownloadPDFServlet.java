@@ -46,8 +46,14 @@ public class DownloadPDFServlet extends HttpServlet {
 
 			Long length = downloadFile.length();
 			response.setContentLength(length.intValue());
-			String fileName = URLEncoder
-					.encode(downloadFile.getName(), "utf-8");
+			/*
+			 * String fileName = URLEncoder .encode(downloadFile.getName(),
+			 * "utf-8");
+			 */
+			String fileName = p.getCollege_id() + "-" + p.getCollege_name()
+					+ "-" + p.getFirst_author() + "-"
+					+ String.valueOf(p.getId()) + ".pdf";
+			fileName = URLEncoder.encode(fileName, "utf-8");
 			response.addHeader("Content-Disposition", "attachment; filename="
 					+ fileName);
 
