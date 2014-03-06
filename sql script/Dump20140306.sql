@@ -190,6 +190,58 @@ LOCK TABLES `reviewschedule` WRITE;
 /*!40000 ALTER TABLE `reviewschedule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `reviewschedule` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'eas'
+--
+/*!50003 DROP FUNCTION IF EXISTS `func_get_split_string` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`easadmin`@`localhost`*/ /*!50003 FUNCTION `func_get_split_string`(  
+f_string varchar(1000),f_delimiter varchar(5),f_order int) RETURNS varchar(255) CHARSET utf8
+BEGIN  
+  declare result varchar(255) default '';  
+  set result = reverse(substring_index(reverse(substring_index(f_string,f_delimiter,f_order)),f_delimiter,1));  
+  return result;  
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `func_get_split_string_total` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`easadmin`@`localhost`*/ /*!50003 FUNCTION `func_get_split_string_total`(  
+f_string varchar(1000),f_delimiter varchar(5)  
+) RETURNS int(11)
+BEGIN  
+  declare returnInt int(11);  
+  if length(f_delimiter)=2  then  
+     return 1+(length(f_string) - length(replace(f_string,f_delimiter,'')))/2;  
+  else      
+     return 1+(length(f_string) - length(replace(f_string,f_delimiter,'')));  
+  end if;  
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -200,4 +252,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-06 13:10:05
+-- Dump completed on 2014-03-06 13:32:42
