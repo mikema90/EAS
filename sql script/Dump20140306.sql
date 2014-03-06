@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'admin','admin','888888',0,0);
+INSERT INTO `admin` VALUES (1,'admin','admin','77804d2ba1922c33',0,0);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +69,7 @@ CREATE TABLE `college` (
 
 LOCK TABLES `college` WRITE;
 /*!40000 ALTER TABLE `college` DISABLE KEYS */;
-INSERT INTO `college` VALUES (1,'01000','经济与管理学院','文管艺术其它','888888',0),(2,'02000','建筑与城市规划学院','工学','888888',0),(3,'03000','土木工程学院','工学','888888',0),(4,'04000','机械与能源工程学院','工学','888888',0),(5,'05000','环境科学与工程学院','工学','888888',0),(6,'07900','人文学院','文管艺术其它','888888',0),(7,'08000','材料科学与工程学院','工学','888888',0),(8,'10000','电子与信息工程学院','工学','888888',0),(9,'11000','外国语学院','文管艺术其它','888888',0),(10,'12200','数学系','理学','888888',0),(11,'12300','化学系','理学','888888',0),(12,'58000','物理科学与工程学院','理学','888888',0),(13,'13000','国际文化交流学院','文管艺术其它','888888',0),(14,'14000','医学院','医学生命','888888',0),(15,'14200','口腔医学院','医学生命','888888',0),(16,'15000','交通运输工程学院','工学','888888',0),(17,'16000','女子学院','文管艺术其它','888888',0),(18,'17000','生命科学与技术学院','医学生命','888888',0),(19,'18000','传播与艺术学院','文管艺术其它','888888',0),(20,'19000','汽车学院','工学','888888',0),(21,'31000','海洋与地球科学学院','理学','888888',0),(22,'42000','软件学院','工学','888888',0),(23,'43000','铁道与城市轨道交通研究院','工学','888888',0),(25,'45000','航空航天与力学学院','工学','888888',0),(26,'49000','职业技术教育学院','文管艺术其它','888888',0),(27,'50000','网络学院','文管艺术其它','888888',0),(28,'51000','中德工程学院','工学','888888',0),(29,'52000','法学院','文管艺术其它','888888',0),(30,'53000','政治与国际关系学院','文管艺术其它','888888',0),(31,'55000','设计与艺术学院','文管艺术其它','888888',0),(32,'57000','测绘与地理信息学院','工学','888888',0);
+INSERT INTO `college` VALUES (1,'01000','经济与管理学院','文管艺术其它','77804d2ba1922c33',0),(2,'02000','建筑与城市规划学院','工学','77804d2ba1922c33',0),(3,'03000','土木工程学院','工学','77804d2ba1922c33',0),(4,'04000','机械与能源工程学院','工学','77804d2ba1922c33',0),(5,'05000','环境科学与工程学院','工学','77804d2ba1922c33',0),(6,'07900','人文学院','文管艺术其它','77804d2ba1922c33',0),(7,'08000','材料科学与工程学院','工学','77804d2ba1922c33',0),(8,'10000','电子与信息工程学院','工学','77804d2ba1922c33',0),(9,'11000','外国语学院','文管艺术其它','77804d2ba1922c33',0),(10,'12200','数学系','理学','77804d2ba1922c33',0),(11,'12300','化学系','理学','77804d2ba1922c33',0),(12,'58000','物理科学与工程学院','理学','77804d2ba1922c33',0),(13,'13000','国际文化交流学院','文管艺术其它','77804d2ba1922c33',0),(14,'14000','医学院','医学生命','77804d2ba1922c33',0),(15,'14200','口腔医学院','医学生命','77804d2ba1922c33',0),(16,'15000','交通运输工程学院','工学','77804d2ba1922c33',0),(17,'16000','女子学院','文管艺术其它','77804d2ba1922c33',0),(18,'17000','生命科学与技术学院','医学生命','77804d2ba1922c33',0),(19,'18000','传播与艺术学院','文管艺术其它','77804d2ba1922c33',0),(20,'19000','汽车学院','工学','77804d2ba1922c33',0),(21,'31000','海洋与地球科学学院','理学','77804d2ba1922c33',0),(22,'42000','软件学院','工学','77804d2ba1922c33',0),(23,'43000','铁道与城市轨道交通研究院','工学','77804d2ba1922c33',0),(25,'45000','航空航天与力学学院','工学','77804d2ba1922c33',0),(26,'49000','职业技术教育学院','文管艺术其它','77804d2ba1922c33',0),(27,'50000','网络学院','文管艺术其它','77804d2ba1922c33',0),(28,'51000','中德工程学院','工学','77804d2ba1922c33',0),(29,'52000','法学院','文管艺术其它','77804d2ba1922c33',0),(30,'53000','政治与国际关系学院','文管艺术其它','77804d2ba1922c33',0),(31,'55000','设计与艺术学院','文管艺术其它','77804d2ba1922c33',0),(32,'57000','测绘与地理信息学院','工学','77804d2ba1922c33',0);
 /*!40000 ALTER TABLE `college` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,7 @@ CREATE TABLE `expert` (
 
 LOCK TABLES `expert` WRITE;
 /*!40000 ALTER TABLE `expert` DISABLE KEYS */;
-INSERT INTO `expert` VALUES (1,'1234839','42000','马国来','888888','工学,理学,医学生命,文管艺术其他','中文,英文,德文,日文,其他',NULL),(2,'2222222','19000','何杰','888888','工学,理学','英文',NULL);
+INSERT INTO `expert` VALUES (1,'1234839','42000','马国来','77804d2ba1922c33','工学,理学,医学生命,文管艺术其他','中文,英文,德文,日文,其他',NULL),(2,'2222222','19000','何杰','77804d2ba1922c33','工学,理学','英文',NULL);
 /*!40000 ALTER TABLE `expert` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,6 +190,58 @@ LOCK TABLES `reviewschedule` WRITE;
 /*!40000 ALTER TABLE `reviewschedule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `reviewschedule` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'eas'
+--
+/*!50003 DROP FUNCTION IF EXISTS `func_get_split_string` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `func_get_split_string`(  
+f_string varchar(1000),f_delimiter varchar(5),f_order int) RETURNS varchar(255) CHARSET utf8
+BEGIN  
+  declare result varchar(255) default '';  
+  set result = reverse(substring_index(reverse(substring_index(f_string,f_delimiter,f_order)),f_delimiter,1));  
+  return result;  
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `func_get_split_string_total` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `func_get_split_string_total`(  
+f_string varchar(1000),f_delimiter varchar(5)  
+) RETURNS int(11)
+BEGIN  
+  declare returnInt int(11);  
+  if length(f_delimiter)=2  then  
+     return 1+(length(f_string) - length(replace(f_string,f_delimiter,'')))/2;  
+  else      
+     return 1+(length(f_string) - length(replace(f_string,f_delimiter,'')));  
+  end if;  
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -200,4 +252,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-06 12:19:25
+-- Dump completed on 2014-03-06 13:02:21
