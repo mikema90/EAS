@@ -7,6 +7,7 @@
 <link href="css/changePwd.css" rel="stylesheet" type="text/css" />
 </head>
 <script type="text/javascript" language="javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" language="javascript" charset="utf-8" src="js/md5.js"></script>
 <script type="text/javascript" language="javascript">
 function confirmPassword(){
 	if($("#newPwd").val()!=$("#repeatNewPwd").val()){
@@ -20,8 +21,8 @@ function confirmPassword(){
 			type: 'POST',
 			url: "../pwdmodify",
 			data: {
-				"formerPwd":$("#formerPwd").val(),
-				"newPwd":$("#newPwd").val(),
+				"formerPwd":hex_md5($("#formerPwd").val()),
+				"newPwd":$("#newPwd").val().MD5(),
 				},
 			success: function(jsonData){
 				alert(jsonData.retMsg);
