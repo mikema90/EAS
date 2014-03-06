@@ -4,6 +4,7 @@ public class college {
 	private int id;
 	private String college_id;
 	private String name;
+	private String subject;
 	private String pwd;
 	private boolean submitted;
 
@@ -29,6 +30,14 @@ public class college {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 	public String getPwd() {
