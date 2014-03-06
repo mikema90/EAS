@@ -21,7 +21,7 @@ function confirmPassword(){
 			type: 'POST',
 			url: "../pwdmodify",
 			data: {
-				"formerPwd":hex_md5($("#formerPwd").val()),
+				"formerPwd":$("#formerPwd").val().MD5(),
 				"newPwd":$("#newPwd").val().MD5(),
 				},
 			success: function(jsonData){
