@@ -11,6 +11,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import model.paper;
 import jxl.JXLException;
 import jxl.Workbook;
@@ -26,7 +29,8 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 public class FileUtil {
-
+	protected static Logger logger = LogManager.getLogger(FileUtil.class.getName());
+	
 	public FileUtil() {
 		// TODO Auto-generated constructor stub
 	}
@@ -207,8 +211,9 @@ public class FileUtil {
 
 	public static void main(String[] args) throws IOException, JXLException {
 		// TODO Auto-generated method stub
-		List<paper> papers = HibernateUtil.getPaper(0, 25, "42000");
-		generateXlsFile("C:\\jxl\\教学汇总表.xls", papers);
+		// List<paper> papers = HibernateUtil.getPaper(0, 25, "42000");
+		// generateXlsFile("C:\\jxl\\教学汇总表.xls", papers);
+		logger.trace("I am mike!");
 	}
 
 }

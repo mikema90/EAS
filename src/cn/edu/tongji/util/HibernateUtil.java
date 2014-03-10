@@ -6,6 +6,8 @@ import model.college;
 import model.expert;
 import model.paper;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -15,7 +17,9 @@ public class HibernateUtil {
 	@SuppressWarnings("deprecation")
 	private static SessionFactory m_sf = m_cfg.configure()
 			.buildSessionFactory();
-
+	
+	protected static Logger logger = LogManager.getLogger(HibernateUtil.class.getName());
+	
 	// HQL
 	private static String expert_login_sql = "from expert where work_id = ? and pwd = ?";
 	private static String admin_login_sql = "from admin where work_id = ? and pwd = ?";
@@ -82,6 +86,7 @@ public class HibernateUtil {
 		}
 		session.getTransaction().commit();
 		session.close();
+		logger.trace(identity + "-" + username + " login status is " + is_valid);
 		return is_valid;
 	}
 
