@@ -172,41 +172,54 @@ public class CommonFuncInServlet {
 
 	public static expert fillinExpert(HttpServletRequest request) {
 		expert e = new expert();
-		JSONObject jo_subjects = new JSONObject();
-		JSONObject jo_languages = new JSONObject();
 
 		String work_id = request.getParameter("expertId"), college_id = request
 				.getParameter("school"), name = request
 				.getParameter("expertName"), pwd = "77804d2ba1922c33";
-
-		jo_subjects.accumulate("engineering",
-				request.getParameter("engineering"));
-		jo_subjects.accumulate("science", request.getParameter("science"));
-		jo_subjects.accumulate("medicalLife",
-				request.getParameter("medicalLife"));
-		jo_subjects
-				.accumulate("otherMajor", request.getParameter("otherMajor"));
-		jo_subjects.accumulate("", request.getParameter(""));
-
-		jo_languages.accumulate("Chinese", request.getParameter("Chinese"));
-		jo_languages.accumulate("English", request.getParameter("English"));
-		jo_languages.accumulate("German", request.getParameter("German"));
-		jo_languages.accumulate("Japanese", request.getParameter("Japanese"));
-		jo_languages.accumulate("otherMajor",
-				request.getParameter("otherMajor"));
-
-		String subjects = null, languages = null;
+		
 		e.setWork_id(work_id);
 		e.setCollege_id(college_id);
 		e.setName(name);
 		e.setPwd(pwd);
-		e.setSubject(subjects);
-		e.setLanguage(languages);
+		e.setSubject(mergeSubjects(request));
+		e.setLanguage(mergeLanguages(request));
 		e.setSubmitted(false);
 		return e;
 	}
 
-	public static String mergeSubjects(JSONObject jo_subjects) {
-		return "";
+	public static String mergeSubjects(HttpServletRequest request) {
+		String subjects = "";
+		if(request.getParameter("工学") != null){
+			subjects = subjects + "工学,";
+		}
+		if(request.getParameter("理学") != null){
+			subjects = subjects + "理学,";
+		}
+		if(request.getParameter("医学生命") != null){
+			subjects = subjects + "医学生命,";
+		}
+		if(request.getParameter("文管艺术其他") != null){
+			subjects = subjects + "文管艺术其他,";
+		}
+		subjects = subjects.substring(0, subjects.length() - 1);
+		return subjects;
+	}
+	
+	public static String mergeLanguages(HttpServletRequest request){
+		String languages = "中文,";
+		if(request.getParameter("英文") != null){
+			languages = languages + "英文,";
+		}
+		if(request.getParameter("德文") != null){
+			languages = languages + "德文,";
+		}
+		if(request.getParameter("日文") != null){
+			languages = languages + "日文,";
+		}
+		if(request.getParameter("其他") != null){
+			languages = languages + "其他,";
+		}
+		languages = languages.substring(0, languages.length() - 1);
+		return languages;
 	}
 }

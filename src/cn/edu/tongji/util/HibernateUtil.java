@@ -475,10 +475,7 @@ public class HibernateUtil {
 		// TODO Auto-generated method stub
 		// System.out.println(HibernateUtil.setDeclareStatus(true));
 		// HibernateUtil.deleteExpert("1234839");
-		expert e = new expert();
-		e.setName("xiao mike");
-		e.setWork_id("1234840");
-		HibernateUtil.addExpert(e);
+		// List<expert> experts = HibernateUtil.getExpert();
 		HibernateUtil.DeHibernateOperation();
 	}
 
