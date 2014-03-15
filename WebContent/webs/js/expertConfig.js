@@ -1,5 +1,33 @@
 // JavaScript Document
-inEditing=true;
+inEditing=false;
+
+$(document).ready(function () {
+	$("#exchangingDataBckgnd").css("visibility","visible");
+	$("#exchangingDataInnerWrapper").css("visibility","visible");
+	$.ajax({
+		type: 'POST',
+		url: "../getExpert",
+		data: {
+			pageOffset: pageOffset,
+			maxItemCount: maxItemCount
+		},
+		success: function (jsonData) {
+			$("#exchangingDataInnerWrapper").css("visibility","hidden");
+			if (jsonData.Status == "success") {
+				
+			} else {
+				alert("加载失败");
+			}
+			$("#exchangingDataBckgnd").css("visibility","hidden");
+		},
+		error: function () {
+			$("#exchangingDataInnerWrapper").css("visibility","hidden");
+			alert("加载失败");
+			$("#exchangingDataBckgnd").css("visibility","hidden");
+		},
+		dataType: 'json'
+	});
+});
 
 function insertNewRow(school, authorName, authorId, majors, languageAuths) {
 	var newRow = $("#templates tr").clone(true);
@@ -7,6 +35,16 @@ function insertNewRow(school, authorName, authorId, majors, languageAuths) {
 	newRow.find(".school textarea").text(newRow.find(".school select option:selected").text());
 	newRow.find(".authorName textarea").text(authorName);
 	newRow.find(".authorId textarea").text(authorId);
+	$("#contentTable tbody").append(newRow);
+}
+
+function insertNewRowForEdit(school, authorName, authorId, majors, languageAuths) {
+	var newRow = $("#templates tr").clone(true);
+	newRow.find(".school select").val(school);
+	newRow.find(".school textarea").text(newRow.find(".school select option:selected").text());
+	newRow.find(".authorName textarea").text(authorName);
+	newRow.find(".authorId textarea").text(authorId);
+	edit(newRow);
 	$("#contentTable tbody").append(newRow);
 }
 
@@ -58,20 +96,51 @@ function submitForm(targetParent) {
 	var submitData = tempForm.serialize();
 	$.ajax({
 		type: 'POST',
-		url: "../TestingGGY",
+		url: "../addExpert",
 		data: submitData,
 		success: function (jsonData) {
 			$("#exchangingDataInnerWrapper").css("visibility","hidden");
 			if (jsonData.Status == "success") {
 				finishEdit(targetParent);
 			} else {
-				alert("修改失败");
+				alert("添加/修改失败");
 			}
 			$("#exchangingDataBckgnd").css("visibility","hidden");
 		},
 		error: function () {
 			$("#exchangingDataInnerWrapper").css("visibility","hidden");
-			alert("修改失败");
+			alert("添加/修改失败");
+			$("#exchangingDataBckgnd").css("visibility","hidden");
+		},
+		dataType: 'json'
+	});
+}
+
+function resetPassword(targetElement) {
+	var targetParent = $(targetElement).closest("tr");
+	if(inEditing==true){
+		alert("有修改未提交\n请先点击行末的“确定”提交\n或刷新页面。");
+		return;
+	}
+	$("#exchangingDataBckgnd").css("visibility","visible");
+	$("#exchangingDataInnerWrapper").css("visibility","visible");
+	var expertId=targetParent.find(".expertId").text();
+	$.ajax({
+		type: 'POST',
+		url: "../resetExpertPWD",
+		data: {expertId:expertId},
+		success: function (jsonData) {
+			$("#exchangingDataInnerWrapper").css("visibility","hidden");
+			if (jsonData.Status == "success") {
+				alert("密码重置成功");
+			} else {
+				alert("重置密码失败");
+			}
+			$("#exchangingDataBckgnd").css("visibility","hidden");
+		},
+		error: function () {
+			$("#exchangingDataInnerWrapper").css("visibility","hidden");
+			alert("重置密码失败");
 			$("#exchangingDataBckgnd").css("visibility","hidden");
 		},
 		dataType: 'json'
@@ -88,11 +157,12 @@ function del(targetElement){
 	$("#exchangingDataBckgnd").css("visibility","visible");
 	$("#exchangingDataInnerWrapper").css("visibility","visible");
 	
-	var authorId=targetParent.find(".authorId").text();
+	var expertId=targetParent.find(".expertId").text();
+	alert(expertId);
 		$.ajax({
 		type: 'POST',
-		url: "../TestingGGY",
-		data: {authorId:authorId},
+		url: "../deleteExpert",
+		data: {expertId:expertId},
 		success: function (jsonData) {
 			$("#exchangingDataInnerWrapper").css("visibility","hidden");
 			if (jsonData.Status == "success") {
@@ -113,5 +183,9 @@ function del(targetElement){
 }
 
 function testA() {
-	insertNewRow("software", "哈哈哈", "12345678901", "abc", "def")
+	if(inEditing==true){
+		alert("有修改未提交\n请先点击行末的“确定”提交\n或刷新页面。");
+		return;
+	}
+	insertNewRowForEdit("03000", "", "", "", "")
 }
