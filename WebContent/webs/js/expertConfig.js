@@ -77,6 +77,15 @@ function confirmEdit(targetElement) {
 	$("#exchangingDataBckgnd").css("visibility","visible");
 	$("#exchangingDataInnerWrapper").css("visibility","visible");
 	var targetParent = $(targetElement).closest("tr");
+	var checkBoxes=targetParent.find("input[type=checkbox]");
+	for(var i=0;i<checkBoxes.length;i++){
+		//alert($(checkBoxes[i]).is(':checked'));
+		if($(checkBoxes[i]).is(':checked')==true){
+			$(checkBoxes[i]).val("checked");
+		}else{
+			$(checkBoxes[i]).val("unchecked");
+		}
+	}
 	submitForm(targetParent);
 }
 
@@ -100,6 +109,7 @@ function submitForm(targetParent) {
 	var clonedTarget=targetParent.clone(true);
 	tempForm.append(clonedTarget);
 	var submitData = tempForm.serialize();
+	//alert(submitData);
 	$.ajax({
 		type: 'POST',
 		url: "../addExpert",
