@@ -7,10 +7,6 @@ $(document).ready(function () {
 	$.ajax({
 		type: 'POST',
 		url: "../getExpert",
-		data: {
-			pageOffset: pageOffset,
-			maxItemCount: maxItemCount
-		},
 		success: function (jsonData) {
 			$("#exchangingDataInnerWrapper").css("visibility","hidden");
 			if (jsonData.Status == "success") {
