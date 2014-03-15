@@ -198,11 +198,11 @@ function nextPage() {
 }
 
 function changePageOffset() {
-	window.location = "thesisList.html?pageOffset=" + $("#pageOffset").val() + "&maxItemCount=" + $("#maxItemCount").val();
+	window.location = "manageThesisList.html?pageOffset=" + $("#pageOffset").val() + "&maxItemCount=" + $("#maxItemCount").val();
 }
 
 function changeMaxItemCount() {
-	window.location = "thesisList.html?pageOffset=1&maxItemCount=" + $("#maxItemCount").val();
+	window.location = "manageThesisList.html?pageOffset=1&maxItemCount=" + $("#maxItemCount").val();
 }
 
 function getParam(name) {
