@@ -224,6 +224,9 @@ public class HibernateUtil {
 	public static void addExpert(expert e) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
+		// delete expert if exist
+		deleteExpert(e.getWork_id());
+		// add expert
 		System.out.println("start add expert...\n");
 		session.save(e);
 		System.out.println("complete add expert...\n");
@@ -470,8 +473,12 @@ public class HibernateUtil {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(HibernateUtil.setDeclareStatus(true));
-		HibernateUtil.deleteExpert("1234839");
+		// System.out.println(HibernateUtil.setDeclareStatus(true));
+		// HibernateUtil.deleteExpert("1234839");
+		expert e = new expert();
+		e.setName("xiao mike");
+		e.setWork_id("1234840");
+		HibernateUtil.addExpert(e);
 		HibernateUtil.DeHibernateOperation();
 	}
 
