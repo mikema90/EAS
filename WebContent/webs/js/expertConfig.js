@@ -14,7 +14,9 @@ $(document).ready(function () {
 		success: function (jsonData) {
 			$("#exchangingDataInnerWrapper").css("visibility","hidden");
 			if (jsonData.Status == "success") {
-				
+				$.each(jsonData.expert, function (idx, itemExpert) {
+					insertNewRow(itemExpert.college_id, itemExpert.name, itemExpert.work_id, itemExpert.subject, itemExpert.language);
+				});
 			} else {
 				alert("加载失败");
 			}
@@ -29,21 +31,29 @@ $(document).ready(function () {
 	});
 });
 
-function insertNewRow(school, authorName, authorId, majors, languageAuths) {
+function insertNewRow(school, expertName, expertId, majors, languageAuths) {
 	var newRow = $("#templates tr").clone(true);
 	newRow.find(".school select").val(school);
 	newRow.find(".school textarea").text(newRow.find(".school select option:selected").text());
 	newRow.find(".authorName textarea").text(authorName);
 	newRow.find(".authorId textarea").text(authorId);
+	var majorArray=majors.split(",");
+	for(var i=0; i < majorArray.length; i++){
+		newRow.find("input[name='"+majorArray[i]+"']").attr("checked","checked");
+	}
+	var languageAuthArray=languageAuths.split(",");
+	for(var i=0; i < languageAuthArray.length; i++){
+		newRow.find("input[name='"+languageAuthArray[i]+"']").attr("checked","checked");
+	}
 	$("#contentTable tbody").append(newRow);
 }
 
-function insertNewRowForEdit(school, authorName, authorId, majors, languageAuths) {
+function insertNewRowForEdit(school, expertName, expertId, majors, languageAuths) {
 	var newRow = $("#templates tr").clone(true);
 	newRow.find(".school select").val(school);
 	newRow.find(".school textarea").text(newRow.find(".school select option:selected").text());
-	newRow.find(".authorName textarea").text(authorName);
-	newRow.find(".authorId textarea").text(authorId);
+	newRow.find(".authorName textarea").text(expertName);
+	newRow.find(".authorId textarea").text(expertId);
 	edit(newRow);
 	$("#contentTable tbody").append(newRow);
 }
