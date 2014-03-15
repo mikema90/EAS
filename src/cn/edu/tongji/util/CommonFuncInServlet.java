@@ -171,14 +171,42 @@ public class CommonFuncInServlet {
 	}
 
 	public static expert fillinExpert(HttpServletRequest request) {
-		// medicalLife, engineering, science, otherMajor, college_id
 		expert e = new expert();
-		String college_id = request.getParameter("school"), name = request
-				.getParameter("expertName"), work_id = request
-				.getParameter("expertId");
-		// pwd;
+		JSONObject jo_subjects = new JSONObject();
+		JSONObject jo_languages = new JSONObject();
 
-		// e.setWork_id(work_id);
+		String work_id = request.getParameter("expertId"), college_id = request
+				.getParameter("school"), name = request
+				.getParameter("expertName"), pwd = "77804d2ba1922c33";
+
+		jo_subjects.accumulate("engineering",
+				request.getParameter("engineering"));
+		jo_subjects.accumulate("science", request.getParameter("science"));
+		jo_subjects.accumulate("medicalLife",
+				request.getParameter("medicalLife"));
+		jo_subjects
+				.accumulate("otherMajor", request.getParameter("otherMajor"));
+		jo_subjects.accumulate("", request.getParameter(""));
+
+		jo_languages.accumulate("Chinese", request.getParameter("Chinese"));
+		jo_languages.accumulate("English", request.getParameter("English"));
+		jo_languages.accumulate("German", request.getParameter("German"));
+		jo_languages.accumulate("Japanese", request.getParameter("Japanese"));
+		jo_languages.accumulate("otherMajor",
+				request.getParameter("otherMajor"));
+
+		String subjects = null, languages = null;
+		e.setWork_id(work_id);
+		e.setCollege_id(college_id);
+		e.setName(name);
+		e.setPwd(pwd);
+		e.setSubject(subjects);
+		e.setLanguage(languages);
+		e.setSubmitted(false);
 		return e;
+	}
+
+	public static String mergeSubjects(JSONObject jo_subjects) {
+		return "";
 	}
 }
