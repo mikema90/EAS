@@ -31,8 +31,8 @@ function insertNewRow(school, expertName, expertId, majors, languageAuths) {
 	var newRow = $("#templates tr").clone(true);
 	newRow.find(".school select").val(school);
 	newRow.find(".school textarea").text(newRow.find(".school select option:selected").text());
-	newRow.find(".authorName textarea").text(authorName);
-	newRow.find(".authorId textarea").text(authorId);
+	newRow.find(".expertName textarea").text(expertName);
+	newRow.find(".expertId textarea").text(expertId);
 	var majorArray=majors.split(",");
 	for(var i=0; i < majorArray.length; i++){
 		newRow.find("input[name='"+majorArray[i]+"']").attr("checked","checked");
@@ -48,8 +48,8 @@ function insertNewRowForEdit(school, expertName, expertId, majors, languageAuths
 	var newRow = $("#templates tr").clone(true);
 	newRow.find(".school select").val(school);
 	newRow.find(".school textarea").text(newRow.find(".school select option:selected").text());
-	newRow.find(".authorName textarea").text(expertName);
-	newRow.find(".authorId textarea").text(expertId);
+	newRow.find(".expertName textarea").text(expertName);
+	newRow.find(".expertId textarea").text(expertId);
 	edit(newRow);
 	$("#contentTable tbody").append(newRow);
 }
