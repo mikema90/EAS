@@ -14,7 +14,7 @@ import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
 import cn.edu.tongji.util.HibernateUtil;
 
-@WebServlet("/addexpert")
+@WebServlet("/addExpert")
 @SuppressWarnings("serial")
 public class AddExpertServlet extends HttpServlet {
 

@@ -171,8 +171,12 @@ public class CommonFuncInServlet {
 	}
 
 	public static expert fillinExpert(HttpServletRequest request) {
+		// medicalLife, engineering, science, otherMajor, college_id
 		expert e = new expert();
-		// String work_id, college_id, name, pwd;
+		String college_id = request.getParameter("school"), name = request
+				.getParameter("expertName"), work_id = request
+				.getParameter("expertId");
+		// pwd;
 
 		// e.setWork_id(work_id);
 		return e;

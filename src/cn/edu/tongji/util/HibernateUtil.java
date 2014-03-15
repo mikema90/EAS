@@ -17,9 +17,10 @@ public class HibernateUtil {
 	@SuppressWarnings("deprecation")
 	private static SessionFactory m_sf = m_cfg.configure()
 			.buildSessionFactory();
-	
-	protected static Logger logger = LogManager.getLogger(HibernateUtil.class.getName());
-	
+
+	protected static Logger logger = LogManager.getLogger(HibernateUtil.class
+			.getName());
+
 	// HQL
 	private static String expert_login_sql = "from expert where work_id = ? and pwd = ?";
 	private static String admin_login_sql = "from admin where work_id = ? and pwd = ?";
@@ -33,6 +34,7 @@ public class HibernateUtil {
 	private static String get_college_sql = "from college";
 	private static String get_mapping_sql = "select journal_type from mapping where issues = ? or issues = ?";
 	private static String get_opendeclare_sql = "select opendeclare from admin where work_id = 'admin'";
+	private static String get_expert_sql = "from expert order by college_id";
 
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
@@ -45,6 +47,7 @@ public class HibernateUtil {
 	private static String set_declare_status_sql = "update admin set opendeclare = ? where work_id = 'admin'";
 
 	private static String delete_paper_sql = "delete from paper where id = ?";
+	private static String delete_expert_sql = "delete from expert where work_id = ?";
 
 	// -------------------------------------------------------------------------------
 	public HibernateUtil() {
@@ -244,6 +247,19 @@ public class HibernateUtil {
 	}
 
 	@SuppressWarnings("unchecked")
+	public static List<expert> getExpert() {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		List<expert> experts = session.createQuery(get_expert_sql).list();
+
+		session.getTransaction().commit();
+		session.close();
+
+		return experts;
+	}
+
+	@SuppressWarnings("unchecked")
 	public static List<college> getCollege() {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
@@ -402,6 +418,25 @@ public class HibernateUtil {
 		return upstatus;
 	}
 
+	public static int deleteExpert(String work_id) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int upstatus = session.createQuery(delete_expert_sql)
+				.setString(0, work_id).executeUpdate();
+
+		if (upstatus == 1) {
+			System.out.println("delete expert successfully!");
+		} else {
+			System.out.println("delete expert failed!!");
+		}
+
+		session.getTransaction().commit();
+		session.close();
+
+		return upstatus;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static String getMapping(String issues, String journal) {
 		if (issues.startsWith("ISBN")) {
@@ -436,6 +471,7 @@ public class HibernateUtil {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println(HibernateUtil.setDeclareStatus(true));
+		HibernateUtil.deleteExpert("1234839");
 		HibernateUtil.DeHibernateOperation();
 	}
 

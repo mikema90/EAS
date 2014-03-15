@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.paper;
 import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
+import cn.edu.tongji.util.FileUtil;
 import cn.edu.tongji.util.HibernateUtil;
 
-@WebServlet("/resetExpertPWD")
+@WebServlet("/deleteExpert")
 @SuppressWarnings("serial")
-public class ResetExpertPwdServlet extends HttpServlet {
-
-	public ResetExpertPwdServlet() {
+public class DeleteExpertServlet extends HttpServlet {
+	public DeleteExpertServlet() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -32,14 +33,14 @@ public class ResetExpertPwdServlet extends HttpServlet {
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
+		JSONObject result = new JSONObject();
 
 		String work_id = request.getParameter("expertId");
-		int upstatus = HibernateUtil.resetExpertPwd(work_id);
+		int upstatus = HibernateUtil.deleteExpert(work_id);
 
-		JSONObject result = new JSONObject();
 		if (upstatus == 1) {
 			result.accumulate("Status", "success");
-		}else{
+		} else {
 			result.accumulate("Status", "failed");
 		}
 
