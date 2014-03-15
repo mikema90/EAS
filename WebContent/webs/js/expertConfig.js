@@ -109,7 +109,7 @@ function submitForm(targetParent) {
 	var clonedTarget=targetParent.clone(true);
 	tempForm.append(clonedTarget);
 	var submitData = tempForm.serialize();
-	//alert(submitData);
+	alert(submitData);
 	$.ajax({
 		type: 'POST',
 		url: "../addExpert",
