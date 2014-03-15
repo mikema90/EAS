@@ -107,9 +107,9 @@ function finishEdit(targetParent) {
 function submitForm(targetParent) {
 	var tempForm=$("<form></form>");
 	var clonedTarget=targetParent.clone(true);
-	tempForm.append(clonedTarget);
-	var submitData = tempForm.serialize();
-	alert(submitData);
+	tempForm=tempForm.append(clonedTarget);
+	var submitData = $(tempForm).serialize();
+	//alert(submitData);
 	$.ajax({
 		type: 'POST',
 		url: "../addExpert",
@@ -204,4 +204,11 @@ function testA() {
 		return;
 	}
 	insertNewRowForEdit("03000", "", "", "", "")
+}
+
+function onchangeSelect(targetElement){
+	//alert($(targetElement).val());
+	var selectedValue=$(targetElement).val();
+	$(targetElement).find("option[selected='selected']").removeAttr("selected");
+	$(targetElement).find("option[value='"+selectedValue+"']").attr("selected","selected");
 }
