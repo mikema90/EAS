@@ -1,10 +1,13 @@
 package cn.edu.tongji.util;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.college;
 import model.expert;
 import model.paper;
+import model.reviewschedule;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,6 +34,7 @@ public class HibernateUtil {
 	private static String get_one_paper_sql = "from paper where id = ?";
 	private static String get_all_paper_count_sql = "select count(*) from paper";
 	private static String get_paper_count_sql = "select count(*) from paper where college_id = ?";
+	private static String get_evaluation_paper_sql = "from reviewschedule rs, paper p where rs.paper_id = p.id and rs.expert_work_id = ?";
 	private static String get_college_sql = "from college";
 	private static String get_mapping_sql = "select journal_type from mapping where issues = ? or issues = ?";
 	private static String get_opendeclare_sql = "select opendeclare from admin where work_id = 'admin'";
@@ -175,6 +179,46 @@ public class HibernateUtil {
 		session.close();
 
 		return papers;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<EvaluationPaper> getEvaluationPaper(String expert_work_id) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		List<Object[]> list = session.createQuery(get_evaluation_paper_sql)
+				.setString(0, expert_work_id).list();
+
+		List<EvaluationPaper> evaluatonpapers = new ArrayList<EvaluationPaper>();
+		for (Object[] object : list) {
+			reviewschedule rs = (reviewschedule) object[0];
+			paper p = (paper) object[1];
+			// fill in content
+			EvaluationPaper ep = new EvaluationPaper();
+			ep.setId(p.getId());
+			ep.setCollege_id(p.getCollege_id());
+			ep.setCollege_name(p.getCollege_name());
+			ep.setCategory(p.getCategory());
+			ep.setFirst_author(p.getFirst_author());
+			ep.setFirst_author_wid(p.getFirst_author_wid());
+			ep.setOther_authors(p.getOther_authors());
+			ep.setOther_authors_wid(p.getOther_authors_wid());
+			ep.setTitle(p.getTitle());
+			ep.setJournal(p.getJournal());
+			ep.setIssues(p.getIssues());
+			ep.setJournal_type(p.getJournal_type());
+			ep.setPost_date(p.getPost_date());
+			ep.setLanguage(p.getLanguage());
+			ep.setPdf_url(p.getPdf_url());
+			ep.setStatus(rs.getStatus());
+			ep.setComment(rs.getComment());
+			evaluatonpapers.add(ep);
+		}
+
+		session.getTransaction().commit();
+		session.close();
+
+		return evaluatonpapers;
 	}
 
 	public static paper getOnePaperCount(int id) {
@@ -474,6 +518,8 @@ public class HibernateUtil {
 		// System.out.println(HibernateUtil.setDeclareStatus(true));
 		// HibernateUtil.deleteExpert("1234839");
 		// List<expert> experts = HibernateUtil.getExpert();
+		System.out.println(HibernateUtil.getEvaluationPaper("1234839")
+				.toString());
 		HibernateUtil.DeHibernateOperation();
 	}
 
