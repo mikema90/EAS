@@ -2,8 +2,6 @@ package cn.edu.tongji.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,25 +34,30 @@ public class SaveEvaluationResultServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
+		JSONObject result = new JSONObject();
+
 		String expert_work_id = (String) session.getAttribute("username");
-		List<Integer> paper_ids = null;
-		List<String> statuses = null;
-		List<String> comments = null;
-		if (paper_ids.size() == statuses.size()
-				&& statuses.size() == comments.size()) {
-			for (int i = 0; i < paper_ids.size(); i++) {
-				int paper_id = paper_ids.get(i);
-				String status = statuses.get(i), comment = comments.get(i);
+		String[] paper_ids = request.getParameterValues("tupleId");
+		String[] statuses = request.getParameterValues("evalResult");
+		String[] comments = request.getParameterValues("remark");
+		if (paper_ids.length == statuses.length
+				&& statuses.length == comments.length) {
+			for (int i = 0; i < paper_ids.length; i++) {
+				int paper_id = Integer.valueOf(paper_ids[i]);
+				String status = statuses[i], comment = comments[i];
 				HibernateUtil.saveReviewStatus(paper_id, expert_work_id,
 						status, comment);
 			}
-			JSONObject result = new JSONObject();
 			result.accumulate("Status", "success");
-			// -----------------------------------------------
-			System.out.println(result.toString());
-			out.write(result.toString());
-			out.flush();
+		} else {
+			result.accumulate("Status", "failed");
+			System.out
+					.println("lengths of tupleId, evalResult & remark are not equal!");
 		}
+		// -----------------------------------------------
+		System.out.println(result.toString());
+		out.write(result.toString());
+		out.flush();
 		out.close();
 	}
 }
