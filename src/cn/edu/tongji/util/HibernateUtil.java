@@ -1,9 +1,9 @@
 package cn.edu.tongji.util;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.evaluationpaper;
 import model.college;
 import model.expert;
 import model.paper;
@@ -43,7 +43,7 @@ public class HibernateUtil {
 	private static String expert_pwdmodify_sql = "update expert set pwd = ? where work_id = ? and pwd = ?";
 	private static String admin_pwdmodify_sql = "update admin set pwd = ? where work_id = ? and pwd = ?";
 	private static String college_pwdmodify_sql = "update college set pwd = ? where college_id = ? and pwd = ?";
-	private static String update_reviewstatus_sql = "update reviewschedule set status = ?, comment = ? where paper_id = ? and expert_work_id = ?";
+	private static String save_reviewstatus_sql = "update reviewschedule set status = ?, comment = ? where paper_id = ? and expert_work_id = ?";
 
 	// '77804d2ba1922c33' is the result after MD5 for '888888'
 	private static String reset_college_pwd_sql = "update college set pwd = '77804d2ba1922c33' where college_id = ?";
@@ -182,19 +182,19 @@ public class HibernateUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<EvaluationPaper> getEvaluationPaper(String expert_work_id) {
+	public static List<evaluationpaper> getEvaluationPaper(String expert_work_id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
 		List<Object[]> list = session.createQuery(get_evaluation_paper_sql)
 				.setString(0, expert_work_id).list();
 
-		List<EvaluationPaper> evaluatonpapers = new ArrayList<EvaluationPaper>();
+		List<evaluationpaper> evaluatonpapers = new ArrayList<evaluationpaper>();
 		for (Object[] object : list) {
 			reviewschedule rs = (reviewschedule) object[0];
 			paper p = (paper) object[1];
 			// fill in content
-			EvaluationPaper ep = new EvaluationPaper();
+			evaluationpaper ep = new evaluationpaper();
 			ep.setId(p.getId());
 			ep.setCollege_id(p.getCollege_id());
 			ep.setCollege_name(p.getCollege_name());
@@ -353,14 +353,14 @@ public class HibernateUtil {
 		session.close();
 	}
 
-	public static int updateReviewStatus(String paper_id,
+	public static int saveReviewStatus(int paper_id,
 			String expert_work_id, String status, String comment) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
-		int upstatus = session.createQuery(update_reviewstatus_sql)
+		int upstatus = session.createQuery(save_reviewstatus_sql)
 				.setString(0, status).setString(1, comment)
-				.setString(2, paper_id).setString(3, expert_work_id)
+				.setInteger(2, paper_id).setString(3, expert_work_id)
 				.executeUpdate();
 
 		if (upstatus == 1) {

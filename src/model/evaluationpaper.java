@@ -1,8 +1,8 @@
-package cn.edu.tongji.util;
+package model;
 
 import java.sql.Date;
 
-public class EvaluationPaper {
+public class evaluationpaper {
 	private int id;
 	private String college_id;
 	private String college_name;
@@ -18,10 +18,10 @@ public class EvaluationPaper {
 	private Date post_date;
 	private String language;
 	private String pdf_url;
-	private int status;
+	private String status;
 	private String comment;
 
-	public EvaluationPaper() {
+	public evaluationpaper() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -145,11 +145,11 @@ public class EvaluationPaper {
 		this.pdf_url = pdf_url;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

@@ -4,7 +4,7 @@ public class reviewschedule {
 	private int id;
 	private int paper_id;
 	private String expert_work_id;
-	private int status;
+	private String status;
 	private String comment;
 
 	public int getId() {
@@ -31,11 +31,11 @@ public class reviewschedule {
 		this.expert_work_id = expert_work_id;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
