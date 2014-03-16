@@ -11,7 +11,7 @@ $(document).ready(function () {
 			$("#exchangingDataInnerWrapper").css("visibility","hidden");
 			if (jsonData.Status == "success") {
 				$.each(jsonData.expert, function (idx, itemExpert) {
-					insertNewRow(itemExpert.college_id, itemExpert.name, itemExpert.work_id, itemExpert.subject, itemExpert.language);
+					insertNewRow(itemExpert.id, itemExpert.college_id, itemExpert.name, itemExpert.work_id, itemExpert.subject, itemExpert.language);
 				});
 			} else {
 				alert("加载失败");
@@ -33,7 +33,7 @@ function insertNewRow(tupleId, school, expertName, expertId, majors, languageAut
 	newRow.find(".school textarea").text(newRow.find(".school select option:selected").text());
 	newRow.find(".expertName textarea").text(expertName);
 	newRow.find(".expertId textarea").text(expertId);
-	newRow.find("input[name='"+tupleId+"']").val(tupleId);
+	newRow.find("input[name='tupleId']").attr("value",tupleId);
 	var majorArray=majors.split(",");
 	for(var i=0; i < majorArray.length; i++){
 		newRow.find("input[name='"+majorArray[i]+"']").attr("checked","checked");
