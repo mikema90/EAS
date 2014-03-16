@@ -39,18 +39,19 @@ public class GetExpertServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String identity = (String) session.getAttribute("identity");
 
-		if (identity.equals("admin")) {
+		JSONObject result = new JSONObject();
+		if (identity == "admin") {
 			List<expert> experts = HibernateUtil.getExpert();
 
-			JSONObject result = new JSONObject();
 			JSONArray jaExperts = JSONArray.fromObject(experts);
 			result.accumulate("expert", jaExperts);
 			result.accumulate("Status", "success");
-
-			System.out.println(result.toString());
-			out.write(result.toString());
-			out.flush();
+		} else {
+			result.accumulate("Status", "failed");
 		}
+		System.out.println(result.toString());
+		out.write(result.toString());
+		out.flush();
 		out.close();
 	}
 }

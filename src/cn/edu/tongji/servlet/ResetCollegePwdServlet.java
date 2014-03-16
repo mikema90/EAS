@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
@@ -32,13 +33,21 @@ public class ResetCollegePwdServlet extends HttpServlet {
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
-
-		String college_id = request.getParameter("schoolId");
-		int upstatus = HibernateUtil.resetCollegePwd(college_id);
+		HttpSession session = request.getSession();
+		String identity = (String) session.getAttribute("identity");
 
 		JSONObject result = new JSONObject();
-		if (upstatus == 1) {
-			result.accumulate("Status", "success");
+		if (identity == "admin") {
+			String college_id = request.getParameter("schoolId");
+			int upstatus = HibernateUtil.resetCollegePwd(college_id);
+
+			if (upstatus == 1) {
+				result.accumulate("Status", "success");
+			} else {
+				result.accumulate("Status", "failed");
+			}
+		} else {
+			result.accumulate("Status", "failed");
 		}
 
 		System.out.println(result.toString());

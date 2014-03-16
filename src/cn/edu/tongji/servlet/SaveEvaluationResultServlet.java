@@ -37,18 +37,26 @@ public class SaveEvaluationResultServlet extends HttpServlet {
 		JSONObject result = new JSONObject();
 
 		String expert_work_id = (String) session.getAttribute("username");
-		String[] paper_ids = request.getParameterValues("tupleId");
+		String[] paper_ids = request.getParameterValues("thesisId");
 		String[] statuses = request.getParameterValues("evalResult");
 		String[] comments = request.getParameterValues("remark");
 		if (paper_ids.length == statuses.length
 				&& statuses.length == comments.length) {
+			int saveStatus = 1;
 			for (int i = 0; i < paper_ids.length; i++) {
 				int paper_id = Integer.valueOf(paper_ids[i]);
 				String status = statuses[i], comment = comments[i];
-				HibernateUtil.saveReviewStatus(paper_id, expert_work_id,
-						status, comment);
+				if (saveStatus == 1) {
+					saveStatus = HibernateUtil.saveReviewStatus(paper_id,
+							expert_work_id, status, comment);
+				}
 			}
-			result.accumulate("Status", "success");
+			if (saveStatus == 1) {
+				result.accumulate("Status", "success");
+			} else {
+				result.accumulate("Status", "failed");
+				System.out.println("At least one result save failed!");
+			}
 		} else {
 			result.accumulate("Status", "failed");
 			System.out
