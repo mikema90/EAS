@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.evaluationpaper;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import cn.edu.tongji.util.CommonFuncInServlet;
-import cn.edu.tongji.util.EvaluationPaper;
 import cn.edu.tongji.util.HibernateUtil;
 import cn.edu.tongji.util.JsonDateValueProcessor;
 
 @WebServlet("/getEvaluationPaper")
 // return evaluation paper for one specific expert
 @SuppressWarnings("serial")
-public class GetEvaluationPaper extends HttpServlet {
+public class GetEvaluationPaperServlet extends HttpServlet {
 
-	public GetEvaluationPaper() {
+	public GetEvaluationPaperServlet() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -45,7 +45,7 @@ public class GetEvaluationPaper extends HttpServlet {
 		String username = (String) session.getAttribute("username");
 		if (identity.equals("expert")) {// only for expert
 
-			List<EvaluationPaper> evaluatonpapers = HibernateUtil
+			List<evaluationpaper> evaluatonpapers = HibernateUtil
 					.getEvaluationPaper(username);
 
 			// json config

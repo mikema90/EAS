@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Mar 16, 2014 9:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="model.paper" table="PAPER">
+    <class name="model.evaluationpaper" table="EVALUATIONPAPER">
         <id name="id" type="int">
             <column name="ID" />
             <generator class="assigned" />
@@ -50,8 +50,11 @@
         <property name="pdf_url" type="java.lang.String">
             <column name="PDF_URL" />
         </property>
-        <property name="passed" type="boolean">
-            <column name="PASSED" />
+        <property name="status" type="java.lang.String">
+            <column name="STATUS" />
+        </property>
+        <property name="comment" type="java.lang.String">
+            <column name="COMMENT" />
         </property>
     </class>
 </hibernate-mapping>
