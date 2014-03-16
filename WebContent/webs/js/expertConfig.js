@@ -167,6 +167,10 @@ function resetPassword(targetElement) {
 }
 
 function del(targetElement) {
+	if (confirm("确定删除？") == false) {
+		return;
+	}
+	
 	var targetParent = $(targetElement).closest("tr");
 	if (targetParent.hasClass("finishEdit") && inEditing == true) {
 		alert("有修改未提交\n请先点击行末的“确定”提交\n或刷新页面。");
