@@ -8,17 +8,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import model.paper;
 import net.sf.json.JSONObject;
 import cn.edu.tongji.util.CommonFuncInServlet;
-import cn.edu.tongji.util.FileUtil;
-import cn.edu.tongji.util.HibernateUtil;
 
-@WebServlet("/deleteExpert")
+@WebServlet("/getEvaluationPaper")
+// return evaluation paper for one specific expert
 @SuppressWarnings("serial")
-public class DeleteExpertServlet extends HttpServlet {
-	public DeleteExpertServlet() {
+public class GetEvaluationPaper extends HttpServlet {
+
+	public GetEvaluationPaper() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,20 +33,19 @@ public class DeleteExpertServlet extends HttpServlet {
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
-		JSONObject result = new JSONObject();
-
-		int id = Integer.valueOf(request.getParameter("tupleId"));
-		int upstatus = HibernateUtil.deleteExpert(id);
-
-		if (upstatus == 1) {
+		HttpSession session = request.getSession();
+		String identity = (String) session.getAttribute("identity");
+		if (identity.equals("expert")) {// only for expert
+			
+			
+			
+			JSONObject result = new JSONObject();
 			result.accumulate("Status", "success");
-		} else {
-			result.accumulate("Status", "failed");
+			// ----------------------------------------------
+			System.out.println(result.toString());
+			out.write(result.toString());
+			out.flush();
 		}
-
-		System.out.println(result.toString());
-		out.write(result.toString());
-		out.flush();
 		out.close();
 	}
 }

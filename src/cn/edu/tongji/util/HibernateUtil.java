@@ -47,7 +47,7 @@ public class HibernateUtil {
 	private static String set_declare_status_sql = "update admin set opendeclare = ? where work_id = 'admin'";
 
 	private static String delete_paper_sql = "delete from paper where id = ?";
-	private static String delete_expert_sql = "delete from expert where work_id = ?";
+	private static String delete_expert_sql = "delete from expert where id = ?";
 
 	// -------------------------------------------------------------------------------
 	public HibernateUtil() {
@@ -224,8 +224,6 @@ public class HibernateUtil {
 	public static void addExpert(expert e) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
-		// delete expert if exist
-		deleteExpert(e.getWork_id());
 		// add expert
 		System.out.println("start add expert...\n");
 		session.save(e);
@@ -421,12 +419,12 @@ public class HibernateUtil {
 		return upstatus;
 	}
 
-	public static int deleteExpert(String work_id) {
+	public static int deleteExpert(int id) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
-		int upstatus = session.createQuery(delete_expert_sql)
-				.setString(0, work_id).executeUpdate();
+		int upstatus = session.createQuery(delete_expert_sql).setInteger(0, id)
+				.executeUpdate();
 
 		if (upstatus == 1) {
 			System.out.println("delete expert successfully!");

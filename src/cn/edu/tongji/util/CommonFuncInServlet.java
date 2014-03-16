@@ -173,10 +173,17 @@ public class CommonFuncInServlet {
 	public static expert fillinExpert(HttpServletRequest request) {
 		expert e = new expert();
 
-		String work_id = request.getParameter("expertId"), college_id = request
+		String work_id = request
+				.getParameter("expertId"), college_id = request
 				.getParameter("school"), name = request
 				.getParameter("expertName"), pwd = "77804d2ba1922c33";
-		
+
+		int id = Integer.valueOf(request.getParameter("tupleId"));
+		// modify expert, delete firstly
+		if(id != -1){
+			HibernateUtil.deleteExpert(id);
+			e.setId(id);
+		}
 		e.setWork_id(work_id);
 		e.setCollege_id(college_id);
 		e.setName(name);
@@ -189,34 +196,34 @@ public class CommonFuncInServlet {
 
 	public static String mergeSubjects(HttpServletRequest request) {
 		String subjects = "";
-		if(request.getParameter("工学") != null){
+		if (request.getParameter("工学") != null) {
 			subjects = subjects + "工学,";
 		}
-		if(request.getParameter("理学") != null){
+		if (request.getParameter("理学") != null) {
 			subjects = subjects + "理学,";
 		}
-		if(request.getParameter("医学生命") != null){
+		if (request.getParameter("医学生命") != null) {
 			subjects = subjects + "医学生命,";
 		}
-		if(request.getParameter("文管艺术其他") != null){
+		if (request.getParameter("文管艺术其他") != null) {
 			subjects = subjects + "文管艺术其他,";
 		}
 		subjects = subjects.substring(0, subjects.length() - 1);
 		return subjects;
 	}
-	
-	public static String mergeLanguages(HttpServletRequest request){
+
+	public static String mergeLanguages(HttpServletRequest request) {
 		String languages = "中文,";
-		if(request.getParameter("英文") != null){
+		if (request.getParameter("英文") != null) {
 			languages = languages + "英文,";
 		}
-		if(request.getParameter("德文") != null){
+		if (request.getParameter("德文") != null) {
 			languages = languages + "德文,";
 		}
-		if(request.getParameter("日文") != null){
+		if (request.getParameter("日文") != null) {
 			languages = languages + "日文,";
 		}
-		if(request.getParameter("其他") != null){
+		if (request.getParameter("其他") != null) {
 			languages = languages + "其他,";
 		}
 		languages = languages.substring(0, languages.length() - 1);
