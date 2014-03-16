@@ -40,7 +40,7 @@ public class GetExpertServlet extends HttpServlet {
 		String identity = (String) session.getAttribute("identity");
 
 		JSONObject result = new JSONObject();
-		if (identity == "admin") {
+		if ("admin".equalsIgnoreCase(identity + "")) {
 			List<expert> experts = HibernateUtil.getExpert();
 
 			JSONArray jaExperts = JSONArray.fromObject(experts);

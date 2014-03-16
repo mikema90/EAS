@@ -100,11 +100,11 @@ public class UrlFilter implements Filter {
 	 */
 	protected boolean pass(String url, String identity) {
 		Set<String> urls = null;
-		if (identity.equals("college")) {
+		if ("college".equalsIgnoreCase(identity + "")) {
 			urls = urlAccessSet.getInstance().collegeSet;
-		} else if (identity.equals("expert")) {
+		} else if ("expert".equalsIgnoreCase(identity + "")) {
 			urls = urlAccessSet.getInstance().expertSet;
-		} else if (identity.equals("admin")) {
+		} else if ("admin".equalsIgnoreCase(identity + "")) {
 			urls = urlAccessSet.getInstance().adminSet;
 		}
 		Iterator<String> iter = urls.iterator();

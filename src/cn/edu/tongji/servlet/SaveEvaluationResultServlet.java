@@ -40,7 +40,8 @@ public class SaveEvaluationResultServlet extends HttpServlet {
 		String[] paper_ids = request.getParameterValues("thesisId");
 		String[] statuses = request.getParameterValues("evalResult");
 		String[] comments = request.getParameterValues("remark");
-		if (paper_ids.length == statuses.length
+		if (paper_ids != null && statuses != null && comments != null
+				&& paper_ids.length == statuses.length
 				&& statuses.length == comments.length) {
 			int saveStatus = 1;
 			for (int i = 0; i < paper_ids.length; i++) {

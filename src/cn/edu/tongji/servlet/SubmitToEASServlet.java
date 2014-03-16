@@ -39,10 +39,10 @@ public class SubmitToEASServlet extends HttpServlet {
 		
 		JSONObject result = new JSONObject();
 		
-		if(identity == "college"){
+		if("college".equalsIgnoreCase(identity + "")){
 			HibernateUtil.setCollegeSubmitted(true, username);
 			result.accumulate("Status", "success");
-		}else if(identity == "expert"){
+		}else if("expert".equalsIgnoreCase(identity + "")){
 			HibernateUtil.setExpertSubmitted(true, username);
 			result.accumulate("Status", "success");
 		}else{

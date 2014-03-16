@@ -45,7 +45,7 @@ public class GetEvaluationPaperServlet extends HttpServlet {
 		String username = (String) session.getAttribute("username");
 
 		JSONObject result = new JSONObject();
-		if (identity == "expert") {// only for expert
+		if ("expert".equalsIgnoreCase(identity + "")) {// only for expert
 			List<evaluationpaper> evaluatonpapers = HibernateUtil
 					.getEvaluationPaper(username);
 

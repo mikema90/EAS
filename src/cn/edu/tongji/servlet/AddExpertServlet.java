@@ -38,7 +38,7 @@ public class AddExpertServlet extends HttpServlet {
 		String identity = (String) session.getAttribute("identity");
 
 		JSONObject result = new JSONObject();
-		if (identity == "admin") {
+		if ("admin".equalsIgnoreCase(identity + "")) {
 			expert e = CommonFuncInServlet.fillinExpert(request);
 			HibernateUtil.addExpert(e);
 			result.accumulate("Status", "success");

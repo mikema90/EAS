@@ -37,13 +37,13 @@ public class SetDeclareStatusServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		String identity = (String) session.getAttribute("identity");
-		if (identity.equals("admin")) {
+		if ("admin".equalsIgnoreCase(identity + "")) {
 			String sub_status = request.getParameter("submittingStatus");
 			int upstatus = 0;
 
-			if (sub_status.equals("open")) {
+			if ("open".equalsIgnoreCase(sub_status + "")) {
 				upstatus = HibernateUtil.setDeclareStatus(true);
-			} else if (sub_status.equals("close")) {
+			} else if ("close".equalsIgnoreCase(sub_status + "")) {
 				upstatus = HibernateUtil.setDeclareStatus(false);
 			}
 
