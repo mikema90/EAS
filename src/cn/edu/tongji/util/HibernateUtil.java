@@ -364,9 +364,9 @@ public class HibernateUtil {
 				.executeUpdate();
 
 		if (upstatus == 1) {
-			System.out.println("update review status successfully!");
+			System.out.println("save review status successfully!");
 		} else {
-			System.out.println("update review status failed!!");
+			System.out.println("save review status failed!!");
 		}
 
 		session.getTransaction().commit();
@@ -518,8 +518,7 @@ public class HibernateUtil {
 		// System.out.println(HibernateUtil.setDeclareStatus(true));
 		// HibernateUtil.deleteExpert("1234839");
 		// List<expert> experts = HibernateUtil.getExpert();
-		System.out.println(HibernateUtil.getEvaluationPaper("1234839")
-				.toString());
+		HibernateUtil.saveReviewStatus(1, "1234839", "yes", "good");
 		HibernateUtil.DeHibernateOperation();
 	}
 
