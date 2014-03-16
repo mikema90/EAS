@@ -49,6 +49,8 @@ public class HibernateUtil {
 	private static String reset_college_pwd_sql = "update college set pwd = '77804d2ba1922c33' where college_id = ?";
 	private static String reset_expert_pwd_sql = "update expert set pwd = '77804d2ba1922c33' where work_id = ?";
 	private static String set_declare_status_sql = "update admin set opendeclare = ? where work_id = 'admin'";
+	private static String set_college_submitted_sql = "update college set submitted = ? where college_id = ?";
+	private static String set_expert_submitted_sql = "update expert set submitted = ? where work_id = ?";
 
 	private static String delete_paper_sql = "delete from paper where id = ?";
 	private static String delete_expert_sql = "delete from expert where id = ?";
@@ -353,8 +355,8 @@ public class HibernateUtil {
 		session.close();
 	}
 
-	public static int saveReviewStatus(int paper_id,
-			String expert_work_id, String status, String comment) {
+	public static int saveReviewStatus(int paper_id, String expert_work_id,
+			String status, String comment) {
 		Session session = m_sf.openSession();
 		session.beginTransaction();
 
@@ -431,11 +433,53 @@ public class HibernateUtil {
 				.setBoolean(0, status).executeUpdate();
 
 		if (upstatus == 1) {
-			System.out.println("update declare status to " + status
+			System.out.println("set declare status to " + status
 					+ " successfully!");
 		} else {
-			System.out.println("update declare status to " + status
-					+ " failed!!");
+			System.out.println("set declare status to " + status + " failed!");
+		}
+
+		session.getTransaction().commit();
+		session.close();
+
+		return upstatus;
+	}
+
+	public static int setCollegeSubmitted(boolean submitted, String college_id) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int upstatus = session.createQuery(set_college_submitted_sql)
+				.setBoolean(0, submitted).setString(1, college_id)
+				.executeUpdate();
+
+		if (upstatus == 1) {
+			System.out.println("set college submitted to " + submitted
+					+ " successfully!");
+		} else {
+			System.out.println("set college submitted to " + submitted
+					+ " failed!");
+		}
+
+		session.getTransaction().commit();
+		session.close();
+
+		return upstatus;
+	}
+
+	public static int setExpertSubmitted(boolean submitted, String work_id) {
+		Session session = m_sf.openSession();
+		session.beginTransaction();
+
+		int upstatus = session.createQuery(set_expert_submitted_sql)
+				.setBoolean(0, submitted).setString(1, work_id).executeUpdate();
+
+		if (upstatus == 1) {
+			System.out.println("set expert submitted to " + submitted
+					+ " successfully!");
+		} else {
+			System.out.println("set expert submitted to " + submitted
+					+ " failed!");
 		}
 
 		session.getTransaction().commit();
@@ -518,7 +562,8 @@ public class HibernateUtil {
 		// System.out.println(HibernateUtil.setDeclareStatus(true));
 		// HibernateUtil.deleteExpert("1234839");
 		// List<expert> experts = HibernateUtil.getExpert();
-		HibernateUtil.saveReviewStatus(1, "1234839", "yes", "good");
+		// HibernateUtil.saveReviewStatus(1, "1234839", "yes", "good");
+		HibernateUtil.setExpertSubmitted(true, "1234839");
 		HibernateUtil.DeHibernateOperation();
 	}
 

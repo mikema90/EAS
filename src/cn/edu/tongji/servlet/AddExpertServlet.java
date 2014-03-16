@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.expert;
 import net.sf.json.JSONObject;
@@ -33,12 +34,17 @@ public class AddExpertServlet extends HttpServlet {
 		CommonFuncInServlet.setCharacterEncoding(request, response);
 
 		PrintWriter out = response.getWriter();
-
-		expert e = CommonFuncInServlet.fillinExpert(request);
-		HibernateUtil.addExpert(e);
+		HttpSession session = request.getSession();
+		String identity = (String) session.getAttribute("identity");
 
 		JSONObject result = new JSONObject();
-		result.accumulate("Status", "success");
+		if (identity == "admin") {
+			expert e = CommonFuncInServlet.fillinExpert(request);
+			HibernateUtil.addExpert(e);
+			result.accumulate("Status", "success");
+		} else {
+			result.accumulate("Status", "failed");
+		}
 
 		System.out.println(result.toString());
 		out.write(result.toString());

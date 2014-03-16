@@ -43,7 +43,7 @@ public class PwdModifyServlet extends HttpServlet {
 		String new_pwd = request.getParameter("newPwd");
 
 		JSONObject result = new JSONObject();
-		if (cur_pwd.equals(old_pwd)) {// old password equal login password
+		if (cur_pwd.equals(old_pwd) && identity != null && username != null) {// old password equal login password
 			HibernateUtil.pwdModify(identity, username, cur_pwd, new_pwd);
 			result.accumulate("Status", "success");
 			result.accumulate("retMsg", "密码修改成功，请重新登录");

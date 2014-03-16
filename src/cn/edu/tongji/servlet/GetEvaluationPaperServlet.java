@@ -43,8 +43,9 @@ public class GetEvaluationPaperServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String identity = (String) session.getAttribute("identity");
 		String username = (String) session.getAttribute("username");
-		if (identity.equals("expert")) {// only for expert
 
+		JSONObject result = new JSONObject();
+		if (identity == "expert") {// only for expert
 			List<evaluationpaper> evaluatonpapers = HibernateUtil
 					.getEvaluationPaper(username);
 
@@ -54,16 +55,18 @@ public class GetEvaluationPaperServlet extends HttpServlet {
 					new JsonDateValueProcessor());
 
 			// json to return
-			JSONObject result = new JSONObject();
 			JSONArray jaPapers = JSONArray.fromObject(evaluatonpapers,
 					jsonConfig);
 			result.accumulate("paper", jaPapers);
 			result.accumulate("Status", "success");
-			// ----------------------------------------------
-			System.out.println(result.toString());
-			out.write(result.toString());
-			out.flush();
+
+		} else {
+			result.accumulate("Status", "failed");
 		}
+		// ----------------------------------------------
+		System.out.println(result.toString());
+		out.write(result.toString());
+		out.flush();
 		out.close();
 	}
 }
