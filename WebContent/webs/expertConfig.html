@@ -46,8 +46,8 @@
           <option value="55000">设计与艺术学院</option>
           <option value="57000">测绘与地理信息学院</option>
         </select></td>
-      <td class="expertName"><textarea name="expertName" spellcheck="false" readonly="readonly">啊啦</textarea></td>
-      <td class="expertId"><textarea name="expertId" spellcheck="false" readonly="readonly"></textarea></td>
+      <td class="expertName"><textarea name="expertName" spellcheck="false" onchange="onchangeTextArea(this)" readonly="readonly">啊啦</textarea></td>
+      <td class="expertId"><textarea name="expertId" spellcheck="false" onchange="onchangeTextArea(this)" readonly="readonly"></textarea></td>
       <td class="major"><input name="工学" type="checkbox" onclick="return false;" value="" />
         <span>工学 </span>
         <input name="理学" type="checkbox" onclick="return false;" value="" />
@@ -64,7 +64,7 @@
         <span>日文 </span>
         <input name="其他" type="checkbox" onclick="return false;" value="" />
         <span>其他</span></td>
-      <td class="operations"><span class="btnOfDisplay" onclick="edit(this)">修改</span><span class="btnOfEditing" onclick="confirmEdit(this)">确定</span><span onclick="del(this)">删除</span><br/>
+      <td class="operations"><input name="tupleId" style="visibility:hidden;" value="-1"/><span class="btnOfDisplay" onclick="edit(this)">修改</span><span class="btnOfEditing" onclick="confirmEdit(this)">确定</span><span onclick="del(this)">删除</span><br/>
         <span href="#">重设密码</span></td>
     </tr>
   </table>

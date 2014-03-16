@@ -27,12 +27,13 @@ $(document).ready(function () {
 	});
 });
 
-function insertNewRow(school, expertName, expertId, majors, languageAuths) {
+function insertNewRow(tupleId, school, expertName, expertId, majors, languageAuths) {
 	var newRow = $("#templates tr").clone(true);
 	newRow.find(".school select").val(school);
 	newRow.find(".school textarea").text(newRow.find(".school select option:selected").text());
 	newRow.find(".expertName textarea").text(expertName);
 	newRow.find(".expertId textarea").text(expertId);
+	newRow.find("input[name='"+tupleId+"']").val(tupleId);
 	var majorArray=majors.split(",");
 	for(var i=0; i < majorArray.length; i++){
 		newRow.find("input[name='"+majorArray[i]+"']").attr("checked","checked");
@@ -211,4 +212,9 @@ function onchangeSelect(targetElement){
 	var selectedValue=$(targetElement).val();
 	$(targetElement).find("option[selected='selected']").removeAttr("selected");
 	$(targetElement).find("option[value='"+selectedValue+"']").attr("selected","selected");
+}
+
+function onchangeTextArea(targetElement){
+	var textValue=$(targetElement).val();
+	$(targetElement).text(textValue);
 }
