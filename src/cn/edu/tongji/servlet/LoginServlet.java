@@ -54,6 +54,8 @@ public class LoginServlet extends HttpServlet {
 				result.accumulate("redirectUrl", "thesisList.html");
 			} else if (identity.equals("admin")) {
 				result.accumulate("redirectUrl", "manageThesisList.html");
+			}else if (identity.equals("expert")) {
+				result.accumulate("redirectUrl", "expertNotice.html");
 			} else {
 				result.accumulate("redirectUrl", "about:blank");
 			}

@@ -22,6 +22,8 @@ public class urlAccessSet {
 		adminSet.add("changePwdB.html");
 		adminSet.add("manageThesisList.html");
 		adminSet.add("expertConfig.html");
+		expertSet.add("thesisEvaluation.html");
+		expertSet.add("expertNotice.html");
 	}
 
 	public static urlAccessSet getInstance() {

@@ -48,6 +48,10 @@ public class TestingGGY extends HttpServlet {
 			e.printStackTrace();
 		}
 		PrintWriter out = response.getWriter();
+		String[] tmpStr=request.getParameterValues("remark");
+		System.out.println(tmpStr);
+		System.out.println(request.getParameterValues("evalResult"));
+		System.out.println(request.getParameterValues("tupleId"));
 		System.out.println("schoolId: "+request.getParameter("schoolId"));
 		String result="{\"Status\":\"success\"}";
 //		System.out.println(result);
