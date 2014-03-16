@@ -12,9 +12,39 @@
 <script type="text/javascript" language="javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" language="javascript" charset="utf-8" src="js/thesisEvaluation.js"></script>
 <body>
+<div id="templates">
+  <table>
+    <tr>
+      <td class="rowId">1</td>
+      <td class="school">Januadfafasfsary</td>
+      <td class="authorName">Januadfafasfsary</td>
+      <td class="thesisTitle">Januadfafasfsary</td>
+      <td class="periodicalName">Januadfafasfsary</td>
+      <td class="periodicalSn">Januadfafasfsary</td>
+      <td class="publishTime">2013-12-15</td>
+      <td class="thesisLanguage">是</td>
+      <td class="isCore">是</td>
+      <td class="pdfId"><a href="#">查看</a></td>
+      <td><select class="evalResult" name="evalResult">
+          <option value="unselected">请选择</option>
+          <option value="yes">属于</option>
+          <option value="no">不属于</option>
+          <option value="unknown">无法认定</option>
+        </select></td>
+      <td class="remark"><textarea></textarea>
+        <div>中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
+    </tr>
+  </table>
+</div>
 <div id="remarkEditorBckgnd"></div>
 <div id="remarkEditorOuterWrapper">
-   <div id="remarkEditorInnerWrapper"><textarea></textarea><div>不超过30字</div><span><button onclick="confirmRemarkEditor()">确定</button><button onclick="cancelRemarkEditor()">取消</button></span></div>
+  <div id="remarkEditorInnerWrapper">
+    <textarea></textarea>
+    <div>不超过30字</div>
+    <span>
+    <button onclick="confirmRemarkEditor()">确定</button>
+    <button onclick="cancelRemarkEditor()">取消</button>
+    </span></div>
 </div>
 <div id="exchangingDataBckgnd">
   <div id="exchangingDataOuterWrapper">
@@ -29,61 +59,66 @@
   <div class="content">
     <div id="contentTitle">2013年教学研究论文申报汇总表</div>
     <table id="contentTable">
-      <tr id="columnName">
-        <th width="35">序号</th>
-        <th width="10%">学院（系）</th>
-        <th width="10%">姓名</th>
-        <th width="15%">论文名称</th>
-        <th width="10%">期刊名称</th>
-        <th width="4%">刊号</th>
-        <th width="7%">发表时间</th>
-        <th width="35">语种</th>
-        <th width="53">是否属于核心</th>
-        <th width="40">PDF文件</th>
-        <th width="70">认定结果</th>
-        <th width="10%">备注</th>
-      </tr>
-      <tr>
-        <td class="rowId">1</td>
-        <td class="school">Januadfafasfsary</td>
-        <td class="authorName">Januadfafasfsary</td>
-        <td class="thesisName">Januadfafasfsary</td>
-        <td class="periodicalName">Januadfafasfsary</td>
-        <td class="periodicalSn">Januadfafasfsary</td>
-        <td class="publishTime">2013-12-15</td>
-        <td class="thesisLanguage">是</td>
-        <td class="isCore">是</td>
-        <td><a href="#">查看</a></td>
-        <td><select class="evaluationResult" name="evaluationResult">
-       		<option value="unselected">请选择</option>
-            <option value="yes">属于</option>
-            <option value="no">不属于</option>
-            <option value="unknown">无法认定</option>
-          </select></td>
-        <td class="remark"><textarea></textarea><div>中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
-      </tr>
-      <tr class="unsaved">
-        <td>2</td>
-        <td>Januadfafasfsary</td>
-        <td>Januadfafasfsary</td>
-        <td>Januadfafasfsary</td>
-        <td>Januadfafasfsary</td>
-        <td>Januadfafasfsary</td>
-        <td>2013-12-15</td>
-        <td>是</td>
-        <td>是</td>
-        <td><a href="#">查看</a></td>
-        <td><select class="evaluationResult" name="evaluationResult">
-            <option value="yes">属于</option>
-            <option value="no">不属于</option>
-            <option value="unknown">无法认定</option>
-          </select></td>
-        <td class="remark"><textarea></textarea><div>中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
-      </tr>
+      <tbody>
+        <tr id="columnName">
+          <th width="35">序号</th>
+          <th width="10%">学院（系）</th>
+          <th width="10%">姓名</th>
+          <th width="15%">论文名称</th>
+          <th width="10%">期刊名称</th>
+          <th width="4%">刊号</th>
+          <th width="7%">发表时间</th>
+          <th width="35">语种</th>
+          <th width="53">是否属于核心</th>
+          <th width="40">PDF文件</th>
+          <th width="70">认定结果</th>
+          <th width="10%">备注</th>
+        </tr>
+        <tr>
+          <td class="rowId">1</td>
+          <td class="school">Januadfafasfsary</td>
+          <td class="authorName">Januadfafasfsary</td>
+          <td class="thesisName">Januadfafasfsary</td>
+          <td class="periodicalName">Januadfafasfsary</td>
+          <td class="periodicalSn">Januadfafasfsary</td>
+          <td class="publishTime">2013-12-15</td>
+          <td class="thesisLanguage">是</td>
+          <td class="isCore">是</td>
+          <td><a href="#">查看</a></td>
+          <td><select class="evaluationResult" name="evaluationResult">
+              <option value="unselected">请选择</option>
+              <option value="yes">属于</option>
+              <option value="no">不属于</option>
+              <option value="unknown">无法认定</option>
+            </select></td>
+          <td class="remark"><textarea></textarea>
+            <div>中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
+        </tr>
+        <tr class="unsaved">
+          <td>2</td>
+          <td>Januadfafasfsary</td>
+          <td>Januadfafasfsary</td>
+          <td>Januadfafasfsary</td>
+          <td>Januadfafasfsary</td>
+          <td>Januadfafasfsary</td>
+          <td>2013-12-15</td>
+          <td>是</td>
+          <td>是</td>
+          <td><a href="#">查看</a></td>
+          <td><select class="evaluationResult" name="evaluationResult">
+              <option value="yes">属于</option>
+              <option value="no">不属于</option>
+              <option value="unknown">无法认定</option>
+            </select></td>
+          <td class="remark"><textarea></textarea>
+            <div>中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
+        </tr>
+      </tbody>
     </table>
     <div id="exeBtns">
       <button onclick="saveData()">保存</button>
       <button>提交教务处(提交后不可更改)</button>
+      <button onclick="test()">Insert</button>
     </div>
   </div>
 </div>
