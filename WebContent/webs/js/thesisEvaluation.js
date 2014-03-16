@@ -13,7 +13,7 @@ $(document).ready(function () {
 					if (itemPaper.other_authors != "") {
 						tmpAuthorName = tmpAuthorName + "," + itemPaper.other_authors;
 					}
-					insertNewRow(itemPaper.id, itemPaper.college_name, tmpAuthorName, itemPaper.title, itemPaper.journal, itemPaper.issues, itemPaper.post_date, itemPaper.language, itemPaper.journal_type, itemPaper.pdf_url, itemPaper.passed, itemPaper.comment);
+					insertNewRow(itemPaper.id, itemPaper.college_name, tmpAuthorName, itemPaper.title, itemPaper.journal, itemPaper.issues, itemPaper.post_date, itemPaper.language, itemPaper.journal_type, itemPaper.pdf_url, itemPaper.status, itemPaper.comment);
 				});
 			} else {
 				alert("加载失败");
@@ -49,7 +49,7 @@ function insertNewRow(thesisId, school, authorName, thesisTitle, periodicalName,
 	newRow.find(".isCore").text(isCore);
 	newRow.find(".pdfId a").attr("href", "../downloadPDF?paper_id=" + thesisId);
 	newRow.find(".evalResult").val(evalResult);
-	newRow.find(".remark div").html(remark + "<span onclick=\"editRemark(this)\">编辑</span>");
+	newRow.find(".remark").html(remark + "<span onclick=\"editRemark(this)\">编辑</span>");
 
 	$("#contentTable tbody").append(newRow);
 }
@@ -84,9 +84,9 @@ function confirmRemarkEditor() {
 function saveData() {
 	var objArrayStr = "";
 	$.each($(".unsaved"), function (idx, itemUnsaved) {
-		var divText = $(itemUnsaved).find("div").text();
+		var divText = $(itemUnsaved).find(".remark").text();
 		var obj = {
-			'tupleId': '23',
+			'thesisId': $(itemUnsaved).find(".thesisId").text(),
 			'evalResult': $(itemUnsaved).find(".evalResult").val(),
 			'remark': divText.substring(0, divText.length - 2),
 		};
@@ -103,12 +103,15 @@ function saveData() {
 	$("#exchangingDataInnerWrapper").css("visibility", "visible");
 	$.ajax({
 		type: 'POST',
-		url: "../TestingGGY",
+		url: "../saveEvaluationResult",
 		data: objArrayStr,
 		success: function (jsonData) {
 			$("#exchangingDataInnerWrapper").css("visibility", "hidden");
 			if (jsonData.Status == "success") {
 				alert("保存成功");
+				$.each($(".unsaved"), function (idx, itemUnsaved) {
+					$(itemUnsaved).removeClass("unsaved");
+				});
 			} else {
 				alert("保存失败");
 			}
@@ -121,6 +124,13 @@ function saveData() {
 		},
 		dataType: 'json'
 	});
+}
+
+function onchangeSelect(targetElement){
+	$(targetElement).closest("tr").addClass("unsaved");
+	var selectedValue = $(targetElement).val();
+	$(targetElement).find("option[selected='selected']").removeAttr("selected");
+	$(targetElement).find("option[value='" + selectedValue + "']").attr("selected", "selected");
 }
 
 function test() {

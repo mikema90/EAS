@@ -25,14 +25,14 @@
       <td class="thesisLanguage">是</td>
       <td class="isCore">是</td>
       <td class="pdfId"><a href="#">查看</a></td>
-      <td><select class="evalResult" name="evalResult">
+      <td><select onchange="onchangeSelect(this)" class="evalResult" name="evalResult">
           <option value="unselected">请选择</option>
           <option value="yes">属于</option>
           <option value="no">不属于</option>
           <option value="unknown">无法认定</option>
         </select></td>
-      <td class="remark"><textarea></textarea>
-        <div>中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
+      <td><div style="display:none;" class="thesisId"></div>
+        <div class="remark">中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
     </tr>
   </table>
 </div>
@@ -73,45 +73,6 @@
           <th width="40">PDF文件</th>
           <th width="70">认定结果</th>
           <th width="10%">备注</th>
-        </tr>
-        <tr>
-          <td class="rowId">1</td>
-          <td class="school">Januadfafasfsary</td>
-          <td class="authorName">Januadfafasfsary</td>
-          <td class="thesisName">Januadfafasfsary</td>
-          <td class="periodicalName">Januadfafasfsary</td>
-          <td class="periodicalSn">Januadfafasfsary</td>
-          <td class="publishTime">2013-12-15</td>
-          <td class="thesisLanguage">是</td>
-          <td class="isCore">是</td>
-          <td><a href="#">查看</a></td>
-          <td><select class="evaluationResult" name="evaluationResult">
-              <option value="unselected">请选择</option>
-              <option value="yes">属于</option>
-              <option value="no">不属于</option>
-              <option value="unknown">无法认定</option>
-            </select></td>
-          <td class="remark"><textarea></textarea>
-            <div>中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
-        </tr>
-        <tr class="unsaved">
-          <td>2</td>
-          <td>Januadfafasfsary</td>
-          <td>Januadfafasfsary</td>
-          <td>Januadfafasfsary</td>
-          <td>Januadfafasfsary</td>
-          <td>Januadfafasfsary</td>
-          <td>2013-12-15</td>
-          <td>是</td>
-          <td>是</td>
-          <td><a href="#">查看</a></td>
-          <td><select class="evaluationResult" name="evaluationResult">
-              <option value="yes">属于</option>
-              <option value="no">不属于</option>
-              <option value="unknown">无法认定</option>
-            </select></td>
-          <td class="remark"><textarea></textarea>
-            <div>中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文<span onclick="editRemark(this)">编辑</span></div></td>
         </tr>
       </tbody>
     </table>
